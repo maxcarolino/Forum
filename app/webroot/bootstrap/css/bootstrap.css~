@@ -5075,7 +5075,7 @@ a.thumbnail.active {
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
-  width: 450px;
+  width: 500px;
 }
 .alert h4 {
   margin-top: 0;

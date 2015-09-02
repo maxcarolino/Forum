@@ -1,9 +1,26 @@
-<h2><?php eh($thread->title) ?> </h2>
+<h2 class="text-center"><?php eh($thread->title) ?> </h2>
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
+<div class="form-group">
+<form class="well" method="post" action="<?php eh(url('thread/write')) ?>">
+   <label> Your name: </label>
+   <input type="text" class="form-control" name="username" value="<?php eh(Param::get('username')) ?>">
+   <label> Comment: </label>
+   <textarea name="body" class="form-control"><?php eh(Param::get('body')) ?></textarea>
+   </br>
+   <input type="hidden" name="thread_id" value="<?php eh($thread->id) ?>">
+   <input type="hidden" name="page_next" value="write_end">
+   <button type="submit" class="btn btn-primary"> Submit </button><!--Add Icon -->
+</form>
+</div>
+</div>
+</div>
 
 <?php if($comment->hasError()): ?>
-   <div class="alert alert-block">
-
-   <h4 class="alert-heading">Validation Error!</h4>
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
+<div class="alert alert-warning" role="alert" width="50%">
+   <h4>Validation Error!</h4>
 
    <?php if(!empty($comment->validation_errors['username']['length'])): ?>
       <div><em> Your name </em> must be between
@@ -18,17 +35,8 @@
       <?php eh($comment->validation['body']['length'][2]) ?> characters in length
       </div>
    <?php endif ?>
-
-   </div>
+</div>
+</div>
+</div>
 <?php endif?>
 
-<form class="well" method="post" action="<?php eh(url('thread/write')) ?>">
-   <label> Your name </label>
-   <input type="text" class="span2" name="username" value="<?php eh(Param::get('username')) ?>">
-   <label> Comment: </label>
-   <textarea name="body"><?php eh(Param::get('body')) ?></textarea>
-   </br>
-   <input type="hidden" name="thread_id" value="<?php eh($thread->id) ?>">
-   <input type="hidden" name="page_next" value="write_end">
-   <button type="submit" class="btn btn-primary"> Submit </button>
-</form>
