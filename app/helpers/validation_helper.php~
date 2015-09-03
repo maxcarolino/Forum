@@ -25,10 +25,10 @@ function isPasswordValid($check)
 
 function isUsernameEmpty($check)
 {
-  return !empty($check);
+  return empty($check);
 }
 
 function isPasswordEmpty($check)
 {
-  return !empty($check);
+  return empty($check);
 }

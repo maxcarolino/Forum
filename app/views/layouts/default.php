@@ -15,10 +15,11 @@
   <body>
 
     <nav class="navbar navbar-default navbar-fixed-top">
-    <ul class="nav nav-pills">
-    <li role="presentation" class="active"><a href="http://10.3.140.112">Home</a></li>
-    </ul>
+       <div class="container">
+         <h3>Board Exercise</h3>
+       </div>
     </nav>
+
     <div class="container">
 
       <?php echo $_content_ ?>
