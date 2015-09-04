@@ -2,13 +2,13 @@
 
 class Thread extends AppModel
 {
+
    public $validation = array (
-      'title' => array (
-	  'length' => array (
-	      'validate_between', 1, 30,
-	  ),
+      'title'         => array (
+	  'length'    => array ('validate_between', 1, 30,),
       ),
    );
+
    public static function get($id)
    {
       $db = DB::conn();
@@ -24,11 +24,11 @@ class Thread extends AppModel
       return new self($row);
    }
 	
-   public static function getAll()
+   public static function getAll($offset, $limit)
    {
       $threads = array();
       $db = DB::conn();
-      $rows = $db->rows('SELECT * FROM thread');
+      $rows = $db->rows("SELECT * FROM thread LIMIT {$offset}, {$limit}");
 
       foreach ($rows as $row) {
 	 $threads[] = new Thread($row);
@@ -36,13 +36,25 @@ class Thread extends AppModel
 
       return $threads;
    }
+  
+   public static function countAll()
+   {
+      $db = DB::conn();
+      return (int) $db->value('SELECT COUNT(*) FROM thread');
+   }
 
-   public function getComments()
+   public static function countComments($thread_id)
+   {
+      $db = DB::conn();
+      return (int) $db->value('SELECT COUNT(*) FROM comment WHERE thread_id = ?', array($thread_id));
+   }
+
+   public function getComments($offset, $limit)
    {
       $comments = array();
       $db = DB::conn();
 
-      $rows = $db->rows('SELECT * FROM comment WHERE thread_id = ? ORDER BY created ASC',
+      $rows = $db->rows("SELECT *, user.username FROM comment INNER JOIN user ON comment.user_id=user.user_id WHERE thread_id = ? ORDER BY created ASC LIMIT {$offset}, {$limit}",
       array($this->id)
       );
 
@@ -58,11 +70,9 @@ class Thread extends AppModel
       if(!$comment->validate()) {
 	 throw new ValidationException('Invalid comment');
       }
-	
       $db = DB::conn();
-
-      $db->query('INSERT INTO comment SET thread_id = ?, username = ?, body = ?, created = NOW()',
-      array($this->id, $comment->username, $comment->body)
+      $db->query('INSERT INTO comment SET thread_id = ?, user_id = ?, body = ?, created = NOW()',
+      array($this->id, $comment->user_id, $comment->body)
       );
    }
 
@@ -79,7 +89,8 @@ class Thread extends AppModel
       $db->begin();
 
       $db->query('INSERT INTO thread SET title = ?, created = NOW()',
-      array($this->title));
+      array($this->title)
+      );
 
       $this->id = $db->lastInsertId();
 

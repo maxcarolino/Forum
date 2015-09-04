@@ -67,5 +67,14 @@
 </div>
 </div>
 </div>
+<!--check if username or email exists-->
+<?php elseif(User::account_exists($user->username, $user->email)): ?>
+<div class="row">
+   <div class="col-md-3 col-md-offset-4">
+      <div class="alert alert-warning" role="alert" width="50%">
+         <h4><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Username or email already taken!</h4>
+      </div>
+   </div>
+</div>
 <?php endif ?>
 

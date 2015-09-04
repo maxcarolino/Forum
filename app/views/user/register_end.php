@@ -5,7 +5,7 @@
       <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
       Account successfully saved!
    </p>
-   <a href="#">Click here to Sign - In!</a>
+   <a href="<?php eh(url('user/login')) ?>">Click here to Sign - In!</a>
 </div>
 </div>
 

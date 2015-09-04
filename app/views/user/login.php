@@ -1,3 +1,6 @@
+<?php if(isset($_SESSION['user_id'])): ?>
+   session_destroy();
+<?php endif ?>
 <h1 class="text-center"> Sign In </h1>
 <div class="row">
    <div class="col-md-4 col-md-offset-4">
@@ -27,14 +30,4 @@
    </div>
 </div>
 <?php endif ?>
-<?php if($user->hasError()): ?>
-  <?php if(!empty($user->validation_errors['password']['empty']) || !empty($user->validation_errors['password']['empty']) ): ?>
-    <div class="row">
-      <div class="col-md-3 col-md-offset-4">
-         <div class="alert alert-danger" role="alert" width="40%">
-            <h4><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>Username or password is empty! </h4>
-         </div>
-      </div>
-    </div>
-  <?php endif ?>
-<?php endif ?>
+

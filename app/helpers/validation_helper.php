@@ -2,7 +2,7 @@
 
 function validate_between($check, $min, $max)
 {
-   $n = mb_strlen($check);
+   $n = mb_strlen(trim($check));
 
    return $min <= $n && $n <= $max;
 }
@@ -21,14 +21,4 @@ function isUsernameValid($check)
 function isPasswordValid($check)
 {
   return preg_match("/^[a-zA-Z0-9_]*$/",$check);
-}
-
-function isUsernameEmpty($check)
-{
-  return !empty($check);
-}
-
-function isPasswordEmpty($check)
-{
-  return !empty($check);
 }
