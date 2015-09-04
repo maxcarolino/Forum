@@ -4,7 +4,7 @@
    <h1>All threads</h1>
 </div>
    <div class="col-md-3">
-      <a class="btn btn-primary" href="<?php eh(url('user/login')) ?>">
+      <a class="btn btn-primary" href="<?php eh(url('user/logout')) ?>">
       <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
       Sign-Out
       </a>

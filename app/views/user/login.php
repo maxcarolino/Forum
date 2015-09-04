@@ -1,6 +1,3 @@
-<?php if(isset($_SESSION['user_id'])): ?>
-   session_destroy();
-<?php endif ?>
 <h1 class="text-center"> Sign In </h1>
 <div class="row">
    <div class="col-md-4 col-md-offset-4">

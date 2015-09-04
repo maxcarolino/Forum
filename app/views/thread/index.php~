@@ -21,7 +21,7 @@
     </br>
     <!--pagination-->
     <nav>
-     <ul class="pagination">
+     <ul class="pagination pagination-lg">
        <li>
          <?php if($pagination->current > 1): ?>
            <a href='?page=<?php echo $pagination->prev ?>'>
