@@ -13,14 +13,12 @@ class Comment extends AppModel
       return (int) $db->value('SELECT COUNT(*) FROM comment WHERE thread_id = ?', array($thread_id));
    }
 
-   public function get($offset, $limit, $thread_id)
+   public static function get_comments($offset, $limit, $thread_id)
    {
       $comments = array();
       $db = DB::conn();
-
-      $rows = $db->rows("SELECT *, user.username FROM comment INNER JOIN user ON comment.user_id=user.user_id WHERE thread_id = ? ORDER BY created ASC LIMIT {$offset}, {$limit}",
-      array($thread_id)
-      );
+      $query = sprintf('SELECT * FROM comment WHERE thread_id = ? ORDER BY created ASC LIMIT %d, %d', $offset, $limit);
+      $rows = $db->rows($query, array($thread_id));
 
       foreach ($rows as $row) {
          $comments[] = new self($row);
@@ -31,12 +29,18 @@ class Comment extends AppModel
   
    public function write(Comment $comment, $thread_id, $user_id, $body)
    {
-      if(!$comment->validate()) {
+      if (!$comment->validate()) {
 	 throw new ValidationException('Invalid comment');
       }
       $db = DB::conn();
-      $db->query('INSERT INTO comment SET thread_id = ?, user_id = ?, body = ?, created = NOW()',
-      array($thread_id, $user_id, $body)
+
+      $params = array(
+            'thread_id' => $thread_id,
+            'user_id'   => $user_id,
+            'body'      => $body,
+            'created'   => date("Y-m-d H:i:s")
       );
+
+      $db->insert('comment', $params);
    }
 }

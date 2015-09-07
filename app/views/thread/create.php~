@@ -34,7 +34,7 @@
       </div>
    <?php endif ?>   
 
-   <?php if (!empty($comment->validation_errors['body']['length'])): ?>
+   <?php if(!empty($comment->validation_errors['body']['length'])): ?>
       <div><em>Comment</em> must be between
       <?php char_to_html($comment->validation['body']['length'][1]) ?>
       <?php char_to_html($comment->validation['body']['length'][2]) ?> characters in length.

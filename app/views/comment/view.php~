@@ -32,7 +32,7 @@
     <?php endfor; ?>
  
     <li>
-      <?php if (!$pagination->is_last_page): ?>
+      <?php if(!$pagination->is_last_page): ?>
       <a href='?thread_id=<?php echo $thread->id ?>&page=<?php echo $pagination->next ?>'>
         <span aria-hidden="true">&raquo;</span>
       </a>

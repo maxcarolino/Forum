@@ -2,5 +2,5 @@
    session_start();
    unset($_SESSION['user_id']);
    session_destroy();
-   header("Location: log_in");
+   header("Location: login");
 ?>

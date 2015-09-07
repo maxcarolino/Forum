@@ -2,22 +2,22 @@
 <div class="row">
    <div class="col-md-4 col-md-offset-4">
       <div class="form-group">
-         <form class="well" method="post" action="<?php char_to_html(url('')) ?>">
+         <form class="well" method="post" action="<?php eh(url('')) ?>">
             <label> Username: </label>
-            <input type="text" class="form-control" name="username" value="<?php char_to_html(Param::get('username')) ?>">
+            <input type="text" class="form-control" name="username" value="<?php eh(Param::get('username')) ?>">
             <label> Password: </label>
-            <input type="password" class="form-control" name="password" value="<?php char_to_html(Param::get('password')) ?>">
+            <input type="password" class="form-control" name="password" value="<?php eh(Param::get('password')) ?>">
             <label> Re-type Password: </label>
-            <input type="password" class="form-control" name="retype_password" value="<?php char_to_html(Param::get('retype_password')) ?>">
+            <input type="password" class="form-control" name="retype_password" value="<?php eh(Param::get('retype_password')) ?>">
             <label> Email: </label>      
-            <input type="email" class="form-control" name="email" value="<?php char_to_html(Param::get('email')) ?>">
+            <input type="email" class="form-control" name="email" value="<?php eh(Param::get('email')) ?>">
             </br>
             <input type="hidden" name="page_next" value="register_end">
             <button type="submit" class="btn btn-primary">
             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
             Sign Up </button>
             </br></br>
-            <a href="<?php char_to_html(url('user/log_in')) ?>">Already have an account? Click here! </a> 
+            <a href="<?php eh(url('user/log_in')) ?>">Already have an account? Click here! </a> 
          </form>
       </div>
    </div>
@@ -47,24 +47,24 @@
         <!--username field empty-->
         <?php if(!empty($user->validation_errors['username']['length'])): ?>
         <div><em> Username </em> must be between
-           <?php char_to_html($user->validation['username']['length'][1]) ?> to
-           <?php char_to_html($user->validation['username']['length'][2]) ?> characters only.
+           <?php eh($user->validation['username']['length'][1]) ?> to
+           <?php eh($user->validation['username']['length'][2]) ?> characters only.
         </div>
         <?php endif ?>
 
         <!--password field empty-->
         <?php if(!empty($user->validation_errors['password']['length'])): ?>
         <div><em> Password </em> must be between
-           <?php char_to_html($user->validation['password']['length'][1]) ?> to
-           <?php char_to_html($user->validation['password']['length'][2]) ?> characters only.
+           <?php eh($user->validation['password']['length'][1]) ?> to
+           <?php eh($user->validation['password']['length'][2]) ?> characters only.
         </div>
         <?php endif ?>
 
         <!--email field empty-->
         <?php if(!empty($user->validation_errors['email']['length'])): ?>
         <div><em> Email </em> must be between
-           <?php char_to_html($user->validation['email']['length'][1]) ?> to
-           <?php char_to_html($user->validation['email']['length'][2]) ?> characters only.
+           <?php eh($user->validation['email']['length'][1]) ?> to
+           <?php eh($user->validation['email']['length'][2]) ?> characters only.
         </div>
        <?php endif ?>
 

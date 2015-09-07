@@ -2,7 +2,7 @@
 
 class CommentController extends AppController
 {
-   define("PER_PAGE", 10);
+   const PER_PAGE = 10;
 
    public function view() 
    {
@@ -14,11 +14,11 @@ class CommentController extends AppController
       $page = Param::get('page', 1);
       $pagination = new SimplePagination($page, self::PER_PAGE);
       
-      $comments = $comment->get($pagination->start_index - 1, $pagination->count + 1, $thread_id);
+      $comments = $comment->get_comments($pagination->start_index - 1, $pagination->count + 1, $thread_id);
       $pagination->checkLastPage($comments);
       
       $total = Comment::count($thread_id);
-      $pages = ceil($total / $per_page);
+      $pages = ceil($total / self::PER_PAGE);
 
       $this->set(get_defined_vars());
    }

@@ -3,7 +3,7 @@
 class Thread extends AppModel
 {
 
-   public $validation = array (
+   public $validation =  array (
       'title'         => array (
 	  'length'    => array ('validate_between', 1, 30,),
       ),
@@ -17,7 +17,7 @@ class Thread extends AppModel
       array($id)
       );
 
-      if(!$row) {
+      if (!$row) {
 	 throw new RecordNotFoundException('No record found!');
       }
 
@@ -28,7 +28,8 @@ class Thread extends AppModel
    {
       $threads = array();
       $db = DB::conn();
-      $rows = $db->rows("SELECT * FROM thread LIMIT {$offset}, {$limit}");
+      $query = sprintf('SELECT * FROM thread LIMIT %d, %d', $offset, $limit);
+      $rows = $db->rows($query);
 
       foreach ($rows as $row) {
 	 $threads[] = new self($row);
@@ -48,7 +49,7 @@ class Thread extends AppModel
       $this->validate();
       $comment->validate();
 
-      if($this->hasError() || $comment->hasError()) {
+      if ($this->hasError() || $comment->hasError()) {
 	 throw new ValidationException('Invalid thread or comment.');
       }
 

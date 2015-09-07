@@ -2,7 +2,7 @@
 
 class ThreadController extends AppController
 {
-   define("PER_PAGE", 13);
+   const PER_PAGE = 13;
 
    public function index()
    {
@@ -14,7 +14,7 @@ class ThreadController extends AppController
       $pagination->checkLastPage($threads);    
       
       $total = Thread::count_all();
-      $pages = ceil($total / $per_page);
+      $pages = ceil($total / self::PER_PAGE);
  
       $this->set(get_defined_vars());
    }

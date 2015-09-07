@@ -42,7 +42,14 @@ class UserController extends AppController
          $user->username = trim(Param::get('username'));
          $user->password = trim(Param::get('password')); 
          try {
-           $user->log_in_account();     
+            $user_account = $user->log_in_account();
+            if ($user_account) {    
+               session_set_cookie_params(3600);
+               session_start();
+               session_regenerate_id(true);
+               $_SESSION['user_id']  = $user_account['user_id'];
+               $_SESSION['username'] = $user_account['username'];
+            }    
          } catch (RecordNotFoundException $e) {
            $page = 'log_in';
          }
