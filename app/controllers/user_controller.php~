@@ -38,7 +38,7 @@ class UserController extends AppController
       switch ($page) {
       case 'log_in':
          break;
-      case 'log_in_end':
+      case 'login_end':
          $user->username = trim(Param::get('username'));
          $user->password = trim(Param::get('password')); 
          try {
