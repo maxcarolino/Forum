@@ -1,9 +1,12 @@
 <?php
 class Comment extends AppModel
 {
+   CONST MIN_LENGTH = 1;
+   CONST MAX_LENGTH = 200;
+
    public $validation =  array (
       'body'          => array (
-	    'length'  => array ('validate_between', 1, 200,)
+	    'length'  => array ('validate_between', self::MIN_LENGTH, self::MAX_LENGTH,)
       )
    );
 

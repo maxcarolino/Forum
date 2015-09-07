@@ -2,10 +2,12 @@
 
 class Thread extends AppModel
 {
+   CONST MIN_LENGTH = 1;
+   CONST MAX_LENGTH = 30;
 
    public $validation =  array (
       'title'         => array (
-	  'length'    => array ('validate_between', 1, 30,),
+	  'length'    => array ('validate_between', self::MIN_LENGTH, self::MAX_LENGTH,),
       ),
    );
 

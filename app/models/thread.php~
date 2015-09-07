@@ -2,6 +2,8 @@
 
 class Thread extends AppModel
 {
+   CONST MIN_LENGTH = 1;
+   CONST MAX_LENGTH = 30;
 
    public $validation =  array (
       'title'         => array (
@@ -17,7 +19,7 @@ class Thread extends AppModel
       array($id)
       );
 
-      if(!$row) {
+      if (!$row) {
 	 throw new RecordNotFoundException('No record found!');
       }
 

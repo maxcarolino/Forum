@@ -2,7 +2,7 @@
 
 class ThreadController extends AppController
 {
-   const PER_PAGE = 13;
+   const PER_PAGE = 12;
 
    public function index()
    {
