@@ -43,40 +43,7 @@ class Thread extends AppModel
       return (int) $db->value('SELECT COUNT(*) FROM thread');
    }
 
-   public static function countComments($thread_id)
-   {
-      $db = DB::conn();
-      return (int) $db->value('SELECT COUNT(*) FROM comment WHERE thread_id = ?', array($thread_id));
-   }
-
-   public function getComments($offset, $limit)
-   {
-      $comments = array();
-      $db = DB::conn();
-
-      $rows = $db->rows("SELECT *, user.username FROM comment INNER JOIN user ON comment.user_id=user.user_id WHERE thread_id = ? ORDER BY created ASC LIMIT {$offset}, {$limit}",
-      array($this->id)
-      );
-
-      foreach ($rows as $row) {
-         $comments[] = new Comment($row);
-      }
-
-      return $comments;
-   }
-
-   public function write(Comment $comment)
-   {
-      if(!$comment->validate()) {
-	 throw new ValidationException('Invalid comment');
-      }
-      $db = DB::conn();
-      $db->query('INSERT INTO comment SET thread_id = ?, user_id = ?, body = ?, created = NOW()',
-      array($this->id, $comment->user_id, $comment->body)
-      );
-   }
-
-   public function create(Comment $comment)
+   public function create(Comment $comment, $comment_user_id, $comment_body)
    {
       $this->validate();
       $comment->validate();
@@ -95,7 +62,7 @@ class Thread extends AppModel
       $this->id = $db->lastInsertId();
 
       //write the first comment
-      $this->write($comment);
+      $comment->write($comment, $this->id, $comment_user_id, $comment_body);
 
       $db->commit();
    }

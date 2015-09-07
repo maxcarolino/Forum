@@ -13,7 +13,7 @@
 <div class="row">
     <ul class="list-group">
       <?php foreach ($threads as $v): ?>
-         <li class="list-group-item"><a href="<?php eh(url('thread/view', array('thread_id' => $v->id))) ?>">
+         <li class="list-group-item"><a href="<?php eh(url('comment/view', array('thread_id' => $v->id))) ?>">
          <?php eh($v->title) ?></a>
          </li>
         <?php endforeach ?>

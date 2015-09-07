@@ -8,6 +8,7 @@ class UserController extends AppController
       $page = Param::get('page_next', 'register');
       $user->username = trim(Param::get('username'));
       $user->email = trim(Param::get('email'));
+
       switch ($page) {
       case 'register':
          break;
@@ -41,7 +42,7 @@ class UserController extends AppController
          $user->username = trim(Param::get('username'));
          $user->password = trim(Param::get('password')); 
          try {
-           $user->validate_account();     
+           $user->login_account();     
          } catch (RecordNotFoundException $e) {
            $page = 'login';
          }
