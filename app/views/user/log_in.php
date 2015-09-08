@@ -23,9 +23,8 @@
 <div class="row">
     <div class="col-md-3 col-md-offset-4">
         <div class="alert alert-danger" role="alert" width="40%">
-	    <h4><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Invalid username or password! </h4>
+            <h4><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Invalid username or password! </h4>
         </div>
     </div>
 </div>
 <?php endif ?>
-

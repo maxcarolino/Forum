@@ -27,7 +27,7 @@
             <li>
                 <?php if ($pagination->current > 1): ?>
                     <a href='?page=<?php echo $pagination->prev ?>'>
-                    <span aria-hidden="true">&laquo;</span>
+                        <span aria-hidden="true">&laquo;</span>
                     </a>
                 <?php else: ?>
                     <li class="disabled"><span aria-hidden="true">&laquo;</li></span>
@@ -45,7 +45,7 @@
             <li>
                 <?php if (!$pagination->is_last_page): ?>
                     <a href='?page=<?php echo $pagination->next ?>'>
-                    <span aria-hidden="true">&raquo;</span>
+                        <span aria-hidden="true">&raquo;</span>
                     </a>
                 <?php else: ?>
                     <li class="disabled"><span aria-hidden="true">&raquo;</li></span>
@@ -63,9 +63,10 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <div class="alert alert-warning" role="warning" width="40%">
-	        <h2><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Permission denied! </h2>
+	           <h2><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Permission denied! </h2>
             </div>
         </div>
     </div>
-<?php endif ?>
 </div>
+<?php endif ?>
+
