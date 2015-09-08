@@ -26,7 +26,7 @@ class User extends AppModel
 
    public function register()
    {
-      if (!$this->validate() OR User::username_exists($this->username) OR User::email_exists($this->email)) {
+      if (!$this->validate() OR $this->username_exists($this->username) OR $this->email_exists($this->email)) {
 	  throw new ValidationException('Oops! please re-enter your credentials');
       }
 
@@ -60,7 +60,7 @@ class User extends AppModel
       return $user_account;
    }
 
-   public static function username_exists($username)
+   public function username_exists($username)
    {
      $db = DB::conn();
 
@@ -73,7 +73,7 @@ class User extends AppModel
      } 
    }
    
-   public static function email_exists($email)
+   public function email_exists($email)
    {
      $db = DB::conn();
 
