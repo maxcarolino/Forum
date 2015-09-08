@@ -1,10 +1,10 @@
 <?php if (isset($_SESSION['username'])): ?>
 <div class="row">
-    <div class="col-md-9">
-        <h1>All threads</h1>
+    <div class="col-md-8">
+        <h1 class="text-center">All threads</h1>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
         <a class="btn btn-warning" href="<?php char_to_html(url('user/log_out')) ?>">
         <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
         Sign-Out
