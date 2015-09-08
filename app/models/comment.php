@@ -2,7 +2,7 @@
 
 class Comment extends AppModel
 {
-    CONST MIN_LENGTH = 1;
+    CONST MIN_LENGTH = 5;
     CONST MAX_LENGTH = 200;
 
     public $validation  =  array (
