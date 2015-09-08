@@ -32,7 +32,7 @@
     <?php endfor; ?>
  
     <li>
-      <?php if(!$pagination->is_last_page): ?>
+      <?php if (!$pagination->is_last_page): ?>
       <a href='?thread_id=<?php echo $thread->id ?>&page=<?php echo $pagination->next ?>'>
         <span aria-hidden="true">&raquo;</span>
       </a>
@@ -43,22 +43,25 @@
   </ul>
 </nav>
 <!---->
-
 <?php endif ?>
+
 <hr>
 <div class="row">
-<div class="col-md-4">
-<div class="form-group">
-<form class="well" method="post" action="<?php char_to_html(url('comment/write')) ?>">
-   <label> Comment </label>
-   <textarea name="body" class="form-control"><?php char_to_html(Param::get('body')) ?></textarea>
-   <br/>
-   <input type="hidden" name="thread_id" value="<?php char_to_html($thread->id) ?>">
-   <input type="hidden" name="page_next" value="write_end">
-   <button type="submit" class="btn btn-primary">
-   <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-    Submit </button>
-   <br/><br/>
-   <a href="http://10.3.140.112/thread/index"> &larr;
-   Go to thread list </a>
-</form>
+   <div class="col-md-4">
+      <div class="form-group">
+         <form class="well" method="post" action="<?php char_to_html(url('comment/write')) ?>">
+            <label> Comment </label>
+            <textarea name="body" class="form-control" required><?php char_to_html(Param::get('body')) ?></textarea>
+            <br/>
+            <input type="hidden" name="thread_id" value="<?php char_to_html($thread->id) ?>">
+            <input type="hidden" name="page_next" value="write_end">
+            <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            Submit </button>
+            <br/><br/>
+            <a href="http://10.3.140.112/thread/index"> &larr;
+            Go to thread list </a>
+         </form>
+      </div>
+   </div>
+</div>

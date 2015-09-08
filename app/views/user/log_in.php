@@ -4,9 +4,9 @@
       <div class="form-group">
          <form class="well" method="post" action="<?php char_to_html(url('')) ?>">
             <label> Username: </label>
-            <input type="text" class="form-control" name="username" value="<?php char_to_html(Param::get('username')) ?>">
+            <input type="text" class="form-control" name="username" value="<?php char_to_html(Param::get('username')) ?>" required>
             <label> Password: </label>
-            <input type="password" class="form-control" name="password" value="<?php char_to_html(Param::get('password')) ?>">
+            <input type="password" class="form-control" name="password" value="<?php char_to_html(Param::get('password')) ?>" required>
             </br>
             <input type="hidden" name="page_next" value="log_in_end">
             <button type="submit" class="btn btn-primary">
