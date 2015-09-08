@@ -14,8 +14,9 @@
                 </br>
                 <input type="hidden" name="page_next" value="register_end">
                 <button type="submit" class="btn btn-primary">
-                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                Sign Up </button>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    Sign Up
+                </button>
                 </br></br>
                 <a href="<?php char_to_html(url('user/log_in')) ?>">Already have an account? Click here! </a> 
             </form>
@@ -67,7 +68,6 @@
                     <?php char_to_html($user->validation['email']['length'][2]) ?> characters only.
                 </div>
             <?php endif ?>
-
         </div>
     </div>
 </div>
@@ -92,4 +92,3 @@
     </div>
 </div>
 <?php endif ?>
-

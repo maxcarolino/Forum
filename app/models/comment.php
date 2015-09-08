@@ -7,7 +7,7 @@ class Comment extends AppModel
 
     public $validation  =  array (
         'body'          => array (
-	    'length'    => array ('validate_between', self::MIN_LENGTH, self::MAX_LENGTH,)
+            'length'    => array ('validate_between', self::MIN_LENGTH, self::MAX_LENGTH,)
         )
     );
 
@@ -34,7 +34,7 @@ class Comment extends AppModel
     public function write(Comment $comment, $thread_id, $user_id, $body)
     {
         if (!$comment->validate()) {
-	    throw new ValidationException('Invalid comment');
+            throw new ValidationException('Invalid comment');
         }
         $db = DB::conn();
 

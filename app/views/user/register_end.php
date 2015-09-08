@@ -8,4 +8,3 @@
         <a href="<?php char_to_html(url('user/log_in')) ?>">Click here to Sign - In!</a>
     </div>
 </div>
-

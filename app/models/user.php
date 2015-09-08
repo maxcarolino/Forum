@@ -9,7 +9,7 @@ class User extends AppModel
 
     public $validation   =  array (
         'username'       => array (
-	    'length'     => array ('validate_between', self::MIN_LENGTH, self::MAX_LENGTH,),
+            'length'     => array ('validate_between', self::MIN_LENGTH, self::MAX_LENGTH,),
             'valid'      => array ('isUsernameValid'),
         ),
         'password'       => array (
@@ -27,7 +27,7 @@ class User extends AppModel
     public function register()
     {
         if (!$this->validate() OR $this->username_exists($this->username) OR $this->email_exists($this->email)) {
-	    throw new ValidationException('Oops! please re-enter your credentials');
+            throw new ValidationException('Oops! please re-enter your credentials');
         }
 
         $db = DB::conn();

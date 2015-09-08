@@ -17,8 +17,8 @@ class UserController extends AppController
                 $user->retype_password = trim(Param::get('retype_password'));
                 try {
                     $user->register();
-	        } catch (ValidationException $e) {
-	            $page = 'register';
+                } catch (ValidationException $e) {
+                    $page = 'register';
                 }
                 break;
             default:

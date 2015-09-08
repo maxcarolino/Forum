@@ -3,6 +3,7 @@
 class CommentController extends AppController
 {
     CONST PER_PAGE = 10;
+    CONST PAGE_DEFAULT = 1;
 
     public function view() 
     {
@@ -10,7 +11,7 @@ class CommentController extends AppController
         $thread_id = Param::get('thread_id');
         $comment =  new Comment();
 
-        $page = Param::get('page', 1);
+        $page = Param::get('page', self::PAGE_DEFAULT);
         $pagination = new SimplePagination($page, self::PER_PAGE);
       
         $comments = $comment->get_comments($pagination->start_index - 1, $pagination->count + 1, $thread_id);
@@ -30,25 +31,23 @@ class CommentController extends AppController
 
         switch ($page) {
             case 'write':
-	        break;
+                break;
             case 'write_end':
                 $comment->username = Param::get('username');
                 $comment->body = Param::get('body');
                 $comment->user_id = $_SESSION['user_id'];
-	        try {
+                try {
                     $comment->write($comment, $thread->id, $comment->user_id, $comment->body);
-	        } catch (ValidationException $e) {
-	            $page = 'write';
-	        }
+                } catch (ValidationException $e) {
+                    $page = 'write';
+                }
                 break;
             default:
-	        throw new NotFoundException("{$page} is not found!");
+                throw new NotFoundException("{$page} is not found!");
                 break;
         }
 
         $this->set(get_defined_vars());
         $this->render($page);
     }
-
 }
-

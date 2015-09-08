@@ -22,4 +22,3 @@ function isPasswordValid($check)
 {
     return preg_match("/^[a-zA-Z0-9_]*$/",$check);
 }
-

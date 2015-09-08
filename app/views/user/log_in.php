@@ -10,8 +10,9 @@
                 </br>
                 <input type="hidden" name="page_next" value="log_in_end">
                 <button type="submit" class="btn btn-primary">
-                <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-                Sign In </button>
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                    Sign In 
+                </button>
                 </br></br>
                 <a href="<?php char_to_html(url('user/register')) ?>"> Or click here to Sign Up </a>
             </form>

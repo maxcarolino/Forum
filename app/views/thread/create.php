@@ -3,15 +3,15 @@
     <div class="col-md-4 col-md-offset-4">
         <div class="form-group">
             <form class="well" method="post" action="<?php char_to_html(url('')) ?>">
-	        <label>Title:</label>
-  	        <input type="text" class="form-control" name="title" value="<?php char_to_html(Param::get('title')) ?>" required>
-  	        <label>Comment:</label>
-  	        <textarea name="body" class="form-control" required><?php char_to_html(Param::get('body')) ?></textarea>
-  	        </br>
-  	        <input type="hidden" name="page_next" value="create_end">
-   	        <button type="submit" class="btn btn-primary">
-   	        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-   	        Submit
+                <label>Title:</label>
+                <input type="text" class="form-control" name="title" value="<?php char_to_html(Param::get('title')) ?>" required>
+                <label>Comment:</label>
+                <textarea name="body" class="form-control" required><?php char_to_html(Param::get('body')) ?></textarea>
+                </br>
+                <input type="hidden" name="page_next" value="create_end">
+                <button type="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    Submit
                 </button>
                 </br></br>
                 <a href="<?php char_to_html(url('thread/index')) ?>">
@@ -44,4 +44,3 @@
     </div>
 </div>
 <?php endif ?>
-

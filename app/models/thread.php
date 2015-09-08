@@ -7,7 +7,7 @@ class Thread extends AppModel
 
     public $validation  =  array (
         'title'         => array (
-	    'length'    => array ('validate_between', self::MIN_LENGTH, self::MAX_LENGTH,),
+            'length'    => array ('validate_between', self::MIN_LENGTH, self::MAX_LENGTH,),
         ),
     );
 
@@ -18,12 +18,12 @@ class Thread extends AppModel
         $row = $db->row('SELECT * FROM thread WHERE id = ?', array($id));
 
         if (!$row) {
-	    throw new RecordNotFoundException('No record found!');
+            throw new RecordNotFoundException('No record found!');
         }
 
         return new self($row);
     }
-	
+
     public static function get_all($offset, $limit)
     {
         $threads = array();
@@ -32,7 +32,7 @@ class Thread extends AppModel
         $rows = $db->rows($query);
 
         foreach ($rows as $row) {
-	    $threads[] = new self($row);
+            $threads[] = new self($row);
         }
 
         return $threads;
@@ -50,7 +50,7 @@ class Thread extends AppModel
         $comment->validate();
 
         if ($this->hasError() || $comment->hasError()) {
-	    throw new ValidationException('Invalid thread or comment.');
+            throw new ValidationException('Invalid thread or comment.');
         }
 
         $db = DB::conn();
