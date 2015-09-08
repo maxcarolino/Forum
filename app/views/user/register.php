@@ -4,13 +4,13 @@
         <div class="form-group">
             <form class="well" method="post" action="<?php char_to_html(url('')) ?>">
                 <label> Username: </label>
-                <input type="text" class="form-control" name="username" value="<?php char_to_html(Param::get('username')) ?>" required>
+                <input type="text" class="form-control" name="username" value="<?php char_to_html(Param::get('username')) ?>" placeholder="username" required>
                 <label> Password: </label>
-                <input type="password" class="form-control" name="password" value="<?php char_to_html(Param::get('password')) ?>" required>
+                <input type="password" class="form-control" name="password" value="<?php char_to_html(Param::get('password')) ?>" placeholder="password" required>
                 <label> Re-type Password: </label>
-                <input type="password" class="form-control" name="retype_password" value="<?php char_to_html(Param::get('retype_password')) ?>" required>
+                <input type="password" class="form-control" name="retype_password" value="<?php char_to_html(Param::get('retype_password')) ?>" placeholder="retype password" required>
                 <label> Email: </label>      
-                <input type="email" class="form-control" name="email" value="<?php char_to_html(Param::get('email')) ?>" required>
+                <input type="email" class="form-control" name="email" value="<?php char_to_html(Param::get('email')) ?>" placeholder="email" required>
                 </br>
                 <input type="hidden" name="page_next" value="register_end">
                 <button type="submit" class="btn btn-primary">

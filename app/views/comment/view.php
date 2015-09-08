@@ -49,7 +49,7 @@
         <div class="form-group">
             <form class="well" method="post" action="<?php char_to_html(url('comment/write')) ?>">
                 <label> Comment </label>
-                <textarea name="body" class="form-control" required><?php char_to_html(Param::get('body')) ?></textarea>
+                <textarea name="body" class="form-control" placeholder="Your comment goes here." required><?php char_to_html(Param::get('body')) ?></textarea>
                 <br/>
                 <input type="hidden" name="thread_id" value="<?php char_to_html($thread->id) ?>">
                 <input type="hidden" name="page_next" value="write_end">
