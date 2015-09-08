@@ -2,71 +2,67 @@
 
 class Thread extends AppModel
 {
-   CONST MIN_LENGTH = 1;
-   CONST MAX_LENGTH = 30;
+    CONST MIN_LENGTH = 1;
+    CONST MAX_LENGTH = 30;
 
-   public $validation =  array (
-      'title'         => array (
-	  'length'    => array ('validate_between', 1, 30,),
-      ),
-   );
+    public $validation  =  array (
+        'title'         => array (
+	    'length'    => array ('validate_between', self::MIN_LENGTH, self::MAX_LENGTH,),
+        ),
+    );
 
-   public static function get($id)
-   {
-      $db = DB::conn();
+    public static function get($id)
+    {
+        $db = DB::conn();
 
-      $row = $db->row('SELECT * FROM thread WHERE id = ?', 
-      array($id)
-      );
+        $row = $db->row('SELECT * FROM thread WHERE id = ?', array($id));
 
-      if (!$row) {
-	 throw new RecordNotFoundException('No record found!');
-      }
+        if (!$row) {
+	    throw new RecordNotFoundException('No record found!');
+        }
 
-      return new self($row);
-   }
+        return new self($row);
+    }
 	
-   public static function get_all($offset, $limit)
-   {
-      $threads = array();
-      $db = DB::conn();
-      $query = sprintf('SELECT * FROM thread LIMIT %d, %d', $offset, $limit);
-      $rows = $db->rows($query);
+    public static function get_all($offset, $limit)
+    {
+        $threads = array();
+        $db = DB::conn();
+        $query = sprintf('SELECT * FROM thread LIMIT %d, %d', $offset, $limit);
+        $rows = $db->rows($query);
 
-      foreach ($rows as $row) {
-	 $threads[] = new self($row);
-      }
+        foreach ($rows as $row) {
+	    $threads[] = new self($row);
+        }
 
-      return $threads;
-   }
+        return $threads;
+    }
   
-   public static function count_all()
-   {
-      $db = DB::conn();
-      return (int) $db->value('SELECT COUNT(*) FROM thread');
-   }
+    public static function count_all()
+    {
+        $db = DB::conn();
+        return $db->value('SELECT COUNT(*) FROM thread');
+    }
 
-   public function create(Comment $comment, $comment_user_id, $comment_body)
-   {
-      $this->validate();
-      $comment->validate();
+    public function create(Comment $comment, $comment_user_id, $comment_body)
+    {
+        $this->validate();
+        $comment->validate();
 
-      if ($this->hasError() || $comment->hasError()) {
-	 throw new ValidationException('Invalid thread or comment.');
-      }
+        if ($this->hasError() || $comment->hasError()) {
+	    throw new ValidationException('Invalid thread or comment.');
+        }
 
-      $db = DB::conn();
-      $db->begin();
+        $db = DB::conn();
+        $db->begin();
 
-      $db->query('INSERT INTO thread SET title = ?, created = NOW()',
-      array($this->title)
-      );
+        $db->query('INSERT INTO thread SET title = ?, created = NOW()', array($this->title));
 
-      $this->id = $db->lastInsertId();
+        $this->id = $db->lastInsertId();
 
-      //write the first comment
-      $comment->write($comment, $this->id, $comment_user_id, $comment_body);
+        //write the first comment
+        $comment->write($comment, $this->id, $comment_user_id, $comment_body);
 
-      $db->commit();
-   }
+        $db->commit();
+    }
 }
