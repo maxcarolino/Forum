@@ -33,7 +33,7 @@ class CommentController extends AppController
             case 'write':
                 break;
             case 'write_end':
-                $comment->username = Param::get('username');
+                //$comment->username = Param::get('username');
                 $comment->body = Param::get('body');
                 $comment->user_id = $_SESSION['user_id'];
                 try {

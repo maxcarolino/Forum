@@ -6,8 +6,8 @@ class UserController extends AppController
     {
         $user = new User();
         $page = Param::get('page_next', 'register');
-        $user->username = trim(Param::get('username'));
-        $user->email = trim(Param::get('email'));
+        $user->username = Param::get('username');
+        $user->email = Param::get('email');
 
         switch ($page) {
             case 'register':

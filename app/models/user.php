@@ -20,7 +20,7 @@ class User extends AppModel
             'compare'    => array ('compare_password'),
         ),
         'email'          => array (
-             'length'    => array ('validate_between', self::MIN_LENGTH, self::MAX_LENGTH,),
+            'length'     => array ('validate_between', self::MIN_LENGTH, self::MAX_LENGTH,),
         ),
     );
 
@@ -34,9 +34,9 @@ class User extends AppModel
         $db->begin();
 
         $params = array(
-            'username' => $this->username,
-            'password' => md5($this->password),
-            'email'    => $this->email
+            'username' => escapeString($this->username),
+            'password' => md5(escapeString($this->password)),
+            'email'    => escapeString($this->email)
         );
 
         $db->insert('user', $params);
@@ -48,7 +48,7 @@ class User extends AppModel
         $db = DB::conn();
 
         $user_account = $db->row('SELECT user_id, username FROM user WHERE username = ? AND password = ?', 
-        array($this->username, md5($this->password))
+        array(escapeString($this->username), md5(escapeString($this->password)))
         );
 
         if (!$user_account) { 

@@ -41,7 +41,7 @@ class Comment extends AppModel
         $params = array(
             'thread_id' => $thread_id,
             'user_id'   => $user_id,
-            'body'      => $body,
+            'body'      => escapeString($body),
             'created'   => date("Y-m-d H:i:s")
         );
 
