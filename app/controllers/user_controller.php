@@ -63,6 +63,9 @@ class UserController extends AppController
 
     public function log_out()
     {
- 
+        unset($_SESSION['user_id']);
+        unset($_SESSION['username']);
+        session_destroy();
+        header("Location: log_in");
     }
 }
