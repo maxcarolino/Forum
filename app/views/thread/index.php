@@ -5,7 +5,7 @@
     </div>
 
     <div class="col-md-3">
-        <a class="btn btn-primary" href="<?php char_to_html(url('user/log_out')) ?>">
+        <a class="btn btn-warning" href="<?php char_to_html(url('user/log_out')) ?>">
         <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
         Sign-Out
         </a>
