@@ -39,12 +39,12 @@
             </h4>
 
             <!--check if password match-->
-            <?php if(!empty($user->validation_errors['retype_password']['compare'])): ?>
+            <?php if (!empty($user->validation_errors['retype_password']['compare'])): ?>
                 <div><em> Password</em> does not match!</div>
             <?php endif ?>
 
             <!--username is valid-->
-            <?php if(!empty($user->validation_errors['username']['valid'])): ?>
+            <?php if (!empty($user->validation_errors['username']['valid'])): ?>
                 <div>
                     <em>Username</em> should only contain alphanumeric
                     characters and underscore only.
@@ -52,7 +52,7 @@
             <?php endif ?>
 
             <!--password is valid-->
-            <?php if(!empty($user->validation_errors['password']['valid'])): ?>
+            <?php if (!empty($user->validation_errors['password']['valid'])): ?>
                 <div>
                     <em>Password</em> should only contain alphanumeric
                     characters and underscore only.
@@ -60,7 +60,7 @@
             <?php endif ?>
 
             <!--username field empty-->
-            <?php if(!empty($user->validation_errors['username']['length'])): ?>
+            <?php if (!empty($user->validation_errors['username']['length'])): ?>
                 <div><em> Username </em> must be between
                     <?php char_to_html($user->validation['username']['length'][1])
                         ?> to
@@ -70,7 +70,7 @@
             <?php endif ?>
 
             <!--password field empty-->
-            <?php if(!empty($user->validation_errors['password']['length'])): ?>
+            <?php if (!empty($user->validation_errors['password']['length'])): ?>
                 <div><em> Password </em> must be between
                     <?php char_to_html($user->validation['password']['length'][1])
                         ?> to
@@ -80,7 +80,7 @@
             <?php endif ?>
 
             <!--email field empty-->
-            <?php if(!empty($user->validation_errors['email']['length'])): ?>
+            <?php if (!empty($user->validation_errors['email']['length'])): ?>
                 <div><em> Email </em> must be between
                     <?php char_to_html($user->validation['email']['length'][1])
                         ?> to
@@ -88,30 +88,22 @@
                         ?> characters only.
                 </div>
             <?php endif ?>
-        </div>
-    </div>
-</div>
 
-<!--check if username exists-->
-<?php elseif($user->isUsernameExists($user->username)): ?>
-<div class="row">
-    <div class="col-md-3 col-md-offset-4">
-        <div class="alert alert-warning" role="alert" width="50%">
-            <h4><span class="glyphicon glyphicon-exclamation-sign"></span>
-                Username is already taken!
-            </h4>
-        </div>
-    </div>
-</div>
+            <!--check if username and emails exists-->
+            <?php if ($user->isUsernameExists($user->username)
+                     AND $user->isEmailExists($user->email)): ?>
+                <div><em>Username</em> and <em>Email</em> already taken!</div>
+            <?php endif ?>
 
-<!--chech if email exists-->
-<?php elseif($user->isEmailExists($user->email)): ?>
-<div class="row">
-    <div class="col-md-3 col-md-offset-4">
-        <div class="alert alert-warning" role="alert" width="50%">
-            <h4><span class="glyphicon glyphicon-exclamation-sign"></span>
-                Email is already taken!
-            </h4>
+            <!--check if username exists-->
+            <?php if ($user->isUsernameExists($user->username)): ?>
+                <div><em>Username</em> already taken!</div>
+            <?php endif ?>
+
+            <!--chech if email exists-->
+            <?php if ($user->isEmailExists($user->email)): ?>
+                <div><em>Email</em> already taken!</div>
+            <?php endif ?>   
         </div>
     </div>
 </div>
