@@ -71,6 +71,6 @@ class UserController extends AppController
         unset($_SESSION['user_id']);
         unset($_SESSION['username']);
         session_destroy();
-        header("Location: log_in");
+        header("Location: ".self::PAGE_LOG_IN);
     }
 }

@@ -18,16 +18,18 @@
             <?php if ($pagination->current > 1): ?>
                 <a href='?thread_id=<?php echo $thread->id ?>&page=<?php
                     echo $pagination->prev ?>'>
-                    <span aria-hidden="true">&laquo;</span>
+                    <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             <?php else: ?>
-                <li class="disabled"><span aria-hidden="true">&laquo;</li></span>
+                <li class="disabled">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </li>
             <?php endif ?>
         </li>
     
         <?php for ($i = 1; $i <= $pages; $i++): ?>
             <?php if ($i == $page): ?>
-                <li class="disabled"><a><?php echo $i ?></a></li>
+                <li class="active"><a><?php echo $i ?></a></li>
             <?php else: ?>
                 <li>
                     <a href='?thread_id=<?php echo $thread->id ?>&page=<?php 
@@ -41,10 +43,12 @@
             <?php if (!$pagination->is_last_page): ?>
                 <a href='?thread_id=<?php echo $thread->id ?>&page=<?php
                     echo $pagination->next ?>'>
-                    <span aria-hidden="true">&raquo;</span>
+                    <span class="glyphicon glyphicon-chevron-right"></span>
                 </a>
             <?php else: ?>
-                <li class="disabled"><span aria-hidden="true">&raquo;</li></span>
+                <li class="disabled">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </li>
             <?php endif ?>
         </li>
     </ul>
