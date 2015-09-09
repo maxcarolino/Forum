@@ -54,7 +54,7 @@ class UserController extends AppController
                         $_SESSION['username'] = $user_account['username'];
                     }    
                 } catch (RecordNotFoundException $e) {
-                    $page = self::PAGE_REGISTER;
+                    $page = self::PAGE_LOG_IN;
                 }
                 break;
             default:
