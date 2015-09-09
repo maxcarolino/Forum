@@ -15,8 +15,12 @@
 <div class="row">
     <ul class="list-group">
         <?php foreach ($threads as $v): ?>
-            <li class="list-group-item"><a href="<?php char_to_html(url('comment/view', array('thread_id' => $v->id))) ?>">
-                <?php char_to_html($v->title) ?></a>
+            <li class="list-group-item">
+                <a href="<?php
+                    char_to_html(url('comment/view',
+                    array('thread_id' => $v->id))) ?>">
+                    <?php char_to_html($v->title) ?>
+                </a>
             </li>
         <?php endforeach ?>
     </ul>
@@ -30,7 +34,9 @@
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 <?php else: ?>
-                    <li class="disabled"><span aria-hidden="true">&laquo;</li></span>
+                    <li class="disabled">
+                        <span aria-hidden="true">&laquo;</span>
+                    </li>
                 <?php endif ?>
             </li>
     
@@ -38,7 +44,9 @@
                 <?php if ($i == $page): ?>
                     <li class="disabled"><a><?php echo $i ?></a></li>
                 <?php else: ?>
-                    <li><a href='?page=<?php echo $i ?>'><?php echo $i ?></a></li>
+                    <li>
+                        <a href='?page=<?php echo $i ?>'><?php echo $i ?></a>
+                    </li>
                 <?php endif; ?>
             <?php endfor; ?>
  
@@ -48,22 +56,29 @@
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 <?php else: ?>
-                    <li class="disabled"><span aria-hidden="true">&raquo;</li></span>
+                    <li class="disabled">
+                        <span aria-hidden="true">&raquo;</span>
+                    </li>
                 <?php endif ?>
             </li>
         </ul>
     </nav>
     <!---->
     </br></br>
-    <a class="btn btn-large btn-primary" href="<?php char_to_html(url('thread/create')) ?>">
-    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-    Create Thread </a>
+    <a class="btn btn-large btn-primary" href="<?php
+        char_to_html(url('thread/create')) ?>">
+        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+        Create Thread
+    </a>
 
 <?php else: ?>
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <div class="alert alert-warning" role="warning" width="40%">
-	           <h2><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Permission denied! </h2>
+                <h2><span class="glyphicon glyphicon-warning-sign"
+                    aria-hidden="true"></span>
+                    Permission denied!
+                </h2>
             </div>
         </div>
     </div>

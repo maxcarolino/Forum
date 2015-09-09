@@ -7,21 +7,24 @@ class Comment extends AppModel
 
     public $validation  =  array (
         'body'          => array (
-            'length'    => array ('validate_between', self::MIN_LENGTH, self::MAX_LENGTH,)
+            'length'    => array ('validate_between',
+                                  self::MIN_LENGTH, self::MAX_LENGTH,)
         )
     );
 
     public static function count($thread_id)
     {
         $db = DB::conn();
-        return $db->value('SELECT COUNT(*) FROM comment WHERE thread_id = ?', array($thread_id));
+        return $db->value('SELECT COUNT(*) FROM comment WHERE thread_id = ?',
+        array($thread_id));
     }
 
     public static function get_comments($offset, $limit, $thread_id)
     {
         $comments = array();
         $db = DB::conn();
-        $query = sprintf('SELECT * FROM comment WHERE thread_id = ? ORDER BY created ASC LIMIT %d, %d', $offset, $limit);
+        $query = sprintf('SELECT * FROM comment WHERE thread_id = ? ORDER BY
+        created ASC LIMIT %d, %d', $offset, $limit);
         $rows = $db->rows($query, array($thread_id));
 
         foreach ($rows as $row) {

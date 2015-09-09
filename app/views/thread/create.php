@@ -2,11 +2,14 @@
 <div class="row">
     <div class="col-md-4 col-md-offset-4">
         <div class="form-group">
-            <form class="well" method="post" action="<?php char_to_html(url('')) ?>">
+            <form class="well" method="post" action="<?php
+                char_to_html(url('')) ?>">
                 <label>Title:</label>
-                <input type="text" class="form-control" name="title" value="<?php char_to_html(Param::get('title')) ?>" placeholder="Your title goes here." required>
+                <input type="text" class="form-control" name="title"
+                    placeholder="Your title goes here." required>
                 <label>Comment:</label>
-                <textarea name="body" class="form-control" placeholder="Your comment goes here." required><?php char_to_html(Param::get('body')) ?></textarea>
+                <textarea name="body" class="form-control"
+                    placeholder="Your comment goes here." required></textarea>
                 </br>
                 <input type="hidden" name="page_next" value="create_end">
                 <button type="submit" class="btn btn-primary">
@@ -29,15 +32,19 @@
             <h4>Validation error!</h4>
             <?php if (!empty($thread->validation_errors['title']['length'])): ?>
                 <div><em>Title</em> must be between
-                    <?php char_to_html($thread->validation['title']['length'][1]) ?> and
-                    <?php char_to_html($thread->validation['title']['length'][2]) ?> characters in length.
+                    <?php char_to_html($thread->validation['title']['length'][1])
+                        ?> and
+                    <?php char_to_html($thread->validation['title']['length'][2])
+                        ?> characters in length.
                 </div>
             <?php endif ?>   
 
             <?php if (!empty($comment->validation_errors['body']['length'])): ?>
                 <div><em>Comment</em> must be between
-                    <?php char_to_html($comment->validation['body']['length'][1]) ?>
-                    <?php char_to_html($comment->validation['body']['length'][2]) ?> characters in length.
+                    <?php char_to_html($comment->validation['body']['length'][1])
+                        ?>
+                    <?php char_to_html($comment->validation['body']['length'][2])
+                        ?> characters in length.
                 <div>
             <?php endif ?>
         </div>

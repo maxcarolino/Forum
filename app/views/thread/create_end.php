@@ -3,6 +3,7 @@
         You successully created the thread.
     </p>
 
-    <a href="<?php char_to_html(url('comment/view', array('thread_id' => $thread->id))) ?>">
+    <a href="<?php char_to_html(url('comment/view',
+    	array('thread_id' => $thread->id))) ?>">
         &larr; Go to thread
     </a>

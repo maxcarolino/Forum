@@ -14,7 +14,8 @@ class CommentController extends AppController
         $page = Param::get('page', self::PAGE_DEFAULT);
         $pagination = new SimplePagination($page, self::PER_PAGE);
       
-        $comments = $comment->get_comments($pagination->start_index - 1, $pagination->count + 1, $thread_id);
+        $comments = $comment->get_comments($pagination->start_index - 1,
+                              $pagination->count + 1, $thread_id);
         $pagination->checkLastPage($comments);
       
         $total = Comment::count($thread_id);
@@ -36,7 +37,8 @@ class CommentController extends AppController
                 $comment->body = Param::get('body');
                 $comment->user_id = $_SESSION['user_id'];
                 try {
-                    $comment->write($comment, $thread->id, $comment->user_id, $comment->body);
+                    $comment->write($comment, $thread->id, $comment->user_id,
+                              $comment->body);
                 } catch (ValidationException $e) {
                     $page = 'write';
                 }

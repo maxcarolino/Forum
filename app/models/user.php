@@ -9,25 +9,29 @@ class User extends AppModel
 
     public $validation   =  array (
         'username'       => array (
-            'length'     => array ('validate_between', self::MIN_LENGTH, self::MAX_LENGTH,),
+            'length'     => array ('validate_between',
+                                  self::MIN_LENGTH, self::MAX_LENGTH,),
             'valid'      => array ('isUsernameValid'),
         ),
         'password'       => array (
-            'length'     => array ('validate_between', self::MIN_LENGTH, self::MAX_LENGTH,),
+            'length'     => array ('validate_between',
+                                  self::MIN_LENGTH, self::MAX_LENGTH,),
             'valid'      => array ('isPasswordValid'),
         ),
         'retype_password'=> array (
             'compare'    => array ('compare_password'),
         ),
         'email'          => array (
-            'length'     => array ('validate_between', self::MIN_LENGTH, self::MAX_LENGTH,),
+            'length'     => array ('validate_between',
+                                  self::MIN_LENGTH, self::MAX_LENGTH,),
         ),
     );
 
     public function register()
     {
-        if (!$this->validate() OR $this->username_exists($this->username) OR $this->email_exists($this->email)) {
-            throw new ValidationException('Oops! please re-enter your credentials');
+        if (!$this->validate() OR $this->username_exists($this->username)
+        OR $this->email_exists($this->email)) {
+            throw new ValidationException('Oops! invalid credentials');
         }
 
         $db = DB::conn();
@@ -47,13 +51,14 @@ class User extends AppModel
     {
         $db = DB::conn();
 
-        $user_account = $db->row('SELECT user_id, username FROM user WHERE username = ? AND password = ?', 
+        $user_account = $db->row('SELECT user_id, username FROM user WHERE
+        username = ? AND password = ?', 
         array(escapeString($this->username), md5(escapeString($this->password)))
         );
 
         if (!$user_account) { 
             $this->validated = false;
-            throw new RecordNotFoundException('Your username/password doesnt match any of our records');
+            throw new RecordNotFoundException('Invalid username/password!');
         }
 
         return $user_account;
@@ -63,7 +68,8 @@ class User extends AppModel
     {
         $db = DB::conn();
 
-        $row = $db->row('SELECT username FROM user WHERE username = ?', array($username));
+        $row = $db->row('SELECT username FROM user WHERE username = ?',
+        array($username));
 
         if ($row) {
             return true;
@@ -74,7 +80,8 @@ class User extends AppModel
     {
         $db = DB::conn();
 
-        $row = $db->row('SELECT email FROM user WHERE email = ?', array($email));
+        $row = $db->row('SELECT email FROM user WHERE email = ?',
+        array($email));
   
         if ($row) {
             return true;
@@ -85,7 +92,8 @@ class User extends AppModel
     {
         $db = DB::conn();
 
-        $row = $db->row('SELECT username FROM user WHERE user_id = ?', array($user_id));
+        $row = $db->row('SELECT username FROM user WHERE user_id = ?',
+        array($user_id));
 
         return $row['username'];
     }
