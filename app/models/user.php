@@ -11,12 +11,12 @@ class User extends AppModel
         'username'       => array (
             'length'     => array ('validate_between',
                                   self::MIN_LENGTH, self::MAX_LENGTH,),
-            'valid'      => array ('isUsernameValid'),
+            'valid'      => array ('is_username_valid'),
         ),
         'password'       => array (
             'length'     => array ('validate_between',
                                   self::MIN_LENGTH, self::MAX_LENGTH,),
-            'valid'      => array ('isPasswordValid'),
+            'valid'      => array ('is_password_valid'),
         ),
         'retype_password'=> array (
             'compare'    => array ('compare_password'),
@@ -38,9 +38,9 @@ class User extends AppModel
         $db->begin();
 
         $params = array(
-            'username' => escapeString($this->username),
-            'password' => md5(escapeString($this->password)),
-            'email'    => escapeString($this->email)
+            'username' => escape_string($this->username),
+            'password' => md5(escape_string($this->password)),
+            'email'    => escape_string($this->email)
         );
 
         $db->insert('user', $params);
@@ -53,7 +53,7 @@ class User extends AppModel
 
         $user_account = $db->row('SELECT user_id, username FROM user WHERE
         username = ? AND password = ?', 
-        array(escapeString($this->username), md5(escapeString($this->password)))
+        array(escape_string($this->username), md5(escape_string($this->password)))
         );
 
         if (!$user_account) { 

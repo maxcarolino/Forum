@@ -43,7 +43,7 @@
                 <div><em> Password</em> does not match!</div>
             <?php endif ?>
 
-            <!--username isValid-->
+            <!--username is valid-->
             <?php if(!empty($user->validation_errors['username']['valid'])): ?>
                 <div>
                     <em>Username</em> should only contain alphanumeric
@@ -51,7 +51,7 @@
                 </div>
             <?php endif ?>
 
-            <!--password isValid-->
+            <!--password is valid-->
             <?php if(!empty($user->validation_errors['password']['valid'])): ?>
                 <div>
                     <em>Password</em> should only contain alphanumeric

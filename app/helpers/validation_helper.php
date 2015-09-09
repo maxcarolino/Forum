@@ -13,17 +13,17 @@ function compare_password($check)
     return $check === $password;
 }
 
-function isUsernameValid($check)
+function is_username_valid($check)
 {
     return preg_match("/^[a-zA-Z0-9_]*$/",$check);
 }
 
-function isPasswordValid($check)
+function is_password_valid($check)
 {
     return preg_match("/^[a-zA-Z0-9_]*$/",$check);
 }
 
-function escapeString($check)
+function escape_string($check)
 {
 	return mysql_real_escape_string($check);
 }

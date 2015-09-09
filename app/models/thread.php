@@ -58,7 +58,7 @@ class Thread extends AppModel
         $db->begin();
 
         $db->query('INSERT INTO thread SET title = ?, created = NOW()', 
-        array(escapeString($this->title)));
+        array(escape_string($this->title)));
 
         $this->id = $db->lastInsertId();
 
