@@ -93,17 +93,16 @@
             <?php if ($user->isUsernameExists($user->username)
                      AND $user->isEmailExists($user->email)): ?>
                 <div><em>Username</em> and <em>Email</em> already taken!</div>
-            <?php endif ?>
 
             <!--check if username exists-->
-            <?php if ($user->isUsernameExists($user->username)): ?>
+            <?php elseif ($user->isUsernameExists($user->username)): ?>
                 <div><em>Username</em> already taken!</div>
-            <?php endif ?>
-
+            
             <!--chech if email exists-->
-            <?php if ($user->isEmailExists($user->email)): ?>
+            <?php elseif ($user->isEmailExists($user->email)): ?>
                 <div><em>Email</em> already taken!</div>
-            <?php endif ?>   
+            <?php endif ?> 
+            
         </div>
     </div>
 </div>
