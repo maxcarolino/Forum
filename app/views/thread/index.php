@@ -1,7 +1,9 @@
 <?php if (isset($_SESSION['username'])): ?>
 <div class="row">
     <div class="col-md-8">
-        <h1>All threads</h1>
+        <h1> All threads
+            <span class="badge"><?php char_to_html($total) ?></span>
+        </h1>
     </div>
 
     <div class="col-md-4">

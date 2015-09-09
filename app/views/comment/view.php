@@ -1,4 +1,6 @@
-<h1><?php char_to_html($thread->title) ?></h1>
+<h1> <?php char_to_html($thread->title) ?>
+    <span class="badge"><?php char_to_html($total) ?></span>
+</h1>
 <?php if (empty($comments)): ?>
     <h4> No comments yet for this thread </h4>
 <?php else: ?>

@@ -5,9 +5,11 @@
     <title>DietCake</title>
 
     <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
     <style>
       body {
         padding-top: 60px;
+        font-family: 'Open Sans', sans-serif;
       }
     </style>
   </head>
