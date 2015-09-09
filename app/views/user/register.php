@@ -93,7 +93,7 @@
 </div>
 
 <!--check if username exists-->
-<?php elseif($user->username_exists($user->username)): ?>
+<?php elseif($user->isUsernameExists($user->username)): ?>
 <div class="row">
     <div class="col-md-3 col-md-offset-4">
         <div class="alert alert-warning" role="alert" width="50%">
@@ -105,7 +105,7 @@
 </div>
 
 <!--chech if email exists-->
-<?php elseif($user->email_exists($user->email)): ?>
+<?php elseif($user->isEmailExists($user->email)): ?>
 <div class="row">
     <div class="col-md-3 col-md-offset-4">
         <div class="alert alert-warning" role="alert" width="50%">

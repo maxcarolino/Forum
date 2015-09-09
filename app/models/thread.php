@@ -25,7 +25,7 @@ class Thread extends AppModel
         return new self($row);
     }
 
-    public static function get_all($offset, $limit)
+    public static function getAll($offset, $limit)
     {
         $threads = array();
         $db = DB::conn();
@@ -39,7 +39,7 @@ class Thread extends AppModel
         return $threads;
     }
   
-    public static function count_all()
+    public static function countAll()
     {
         $db = DB::conn();
         return $db->value('SELECT COUNT(*) FROM thread');

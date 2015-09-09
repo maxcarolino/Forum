@@ -29,8 +29,8 @@ class User extends AppModel
 
     public function register()
     {
-        if (!$this->validate() OR $this->username_exists($this->username)
-        OR $this->email_exists($this->email)) {
+        if (!$this->validate() OR $this->isUsernameExists($this->username)
+        OR $this->isEmailExists($this->email)) {
             throw new ValidationException('Oops! invalid credentials');
         }
 
@@ -47,7 +47,7 @@ class User extends AppModel
         $db->commit();
     }
   
-    public function log_in_account()
+    public function logInAccount()
     {
         $db = DB::conn();
 
@@ -64,7 +64,7 @@ class User extends AppModel
         return $user_account;
     }
 
-    public function username_exists($username)
+    public function isUsernameExists($username)
     {
         $db = DB::conn();
 
@@ -76,7 +76,7 @@ class User extends AppModel
         } 
     }
    
-    public function email_exists($email)
+    public function isEmailExists($email)
     {
         $db = DB::conn();
 
@@ -88,7 +88,7 @@ class User extends AppModel
         } 
     }
 
-    public static function get_username($user_id)
+    public static function getUsername($user_id)
     {
         $db = DB::conn();
 
