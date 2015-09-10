@@ -45,7 +45,7 @@ class Thread extends AppModel
         return $db->value('SELECT COUNT(*) FROM thread');
     }
 
-    public function create(Comment $comment, $comment_user_id, $comment_body)
+    public function create(Comment $comment)
     {
         $this->validate();
         $comment->validate();
@@ -63,7 +63,7 @@ class Thread extends AppModel
         $this->id = $db->lastInsertId();
 
         //write the first comment
-        $comment->write($comment, $this->id, $comment_user_id, $comment_body);
+        $comment->write($comment, $this->id, $comment->user_id, $comment->body);
 
         $db->commit();
     }

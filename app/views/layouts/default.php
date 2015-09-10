@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>DietCake</title>
+        <title>DietCake - Board Exercise</title>
 
         <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -18,6 +18,7 @@
             }
             .alert {
                 width: 360px;
+                margin-top: 30px;
             }
         </style>
     </head>
@@ -26,9 +27,9 @@
         <nav class="navbar navbar-default navbar-fixed-top">
            <div class="container-fluid">
                 <div class ="navbar-header">
-                    <h3>Board Exercise</h3>
+                    <h2>Board Exercise</h2>
                 </div>
-                <?php if (isset($_SESSION['username']) OR isset($_SESSION['user_id'])): ?>
+                <?php if (isset($_SESSION['username']) AND isset($_SESSION['user_id'])): ?>
                     <a class="btn btn-warning navbar-right" href="<?php char_to_html(url('user/log_out')) ?>">
                         <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                         Sign-Out

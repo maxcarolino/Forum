@@ -19,7 +19,7 @@ class Comment extends AppModel
         array($thread_id));
     }
 
-    public static function getComments($offset, $limit, $thread_id)
+    public static function getAllByThreadId($offset, $limit, $thread_id)
     {
         $comments = array();
         $db = DB::conn();
@@ -35,7 +35,7 @@ class Comment extends AppModel
         return $comments;
     }
   
-    public function write(Comment $comment, $thread_id, $user_id, $body)
+    public function write(Comment $comment, $thread_id)
     {
         if (!$comment->validate()) {
             throw new ValidationException('Invalid comment');
@@ -44,8 +44,8 @@ class Comment extends AppModel
 
         $params = array(
             'thread_id' => $thread_id,
-            'user_id'   => $user_id,
-            'body'      => escape_string($body),
+            'user_id'   => $this->user_id,
+            'body'      => escape_string($this->body),
             'created'   => date("Y-m-d H:i:s")
         );
 

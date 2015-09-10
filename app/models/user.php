@@ -62,7 +62,7 @@ class User extends AppModel
             throw new RecordNotFoundException('Invalid username/password!');
         }
 
-        return $user_account;
+        return new self($user_account);
     }
 
     public static function isUsernameExists($username)
@@ -73,7 +73,7 @@ class User extends AppModel
         array($username));
 
         if ($row) {
-            return true;
+            return ($row) ? true : false;
         } 
     }
    
@@ -85,7 +85,7 @@ class User extends AppModel
         array($email));
   
         if ($row) {
-            return true;
+            return ($row) ? true : false;
         } 
     }
 

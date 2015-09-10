@@ -50,8 +50,8 @@ class UserController extends AppController
                     $user_account = $user->logInAccount();
                     if ($user_account) {    
                         session_regenerate_id(true);
-                        $_SESSION['user_id']  = $user_account['user_id'];
-                        $_SESSION['username'] = $user_account['username'];
+                        $_SESSION['user_id']  = $user_account->user_id;
+                        $_SESSION['username'] = $user_account->username;
                     }    
                 } catch (RecordNotFoundException $e) {
                     $page = self::PAGE_LOG_IN;

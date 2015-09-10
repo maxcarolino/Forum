@@ -17,5 +17,13 @@ function readable_text($s)
 
 function redirect()
 {
-	 header("Location: ".DENY_URL);
+	header("Location: ".DENY_URL);
+	die();
+}
+
+function check_user_session()
+{
+	if (!isset($_SESSION['username'])) {
+		redirect();
+	}
 }
