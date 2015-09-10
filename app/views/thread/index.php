@@ -5,15 +5,7 @@
             <span class="badge"><?php char_to_html($total) ?></span>
         </h1>
     </div>
-
-    <div class="col-md-4">
-        <a class="btn btn-warning" href="<?php char_to_html(url('user/log_out')) ?>">
-            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-            Sign-Out
-        </a>
-    </div>
 </div>
-
 <div class="row">
     <ul class="list-group">
         <?php foreach ($threads as $v): ?>
