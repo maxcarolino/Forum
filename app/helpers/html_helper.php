@@ -1,5 +1,7 @@
 <?php
 
+CONST DENY_URL = '../error/denied';
+
 function char_to_html($string)
 {
     if (!isset($string)) return;
@@ -12,3 +14,8 @@ function readable_text($s)
     $s = nl2br($s);
     return $s;                    
 } 
+
+function redirect()
+{
+	 header("Location: ".DENY_URL);
+}
