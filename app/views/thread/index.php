@@ -1,4 +1,3 @@
-<?php if (isset($_SESSION['username'])): ?>
 <div class="row">
     <div class="col-md-8">
         <h1> All threads
@@ -64,9 +63,4 @@
         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         Create Thread
     </a>
-
-<?php else: ?>
-    <!--redirect to denied page-->
-    <?php redirect() ?>
 </div>
-<?php endif ?>
