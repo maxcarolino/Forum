@@ -18,6 +18,7 @@ class CommentController extends AppController
       
         $comments = $comment->getComments($pagination->start_index - 1,
                               $pagination->count + 1, $thread_id);
+
         $pagination->checkLastPage($comments);
       
         $total = Comment::count($thread_id);

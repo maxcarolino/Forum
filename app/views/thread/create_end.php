@@ -2,6 +2,7 @@
     <h2><?php char_to_html($thread->title) ?></h2>
 
     <p class="alert alert-success">
+        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
         You successfully created the thread.
     </p>
     

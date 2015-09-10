@@ -28,6 +28,7 @@ class Comment extends AppModel
         $rows = $db->rows($query, array($thread_id));
 
         foreach ($rows as $row) {
+            $row['username'] = User::getUsername($row['user_id']);
             $comments[] = new self($row);
         }
 

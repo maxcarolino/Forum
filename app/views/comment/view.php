@@ -8,7 +8,7 @@
         <?php foreach ($comments as $k => $v): ?>
             <ul class="list-group">
                 <li class="list-group-item"><?php char_to_html($k + 1) ?>:
-                    <?php echo User::getUsername($v->user_id) ?>
+                    <?php echo char_to_html($v->username) ?>
                     <?php char_to_html($v->created) ?> </br>
                     <?php echo readable_text($v->body) ?>
                 </li>
