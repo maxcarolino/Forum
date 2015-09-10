@@ -19,7 +19,8 @@
                     </button>
                     </br></br>
                     <a href="<?php char_to_html(url('thread/index')) ?>">
-                        &larr; Back to thread list. 
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        Back to thread list. 
                     </a>
                 </form>
             </div>
@@ -30,7 +31,10 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <div class="alert alert-warning" role="alert" width="50%">
-                <h4>Validation error!</h4>
+                <h4>
+                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                    Validation error!
+                </h4>
                 <?php if (!empty($thread->validation_errors['title']['length'])): ?>
                     <div><em>Title</em> must be between
                         <?php char_to_html($thread->validation['title']['length'][1])
@@ -52,7 +56,6 @@
         </div>
     </div>
     <?php endif ?>
-
 <?php else: ?>
     <div class="row">
         <div class="col-md-4 col-md-offset-4">

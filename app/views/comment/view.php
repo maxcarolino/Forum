@@ -75,8 +75,10 @@
                             Submit
                         </button>
                         <br/><br/>
-                        <a href="http://10.3.140.112/thread/index"> &larr;
-                        Go to thread list </a>
+                        <a href="http://10.3.140.112/thread/index">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            Go to thread list
+                        </a>
                     </form>
                 </div>
             </div>

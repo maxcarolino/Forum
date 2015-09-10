@@ -16,6 +16,9 @@
             .navbar-right {
                 margin-right: 50px;
             }
+            .alert {
+                width: 360px;
+            }
         </style>
     </head>
 

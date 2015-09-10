@@ -19,7 +19,8 @@
                     </br></br>
                     <a href="<?php char_to_html(url('comment/view',
                         array('thread_id' => $thread->id))) ?>">
-                        &larr; Back to thread. 
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        Back to thread. 
                     </a>
                 </form>
             </div>

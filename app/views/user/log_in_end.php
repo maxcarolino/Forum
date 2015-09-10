@@ -1,5 +1,6 @@
 <div class="row">
     <div class="col-md-4 col-md-offset-4">
+        </br>
         <h3 class="text-success">
             <span class="glyphicon glyphicon-ok-circle"></span>
             <strong>Welcome!</strong> <?php char_to_html($_SESSION['username']) ?>
