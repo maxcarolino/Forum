@@ -35,9 +35,9 @@ class Comment extends AppModel
         return $comments;
     }
   
-    public function write(Comment $comment, $thread_id)
+    public function write($thread_id)
     {
-        if (!$comment->validate()) {
+        if (!$this->validate()) {
             throw new ValidationException('Invalid comment');
         }
         $db = DB::conn();

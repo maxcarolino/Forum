@@ -63,7 +63,7 @@ class Thread extends AppModel
         $this->id = $db->lastInsertId();
 
         //write the first comment
-        $comment->write($comment, $this->id, $comment->user_id, $comment->body);
+        $comment->write($this->id);
 
         $db->commit();
     }
