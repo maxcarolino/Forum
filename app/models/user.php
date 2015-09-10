@@ -12,6 +12,7 @@ class User extends AppModel
             'length'     => array ('validate_between',
                                   self::MIN_LENGTH, self::MAX_LENGTH,),
             'valid'      => array ('is_username_valid'),
+            'exists'     => array ('is_username_exists'),
         ),
         'password'       => array (
             'length'     => array ('validate_between',
@@ -24,13 +25,13 @@ class User extends AppModel
         'email'          => array (
             'length'     => array ('validate_between',
                                   self::MIN_LENGTH, self::MAX_LENGTH,),
+            'exists'     => array ('is_email_exists'),
         ),
     );
 
     public function register()
     {
-        if (!$this->validate() OR $this->isUsernameExists($this->username)
-        OR $this->isEmailExists($this->email)) {
+        if (!$this->validate()){
             throw new ValidationException('Oops! invalid credentials');
         }
 
@@ -64,7 +65,7 @@ class User extends AppModel
         return $user_account;
     }
 
-    public function isUsernameExists($username)
+    public static function isUsernameExists($username)
     {
         $db = DB::conn();
 
@@ -76,7 +77,7 @@ class User extends AppModel
         } 
     }
    
-    public function isEmailExists($email)
+    public static function isEmailExists($email)
     {
         $db = DB::conn();
 

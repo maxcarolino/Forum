@@ -40,33 +40,33 @@
 
             <!--check if password match-->
             <?php if (!empty($user->validation_errors['retype_password']['compare'])): ?>
-                <div><em> Password</em> does not match!</div>
+                      <div><em> Password</em> does not match!</div>
             <?php endif ?>
 
             <!--username is valid-->
             <?php if (!empty($user->validation_errors['username']['valid'])): ?>
-                <div>
-                    <em>Username</em> should only contain alphanumeric
-                    characters and underscore only.
-                </div>
+                      <div>
+                          <em>Username</em> should only contain alphanumeric
+                          characters and underscore only.
+                      </div>
             <?php endif ?>
 
             <!--password is valid-->
             <?php if (!empty($user->validation_errors['password']['valid'])): ?>
-                <div>
-                    <em>Password</em> should only contain alphanumeric
-                    characters and underscore only.
-                </div>
+                      <div>
+                          <em>Password</em> should only contain alphanumeric
+                          characters and underscore only.
+                      </div>
             <?php endif ?>
 
             <!--username field empty-->
             <?php if (!empty($user->validation_errors['username']['length'])): ?>
-                <div><em> Username </em> must be between
-                    <?php char_to_html($user->validation['username']['length'][1])
-                        ?> to
-                    <?php char_to_html($user->validation['username']['length'][2])
-                        ?> characters only.
-                </div>
+                      <div><em> Username </em> must be between
+                          <?php char_to_html($user->validation['username']['length'][1])
+                              ?> to
+                          <?php char_to_html($user->validation['username']['length'][2])
+                              ?> characters only.
+                      </div>
             <?php endif ?>
 
             <!--password field empty-->
@@ -81,26 +81,26 @@
 
             <!--email field empty-->
             <?php if (!empty($user->validation_errors['email']['length'])): ?>
-                <div><em> Email </em> must be between
-                    <?php char_to_html($user->validation['email']['length'][1])
-                        ?> to
-                    <?php char_to_html($user->validation['email']['length'][2])
-                        ?> characters only.
-                </div>
+                      <div><em> Email </em> must be between
+                          <?php char_to_html($user->validation['email']['length'][1])
+                              ?> to
+                          <?php char_to_html($user->validation['email']['length'][2])
+                              ?> characters only.
+                      </div>
             <?php endif ?>
 
             <!--check if username and emails exists-->
-            <?php if ($user->isUsernameExists($user->username)
-                     AND $user->isEmailExists($user->email)): ?>
-                <div><em>Username</em> and <em>Email</em> already taken!</div>
+            <?php if (!empty($user->validation_errors['username']['exists']) and
+                  !empty($user->validation_errors['email']['exists'])): ?>
+                      <div><em>Username</em> and <em>Email</em> already taken!</div>
 
             <!--check if username exists-->
-            <?php elseif ($user->isUsernameExists($user->username)): ?>
-                <div><em>Username</em> already taken!</div>
+            <?php elseif (!empty($user->validation_errors['username']['exists'])): ?>
+                      <div><em>Username</em> already taken!</div>
             
             <!--chech if email exists-->
-            <?php elseif ($user->isEmailExists($user->email)): ?>
-                <div><em>Email</em> already taken!</div>
+            <?php elseif (!empty($user->validation_errors['email']['exists'])): ?>
+                      <div><em>Email</em> already taken!</div>
             <?php endif ?> 
             
         </div>
