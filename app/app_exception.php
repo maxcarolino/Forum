@@ -15,3 +15,7 @@ class NotFoundException extends AppException
 {
 
 }
+class DuplicateEntryException extends AppException
+{
+
+}

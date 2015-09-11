@@ -98,9 +98,9 @@
                       </div>
             <?php endif ?>
 
-            <!--check if username exists-->
-            <?php if (!empty($user->validation_errors['username']['exists'])): ?>
-                      <div><em>Username</em> already taken!</div>
+            <!--email already taken-->
+            <?php if (!empty($user->validation_errors['email']['unique'])): ?>
+                      <div><em>Email</em> already taken!</div>
             <?php endif ?> 
         </div>
     </div>

@@ -4,6 +4,7 @@ class User extends AppModel
 {
     CONST MIN_LENGTH = 6;
     CONST MAX_LENGTH = 30;
+    CONST MYSQL_ERROR_CODE = 1062;
    
     public $validated = true;
 
@@ -12,7 +13,6 @@ class User extends AppModel
             'length'     => array ('validate_between',
                                   self::MIN_LENGTH, self::MAX_LENGTH,),
             'valid'      => array ('is_username_valid'),
-            'exists'     => array ('is_username_exists'),
         ),
         'password'       => array (
             'length'     => array ('validate_between',
@@ -36,7 +36,6 @@ class User extends AppModel
         }
 
         $db = DB::conn();
-        $db->begin();
 
         $params = array(
             'username' => $this->username,
@@ -44,8 +43,13 @@ class User extends AppModel
             'email'    => $this->email
         );
 
-        $db->insert('user', $params);
-        $db->commit();
+        try {
+            $db->insert('user', $params);
+        } catch (PDOException $e) {
+            if ($e->errorInfo[1] == self::MYSQL_ERROR_CODE) {
+                throw new DuplicateEntryException('Duplicate Entry');
+            }
+        }
     }
   
     public function logInAccount()
@@ -62,16 +66,6 @@ class User extends AppModel
         }
             return new self($user_account);
     }
-
-    public static function isUsernameExists($username)
-    {
-        $db = DB::conn();
-
-        $row = $db->row('SELECT username FROM user WHERE username = ?',
-        array($username));
-
-        return (bool) $row;
-    }   
 
     public static function getUsername($user_id)
     {

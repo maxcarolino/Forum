@@ -24,6 +24,9 @@ class UserController extends AppController
                     $user->register();
                 } catch (ValidationException $e) {
                     $page = self::PAGE_REGISTER;
+                } catch (DuplicateEntryException $e) {
+                    $user->validation_errors['email']['unique'] = true;
+                    $page = self::PAGE_REGISTER;
                 }
                 break;
             default:
