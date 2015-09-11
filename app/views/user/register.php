@@ -80,12 +80,12 @@
 
             <!--password field is empty-->
             <?php if (!empty($user->validation_errors['password']['length'])): ?>
-                <div><em> Password </em> must be between
-                    <?php char_to_html($user->validation['password']['length'][1])
-                        ?> to
-                    <?php char_to_html($user->validation['password']['length'][2])
-                        ?> characters only.
-                </div>
+                      <div><em> Password </em> must be between
+                          <?php char_to_html($user->validation['password']['length'][1])
+                              ?> to
+                          <?php char_to_html($user->validation['password']['length'][2])
+                              ?> characters only.
+                      </div>
             <?php endif ?>
 
             <!--email field is empty-->
@@ -98,20 +98,10 @@
                       </div>
             <?php endif ?>
 
-            <!--check if username and emails exists-->
-            <?php if (!empty($user->validation_errors['username']['exists']) and
-                  !empty($user->validation_errors['email']['exists'])): ?>
-                      <div><em>Username</em> and <em>Email</em> already taken!</div>
-
             <!--check if username exists-->
-            <?php elseif (!empty($user->validation_errors['username']['exists'])): ?>
+            <?php if (!empty($user->validation_errors['username']['exists'])): ?>
                       <div><em>Username</em> already taken!</div>
-            
-            <!--chech if email exists-->
-            <?php elseif (!empty($user->validation_errors['email']['exists'])): ?>
-                      <div><em>Email</em> already taken!</div>
             <?php endif ?> 
-            
         </div>
     </div>
 </div>

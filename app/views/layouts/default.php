@@ -21,10 +21,9 @@
             .alert {
                 width: 360px;
                 margin-top: 30px;
-                background-color: rgba(255, 255, 255, 0.2);
             }
             .well {
-                background-color: rgba(255, 255, 255, 0.2);
+                background-color: rgba(255, 255, 255, 0.3);
             }
         </style>
     </head>

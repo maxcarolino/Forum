@@ -1,6 +1,6 @@
 <?php
 
-CONST DENY_URL = '../error/denied';
+define("DENY_URL", "../error/denied");
 
 function char_to_html($string)
 {
