@@ -41,7 +41,7 @@ class User extends AppModel
 
         $params = array(
             'username' => escape_string($this->username),
-            'password' => md5(escape_string($this->password)),
+            'password' => password_hash($this->password, PASSWORD_BCRYPT),
             'email'    => escape_string($this->email)
         );
 
@@ -53,17 +53,15 @@ class User extends AppModel
     {
         $db = DB::conn();
 
-        $user_account = $db->row('SELECT user_id, username FROM user WHERE
-        username = ? AND password = ?', 
-        array(escape_string($this->username), md5(escape_string($this->password)))
+        $user_account = $db->row('SELECT user_id, username, password FROM user WHERE
+        username = ?', array(escape_string($this->username))
         );
-
-        if (!$user_account) { 
+        //check if user is not found OR the provided credentials is wrong
+        if (!$user_account OR !(password_verify($this->password, $user_account['password']))) { 
             $this->validated = false;
-            throw new RecordNotFoundException('Invalid username/password!');
+            throw new RecordNotFoundException('Invalid username!');
         }
-
-        return new self($user_account);
+            return new self($user_account);
     }
 
     public static function isUsernameExists($username)
