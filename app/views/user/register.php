@@ -38,12 +38,12 @@
                 Oops! Something went wrong.
             </h4>
 
-            <!--check if password match-->
+            <!--check if password does not match-->
             <?php if (!empty($user->validation_errors['retype_password']['compare'])): ?>
                       <div><em> Password</em> does not match!</div>
             <?php endif ?>
 
-            <!--username is valid-->
+            <!--username is not valid-->
             <?php if (!empty($user->validation_errors['username']['valid'])): ?>
                       <div>
                           <em>Username</em> should only contain alphanumeric
@@ -51,15 +51,24 @@
                       </div>
             <?php endif ?>
 
-            <!--password is valid-->
+            <!--password is not valid-->
             <?php if (!empty($user->validation_errors['password']['valid'])): ?>
                       <div>
-                          <em>Password</em> should only contain alphanumeric
-                          characters and underscore only.
+                          <em>Password</em> should only contain at least one digit from 0-9,
+                           one lowercase character,
+                           one uppercase character,
+                           one special symbol (@#$%).
                       </div>
             <?php endif ?>
 
-            <!--username field empty-->
+            <!--email is not valid-->
+            <?php if (!empty($user->validation_errors['email']['valid'])): ?>
+                      <div>
+                          <em>Email</em> is invalid! Please provide another email.
+                      </div>
+            <?php endif ?>
+            
+            <!--username field is empty-->
             <?php if (!empty($user->validation_errors['username']['length'])): ?>
                       <div><em> Username </em> must be between
                           <?php char_to_html($user->validation['username']['length'][1])
@@ -69,7 +78,7 @@
                       </div>
             <?php endif ?>
 
-            <!--password field empty-->
+            <!--password field is empty-->
             <?php if (!empty($user->validation_errors['password']['length'])): ?>
                 <div><em> Password </em> must be between
                     <?php char_to_html($user->validation['password']['length'][1])
@@ -79,7 +88,7 @@
                 </div>
             <?php endif ?>
 
-            <!--email field empty-->
+            <!--email field is empty-->
             <?php if (!empty($user->validation_errors['email']['length'])): ?>
                       <div><em> Email </em> must be between
                           <?php char_to_html($user->validation['email']['length'][1])

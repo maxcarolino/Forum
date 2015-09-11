@@ -15,12 +15,17 @@ function compare_password($check)
 
 function is_username_valid($check)
 {
-    return preg_match("/^[a-zA-Z0-9_!@#$%]*$/",$check);
+    return preg_match("/^[a-zA-Z0-9_!@#$%]*$/", $check);
 }
 
 function is_password_valid($check)
 {
-    return preg_match("/^[a-zA-Z0-9_!@#$%]*$/",$check);
+    return preg_match("/((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).)/", $check);
+}
+
+function is_email_valid($check)
+{
+	return preg_match("/^([a-z0-9_\.-]+\@[\da-z\.-]+\.[a-z\.]{2,6})$/", $check);
 }
 
 function escape_string($check)

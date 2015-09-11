@@ -10,8 +10,10 @@
             body {
                 padding-top: 60px;
                 font-family: 'Open Sans', sans-serif;
-                background-image:url(/bootstrap/img/background.jpg);
+                background-image: url(/bootstrap/img/blue_background.jpg);
                 background-repeat: no-repeat;
+                min-height: 100%;
+                background-size: cover;
             }
             .navbar-right {
                 margin-right: 50px;
@@ -19,6 +21,10 @@
             .alert {
                 width: 360px;
                 margin-top: 30px;
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+            .well {
+                background-color: rgba(255, 255, 255, 0.2);
             }
         </style>
     </head>
@@ -29,7 +35,7 @@
                 <div class ="navbar-header">
                     <h2>Board Exercise</h2>
                 </div>
-                <?php if (isset($_SESSION['username']) AND isset($_SESSION['user_id'])): ?>
+                <?php if (isset($_SESSION['username'])): ?>
                     <a class="btn btn-warning navbar-right" href="<?php char_to_html(url('user/log_out')) ?>">
                         <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                         Sign-Out

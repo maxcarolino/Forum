@@ -25,6 +25,7 @@ class User extends AppModel
         'email'          => array (
             'length'     => array ('validate_between',
                                   self::MIN_LENGTH, self::MAX_LENGTH,),
+            'valid'      => array ('is_email_valid'),
             'exists'     => array ('is_email_exists'),
         ),
     );
