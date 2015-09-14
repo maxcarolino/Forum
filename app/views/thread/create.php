@@ -16,7 +16,7 @@
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     Submit
                 </button>
-                </br></br>
+                </br>
                 <a href="<?php char_to_html(url('thread/index')) ?>">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                     Back to thread list. 

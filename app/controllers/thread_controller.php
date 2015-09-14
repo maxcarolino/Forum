@@ -2,7 +2,7 @@
 
 class ThreadController extends AppController
 {
-    CONST PER_PAGE = 12;
+    CONST PER_PAGE = 10;
     CONST PAGE_DEFAULT = 1;
     CONST PAGE_CREATE = 'create';
     CONST PAGE_CREATE_END = 'create_end';

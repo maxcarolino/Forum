@@ -15,7 +15,7 @@
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     Submit
                 </button>
-                </br></br>
+                </br>
                 <a href="<?php char_to_html(url('comment/view',
                     array('thread_id' => $thread->id))) ?>">
                     <span class="glyphicon glyphicon-chevron-left"></span>
@@ -30,7 +30,10 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <div class="alert alert-warning" role="alert" width="50%">
-                <h4>Validation Error!</h4>
+                <h4>
+                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                    Validation Error!
+                </h4>
                 <?php if (!empty($comment->validation_errors['body']['length'])): ?>
                     <div><em> Comment </em> must be between
                         <?php char_to_html($comment->validation['body']['length'][1])

@@ -73,7 +73,7 @@
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     Submit
                 </button>
-                <br/><br/>
+                <br/>
                 <a href="http://10.3.140.112/thread/index">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                     Go to thread list

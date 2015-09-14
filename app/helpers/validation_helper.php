@@ -15,7 +15,7 @@ function compare_password($check)
 
 function is_username_valid($check)
 {
-    return preg_match("/^[a-zA-Z0-9_!@#$%]*$/", $check);
+    return preg_match("/^[a-zA-Z0-9_]*$/", $check);
 }
 
 function is_password_valid($check)

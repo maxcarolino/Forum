@@ -3,9 +3,9 @@
 class UserController extends AppController
 {
     CONST PAGE_REGISTER = 'register';
+    CONST PAGE_LOG_IN   = 'log_in';
     CONST PAGE_REGISTER_END = 'register_end';
-    CONST PAGE_LOG_IN = 'log_in';
-    CONST PAGE_LOG_IN_END = 'log_in_end';
+    CONST PAGE_LOG_IN_END   = 'log_in_end';
 
     public function register()
     {
