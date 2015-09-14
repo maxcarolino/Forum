@@ -100,7 +100,7 @@
 
             <!--email already taken-->
             <?php if (!empty($user->validation_errors['email']['unique'])): ?>
-                      <div><em>Email</em> already taken!</div>
+                      <div><em>Email</em> is already taken!</div>
             <?php endif ?> 
         </div>
     </div>
