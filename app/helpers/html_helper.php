@@ -27,3 +27,9 @@ function check_user_session()
 		redirect();
 	}
 }
+
+function unset_user_details()
+{
+	unset($_SESSION['user_id']);
+    unset($_SESSION['username']);
+}
