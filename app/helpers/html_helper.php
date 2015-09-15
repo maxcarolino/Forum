@@ -17,19 +17,21 @@ function readable_text($s)
 
 function redirect()
 {
-	header("Location: ".DENY_URL);
-	die();
+    header("Location: ".DENY_URL);
+    die();
 }
 
 function check_user_session()
 {
-	if (!isset($_SESSION['username'])) {
-		redirect();
-	}
+    if (!isset($_SESSION['username'])) {
+        redirect();
+    }
 }
 
 function unset_user_details()
 {
-	unset($_SESSION['user_id']);
-    unset($_SESSION['username']);
+    if (isset($_SESSION['username']) OR isset($_SESSION['user_id'])) {
+        unset($_SESSION['user_id']);
+        unset($_SESSION['username']);
+    }
 }
