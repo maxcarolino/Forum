@@ -10,7 +10,7 @@
             body {
                 padding-top: 60px;
                 font-family: 'Open Sans', sans-serif;
-                background-image: url(/bootstrap/img/blue_background.jpg);
+                background-image: url(/bootstrap/img/background.jpg);
                 background-repeat: no-repeat;
                 min-height: 100%;
                 background-size: cover;
@@ -24,6 +24,9 @@
             }
             .well {
                 background-color: rgba(255, 255, 255, 0.3);
+            }
+            .btn {
+                margin: 10px;
             }
         </style>
     </head>
