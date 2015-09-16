@@ -9,7 +9,6 @@ class UserController extends AppController
 
     public function register()
     {
-        unset_user_details();
         $user = new User();
         $page = Param::get('page_next', self::PAGE_REGISTER);
         $user->username = Param::get('username');
@@ -41,7 +40,6 @@ class UserController extends AppController
 
     public function log_in()
     {
-        unset_user_details();
         $user = new User();
         $page = Param::get('page_next', self::PAGE_LOG_IN);
 
@@ -74,6 +72,7 @@ class UserController extends AppController
     public function log_out()
     {
         unset_user_details();
+        $user->validated = false;
         session_destroy();
         header("Location: ".self::PAGE_LOG_IN);
     }

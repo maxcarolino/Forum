@@ -106,3 +106,5 @@
     </div>
 </div>
 <?php endif ?>
+
+<?php unset_user_details() ?>
