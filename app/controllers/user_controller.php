@@ -16,6 +16,9 @@ class UserController extends AppController
 
         switch ($page) {
             case self::PAGE_REGISTER:
+                if (isset($_SESSION['username'])) {
+                    unset_user_details();
+                }
                 break;
             case self::PAGE_REGISTER_END:
                 $user->password = trim(Param::get('password'));
@@ -45,17 +48,21 @@ class UserController extends AppController
 
         switch ($page) {
             case self::PAGE_LOG_IN:
+                if (isset($_SESSION['username'])) {
+                    unset_user_details();
+                }
                 break;
             case self::PAGE_LOG_IN_END:
                 $user->username = trim(Param::get('username'));
-                $user->password = trim(Param::get('password')); 
+                $user->password = trim(Param::get('password'));
+
                 try {
                     $user_account = $user->logInAccount();
-                    if ($user_account) {    
+                    if ($user_account AND !(isset($_SESSION['username']))) {
                         session_regenerate_id(true);
                         $_SESSION['user_id']  = $user_account->user_id;
                         $_SESSION['username'] = $user_account->username;
-                    }    
+                    }
                 } catch (RecordNotFoundException $e) {
                     $page = self::PAGE_LOG_IN;
                 }
@@ -72,7 +79,6 @@ class UserController extends AppController
     public function log_out()
     {
         unset_user_details();
-        $user->validated = false;
         session_destroy();
         header("Location: ".self::PAGE_LOG_IN);
     }

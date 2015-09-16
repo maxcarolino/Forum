@@ -30,8 +30,6 @@ function check_user_session()
 
 function unset_user_details()
 {
-    if (isset($_SESSION['username']) OR isset($_SESSION['user_id'])) {
-        unset($_SESSION['user_id']);
-        unset($_SESSION['username']);
-    }
+    unset($_SESSION['user_id']);
+    unset($_SESSION['username']);
 }

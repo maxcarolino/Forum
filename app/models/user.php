@@ -46,7 +46,7 @@ class User extends AppModel
         try {
             $db->insert('user', $params);
         } catch (PDOException $e) {
-            if ($e->errorInfo[1] == self::MYSQL_ERROR_CODE) {
+            if ($e->errorInfo[1] === self::MYSQL_ERROR_CODE) {
                 throw new DuplicateEntryException('Duplicate Entry');
             }
         }
