@@ -14,11 +14,12 @@ class UserController extends AppController
         $user->username = Param::get('username');
         $user->email = Param::get('email');
 
+        if (isset($_SESSION['username'])) {
+            redirect(THREAD_LIST);
+        }
+
         switch ($page) {
             case self::PAGE_REGISTER:
-                if (isset($_SESSION['username'])) {
-                    unset_user_details();
-                }
                 break;
             case self::PAGE_REGISTER_END:
                 $user->password = trim(Param::get('password'));
@@ -46,11 +47,12 @@ class UserController extends AppController
         $user = new User();
         $page = Param::get('page_next', self::PAGE_LOG_IN);
 
+        if (isset($_SESSION['username'])) {
+            redirect(THREAD_LIST);
+        }
+
         switch ($page) {
             case self::PAGE_LOG_IN:
-                if (isset($_SESSION['username'])) {
-                    unset_user_details();
-                }
                 break;
             case self::PAGE_LOG_IN_END:
                 $user->username = trim(Param::get('username'));
@@ -78,7 +80,8 @@ class UserController extends AppController
 
     public function log_out()
     {
-        unset_user_details();
+        unset($_SESSION['user_id']);
+        unset($_SESSION['username']);
         session_destroy();
         header("Location: ".self::PAGE_LOG_IN);
     }

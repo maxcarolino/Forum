@@ -1,6 +1,7 @@
 <?php
 
 define("DENY_URL", "../error/denied");
+define("THREAD_LIST", "/thread/index" );
 
 function char_to_html($string)
 {
@@ -15,21 +16,19 @@ function readable_text($s)
     return $s;                    
 } 
 
-function redirect()
+function redirect($url)
 {
-    header("Location: ".DENY_URL);
-    die();
+    if ($url === THREAD_LIST) {
+        header("Location: ".THREAD_LIST);
+    } else {
+        header("Location: ".DENY_URL);
+        die();
+    }
 }
 
 function check_user_session()
 {
     if (!isset($_SESSION['username'])) {
-        redirect();
+        redirect(DENY_URL);
     }
-}
-
-function unset_user_details()
-{
-    unset($_SESSION['user_id']);
-    unset($_SESSION['username']);
 }
