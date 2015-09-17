@@ -87,9 +87,8 @@ class UserController extends AppController
     public function profile()
     {
         check_user_session();
-        $user = new User();
-        $user->user_id = $_SESSION['user_id'];
-        $user_account = $user->getOwnUserDetails();
+        $user_id = $_SESSION['user_id'];
+        $user_account = User::getOwnUserDetails($user_id);
         $this->set(get_defined_vars());
     }
 
@@ -98,8 +97,9 @@ class UserController extends AppController
         check_user_session();
         $user = new User();
         $page = Param::get('page_next',self::PAGE_EDIT_PROFILE);
-        $user->user_id = $_SESSION['user_id'];
-    
+        $user_id = $_SESSION['user_id'];
+        $user_account = User::getOwnUserDetails($user_id);
+
         switch ($page) {
             case self::PAGE_EDIT_PROFILE:
                 break;
@@ -110,7 +110,7 @@ class UserController extends AppController
                 $user->lastname = Param::get('lastname');
                 $user->department = Param::get('department');
                 try {
-                    $user->updateUserDetails();
+                    $user->updateUserDetails($user_id);
                 } catch (ValidationException $e) {
                     $page = self::PAGE_EDIT_PROFILE;
                 } catch (DuplicateEntryException $e) {

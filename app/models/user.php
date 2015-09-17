@@ -96,12 +96,12 @@ class User extends AppModel
         return $row['username'];
     }
 
-    public function getOwnUserDetails()
+    public static function getOwnUserDetails($user_id)
     {
         $db = DB::conn();
 
-        $row = $db->row('SELECT * FROM user WHERE user_id= ?',
-        array($this->user_id));
+        $row = $db->row('SELECT user_id, username, firstname, lastname, email, department FROM user WHERE user_id= ?',
+        array($user_id));
 
         if (!$row) {
             throw new RecordNotFoundException('No record found');
@@ -109,7 +109,7 @@ class User extends AppModel
             return new self($row);
     }
 
-    public function updateUserDetails()
+    public function updateUserDetails($user_id)
     {
 
         if (!$this->validate()) {
@@ -127,7 +127,7 @@ class User extends AppModel
         );
 
         $where_params = array(
-            'user_id' => $this->user_id
+            'user_id' => $user_id
         );
 
         try {

@@ -5,19 +5,19 @@
             <form class="well" method="post" action="<?php char_to_html(url('')) ?>">
                 <label> Username: </label>
                 <input type="text" class="form-control" name="username"
-                    placeholder="username" required>
+                    value="<?php echo $user_account->username ?>" required>
                 <label> First Name: </label>
                 <input type="text" class="form-control" name="firstname"
-                    placeholder="firstname" required>
+                    value="<?php echo $user_account->firstname ?>" required>
                 <label> Last Name: </label>
                 <input type="text" class="form-control" name="lastname"
-                    placeholder="lastname" required>
+                    value="<?php echo $user_account->lastname ?>" required>
                 <label> Email: </label>
                 <input type="email" class="form-control" name="email"
-                    placeholder="email" required>
+                    value="<?php echo $user_account->email ?>" required>
                 <label> Department: </label>
                 <input type="text" class="form-control" name="department"
-                    placeholder="department" required>
+                    value="<?php echo $user_account->department ?>" required>
                 </br>
                 <input type="hidden" name="page_next" value="profile_end">
                 <button type="submit" class="btn btn-primary">
