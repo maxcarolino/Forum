@@ -6,11 +6,20 @@
                 char_to_html(url('')) ?>">
                 <label>Title:</label>
                 <input type="text" class="form-control" name="title"
-                    placeholder="Your title goes here." required>
+                    placeholder="Your title goes here." required></br>
                 <label>Comment:</label>
                 <textarea name="body" class="form-control"
                     placeholder="Your comment goes here." required></textarea>
                 </br>
+                <label>Pick a Category:</label>
+                <select name="category">
+                    <option value="Animals">Animals</option>
+                    <option value="Funny">Funny</option>
+                    <option value="Manga/Anime">Manga/Anime</option>
+                    <option value="Random">Random</option>
+                    <option value="Video Games">Video Games</option>
+                </select>
+                </br></br>
                 <input type="hidden" name="page_next" value="create_end">
                 <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>

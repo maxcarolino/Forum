@@ -14,7 +14,7 @@
                 <?php foreach ($comments as $k => $v): ?>
                     <li class="list-group-item"><?php char_to_html($k + 1) ?>:
                         <?php echo char_to_html($v->username) ?>
-                        <?php char_to_html($v->created) ?> </br>
+                        <?php char_to_html($v->date) ?> </br>
                         <?php echo readable_text($v->body) ?>
                     </li>
                     </br>

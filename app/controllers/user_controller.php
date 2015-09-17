@@ -6,6 +6,9 @@ class UserController extends AppController
     CONST PAGE_LOG_IN   = 'log_in';
     CONST PAGE_REGISTER_END = 'register_end';
     CONST PAGE_LOG_IN_END   = 'log_in_end';
+    CONST PAGE_EDIT_PROFILE = 'edit_profile';
+    CONST PAGE_EDIT_PROFILE_END = 'profile_end';
+    CONST PAGE_EDIT_PASSWORD_END = 'password_end';
 
     public function register()
     {
@@ -81,6 +84,58 @@ class UserController extends AppController
         $this->render($page);
     }
 
+    public function profile()
+    {
+        check_user_session();
+        $user = new User();
+        $user->user_id = $_SESSION['user_id'];
+        $user_account = $user->getOwnUserDetails();
+        $this->set(get_defined_vars());
+    }
+
+    public function edit_profile()
+    {
+        check_user_session();
+        $user = new User();
+        $page = Param::get('page_next',self::PAGE_EDIT_PROFILE);
+        $user->user_id = $_SESSION['user_id'];
+    
+        switch ($page) {
+            case self::PAGE_EDIT_PROFILE:
+                break;
+            case self::PAGE_EDIT_PROFILE_END:
+                $user->username = Param::get('username');
+                $user->email = Param::get('email');
+                $user->firstname = Param::get('firstname');
+                $user->lastname = Param::get('lastname');
+                $user->department = Param::get('department');
+                try {
+                    $user->updateUserDetails();
+                } catch (ValidationException $e) {
+                    $page = self::PAGE_EDIT_PROFILE;
+                } catch (DuplicateEntryException $e) {
+                    $user->validation_errors['email']['unique'] = true;
+                    $page = self::PAGE_EDIT_PROFILE;
+                }
+                break;
+            case self::PAGE_EDIT_PASSWORD_END:
+                $user->password = trim(Param::get('password'));
+                $user->retype_password = trim(Param::get('retype_password'));
+                try {
+                    $user->updateUserPassword();
+                } catch (ValidationException $e) {
+                    $page = self::PAGE_EDIT_PROFILE;
+                }
+                break;
+            default:
+                throw new NotFoundException("{$page} not found");
+                break;
+        }
+
+        $this->set(get_defined_vars());
+        $this->render($page);
+
+    }
     public function log_out()
     {
         unset($_SESSION['user_id']);

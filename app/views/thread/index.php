@@ -15,6 +15,7 @@
                         array('thread_id' => $v->id))) ?>">
                         <?php char_to_html($v->title) ?>
                     </a>
+                    <h6><?php char_to_html($v->category) ?></h6>
                 </li>
             <?php endforeach ?>
         </ul>
@@ -62,7 +63,6 @@
             </ul>
         </nav>
         <!---->
-        </br></br>
         <a class="btn btn-large btn-primary" href="<?php
             char_to_html(url('thread/create')) ?>">
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>

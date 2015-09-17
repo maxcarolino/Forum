@@ -3,14 +3,16 @@
     <head>
         <meta charset="utf-8">
         <title>DietCake - Board Exercise</title>
-
+        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="/bootstrap/js/bootstrap.js"></script>
         <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <style>
             body {
                 padding-top: 60px;
                 font-family: 'Open Sans', sans-serif;
-                background-image: url(/bootstrap/img/background.jpg);
+                background-image: url(/bootstrap/img/green_background.jpg);
                 background-repeat: no-repeat;
                 min-height: 100%;
                 background-size: cover;
@@ -23,10 +25,11 @@
                 margin-top: 30px;
             }
             .well {
-                background-color: rgba(255, 255, 255, 0.3);
+                background-color: rgba(255, 255, 255, 0.2);
             }
             .btn {
-                margin: 10px;
+                margin-top: 15px;
+                margin-right: 15px;
             }
         </style>
     </head>
@@ -38,10 +41,19 @@
                     <h2>Board Exercise</h2>
                 </div>
                 <?php if (isset($_SESSION['username'])): ?>
-                    <a class="btn btn-warning navbar-right" href="<?php char_to_html(url('user/log_out')) ?>">
-                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-                        Sign-Out
-                    </a>
+                    <div class="nav pull-right">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-user"></span>
+                            <?php char_to_html($_SESSION['username']) ?>
+                            <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?php char_to_html(url('thread/index')) ?>">Thread List</a></li>
+                                <li><a href="<?php char_to_html(url('user/profile')) ?>">Profile</a></li>
+                                <li><a href="<?php char_to_html(url('user/log_out')) ?>">Sign-Out</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 <?php endif ?>
            </div>
         </nav>

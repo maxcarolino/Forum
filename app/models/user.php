@@ -47,7 +47,7 @@ class User extends AppModel
 
     public function register()
     {
-        if (!$this->validate()){
+        if (!$this->validate()) {
             throw new ValidationException('Oops! invalid credentials');
         }
 
@@ -76,8 +76,8 @@ class User extends AppModel
         $db = DB::conn();
 
         $user_account = $db->row('SELECT user_id, username, password FROM user WHERE
-        username = ?', array($this->username)
-        );
+        username = ?', array($this->username));
+
         //check if user is not found OR the provided credentials is wrong
         if (!$user_account OR !(password_verify($this->password, $user_account['password']))) { 
             $this->validated = false;
@@ -94,5 +94,60 @@ class User extends AppModel
         array($user_id));
 
         return $row['username'];
+    }
+
+    public function getOwnUserDetails()
+    {
+        $db = DB::conn();
+
+        $row = $db->row('SELECT * FROM user WHERE user_id= ?',
+        array($this->user_id));
+
+        if (!$row) {
+            throw new RecordNotFoundException('No record found');
+        }
+            return new self($row);
+    }
+
+    public function updateUserDetails()
+    {
+
+        if (!$this->validate()) {
+            throw new ValidationException('Oops! invalid credentials');
+        }
+
+        $db = DB::conn();
+
+        $params = array(
+            'username'   => $this->username,
+            'firstname'  => $this->firstname,
+            'lastname'   => $this->lastname,
+            'email'      => $this->email,
+            'department' => $this->department
+        );
+
+        $where_params = array(
+            'user_id' => $this->user_id
+        );
+
+        try {
+            $db->update('user', $params, $where_params);
+        } catch (PDOException $e) {
+            if ($e->errorInfo[1] === self::MYSQL_ERROR_CODE) {
+                throw new DuplicateEntryException('Duplicate Entry');
+            }
+        }
+    }
+
+    public function updateUserPassword()
+    {
+        if (!$this->validate()) {
+            throw new ValidationException('Oops! invalid credentials');
+        }
+
+        $db = DB::conn();
+
+        $db->update('user', array('password' => password_hash($this->password, PASSWORD_BCRYPT)),
+             array('user_id' => $this->user_id));
     }
 }

@@ -36,7 +36,9 @@ class ThreadController extends AppController
             case self::PAGE_CREATE_END:
                 $thread->title = Param::get('title');
                 $comment->body = Param::get('body');
+                $thread->user_id = $_SESSION['user_id'];
                 $comment->user_id = $_SESSION['user_id'];
+                $thread->category = Param::get('category');
                 try {
                     $thread->create($comment);
                 } catch (ValidationException $e) {

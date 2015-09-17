@@ -55,16 +55,19 @@ class Thread extends AppModel
         }
 
         $db = DB::conn();
-        $db->begin();
 
-        $db->query('INSERT INTO thread SET title = ?, created = NOW()', 
-        array($this->title));
+        $params = array(
+            'user_id'  => $this->user_id,
+            'title'    => $this->title,
+            'category' => $this->category
+        );
+
+        $db->insert('thread', $params);
 
         $this->id = $db->lastInsertId();
 
         //write the first comment
         $comment->write($this->id);
 
-        $db->commit();
     }
 }
