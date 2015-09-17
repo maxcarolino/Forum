@@ -13,9 +13,12 @@
                     <a href="<?php
                         char_to_html(url('comment/view',
                         array('thread_id' => $v->id))) ?>">
-                        <?php char_to_html($v->title) ?>
+                        <h4><?php char_to_html($v->title) ?></h4>
                     </a>
-                    <h6><?php char_to_html($v->category) ?></h6>
+                    </br>
+                    <h6> Tags: <em><?php char_to_html($v->category)?></em></h6>
+                    <h6> Created by: <em><?php char_to_html(User::getUsername($v->user_id))?></em></h6>
+                    <h6> Date Created: <em><?php char_to_html($v->date_created)?></em></h6>
                 </li>
             <?php endforeach ?>
         </ul>

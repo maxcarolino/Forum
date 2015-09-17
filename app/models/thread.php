@@ -33,6 +33,7 @@ class Thread extends AppModel
         $rows = $db->rows($query);
 
         foreach ($rows as $row) {
+            $row['date_created'] = date("F j, Y, g:i a", strtotime($row['date']));
             $threads[] = new self($row);
         }
 
