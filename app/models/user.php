@@ -4,6 +4,10 @@ class User extends AppModel
 {
     CONST MIN_LENGTH = 6;
     CONST MAX_LENGTH = 30;
+    CONST NAME_MIN_LENGTH = 1;
+    CONST NAME_MAX_LENGTH = 30;
+    CONST DEPT_MIN_LENGTH = 2;
+    CONST DEPT_MAX_LENGTH = 50;
     CONST MYSQL_ERROR_CODE = 1062;
    
     public $validated = true;
@@ -22,10 +26,22 @@ class User extends AppModel
         'retype_password'=> array (
             'compare'    => array ('compare_password'),
         ),
+        'firstname'      => array (
+            'length'     => array ('validate_between',
+                                   self::NAME_MIN_LENGTH, self::NAME_MAX_LENGTH),
+        ),
+        'lastname'       => array (
+            'length'     => array ('validate_between',
+                                   self::NAME_MIN_LENGTH, self::NAME_MAX_LENGTH),
+        ),
         'email'          => array (
             'length'     => array ('validate_between',
                                   self::MIN_LENGTH, self::MAX_LENGTH,),
             'valid'      => array ('is_email_valid'),
+        ),
+        'department'     => array (
+            'length'     => array ('validate_between',
+                                   self::DEPT_MIN_LENGTH, self::DEPT_MAX_LENGTH),
         ),
     );
 
@@ -38,9 +54,12 @@ class User extends AppModel
         $db = DB::conn();
 
         $params = array(
-            'username' => $this->username,
-            'password' => password_hash($this->password, PASSWORD_BCRYPT),
-            'email'    => $this->email
+            'username'   => $this->username,
+            'password'   => password_hash($this->password, PASSWORD_BCRYPT),
+            'firstname'  => $this->firstname,
+            'lastname'   => $this->lastname,
+            'email'      => $this->email,
+            'department' => $this->department
         );
 
         try {

@@ -12,9 +12,18 @@
                 <label> Re-type Password: </label>
                 <input type="password" class="form-control" name="retype_password"
                     placeholder="retype password" required>
+                <label> First Name: </label>
+                <input type="text" class="form-control" name="firstname"
+                    placeholder="firstname" required>
+                <label> Last Name: </label>
+                <input type="text" class="form-control" name="lastname"
+                    placeholder="lastname" required>
                 <label> Email: </label>
                 <input type="email" class="form-control" name="email"
                     placeholder="email" required>
+                <label> Department: </label>
+                <input type="text" class="form-control" name="department"
+                    placeholder="department" required>
                 </br>
                 <input type="hidden" name="page_next" value="register_end">
                 <button type="submit" class="btn btn-primary">
@@ -98,9 +107,39 @@
                       </div>
             <?php endif ?>
 
-            <!--email already taken-->
+            <!--firstname field is empty-->
+            <?php if (!empty($user->validation_errors['firstname']['length'])): ?>
+                      <div><em> First Name </em> must be between
+                          <?php char_to_html($user->validation['firstname']['length'][1])
+                              ?> to
+                          <?php char_to_html($user->validation['firstname']['length'][2])
+                              ?> characters only.
+                      </div>
+            <?php endif ?>
+
+            <!--lastname field is empty-->
+            <?php if (!empty($user->validation_errors['lastname']['length'])): ?>
+                      <div><em> Last Name </em> must be between
+                          <?php char_to_html($user->validation['lastname']['length'][1])
+                              ?> to
+                          <?php char_to_html($user->validation['lastname']['length'][2])
+                              ?> characters only.
+                      </div>
+            <?php endif ?>
+
+            <!--deparment field is empty-->
+            <?php if (!empty($user->validation_errors['department']['length'])): ?>
+                      <div><em> Department </em> must be between
+                          <?php char_to_html($user->validation['department']['length'][1])
+                              ?> to
+                          <?php char_to_html($user->validation['department']['length'][2])
+                              ?> characters only.
+                      </div>
+            <?php endif ?>
+
+            <!--email or username already taken-->
             <?php if (!empty($user->validation_errors['email']['unique'])): ?>
-                      <div><em>Email</em> is already taken!</div>
+                      <div><em>Username or Email</em> is already taken!</div>
             <?php endif ?> 
         </div>
     </div>

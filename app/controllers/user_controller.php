@@ -13,6 +13,9 @@ class UserController extends AppController
         $page = Param::get('page_next', self::PAGE_REGISTER);
         $user->username = Param::get('username');
         $user->email = Param::get('email');
+        $user->firstname = Param::get('firstname');
+        $user->lastname = Param::get('lastname');
+        $user->department = Param::get('department');
 
         if (isset($_SESSION['username'])) {
             redirect(THREAD_LIST);
