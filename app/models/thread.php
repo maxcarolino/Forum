@@ -5,6 +5,8 @@ class Thread extends AppModel
     CONST MIN_LENGTH = 1;
     CONST MAX_LENGTH = 30;
 
+    public $isOwner = false;
+
     public $validation  =  array (
         'title'         => array (
             'length'    => array ('validate_between',
@@ -25,7 +27,7 @@ class Thread extends AppModel
         return new self($row);
     }
 
-    public static function getAll($offset, $limit)
+    public static function getAll($offset, $limit, $user_id)
     {
         $threads = array();
         $db = DB::conn();
@@ -34,6 +36,7 @@ class Thread extends AppModel
 
         foreach ($rows as $row) {
             $row['date_created'] = date("F j, Y, g:i a", strtotime($row['date']));
+            $row['is_owner'] = Thread::isThreadOwner($user_id, $row['id']);
             $threads[] = new self($row);
         }
 
@@ -70,5 +73,51 @@ class Thread extends AppModel
         //write the first comment
         $comment->write($this->id);
 
+    }
+
+    public function editThread($user_id)
+    {
+        if (!$this->validate()) {
+            throw new ValidationException('Invalid Thread');
+        }
+
+        $db = DB::conn();
+        
+        $params = array(
+            'title'    => $this->title,
+            'category' => $this->category
+        );
+        $db->update('thread', $params, array('id' => $this->id));
+    }
+
+    public static function isThreadOwner($user_id, $thread_id)
+    {
+        $db = DB::conn();
+
+        $row = $db->row('SELECT * FROM thread WHERE user_id = ? AND id = ?',
+        array($user_id, $thread_id));
+
+        return (bool) $row;
+    }
+
+    public function deleteThread($thread_id)
+    {
+        $db = DB::conn();
+        $db->query('DELETE FROM thread WHERE id = ?', array($thread_id));
+    }
+
+    public static function getTrendingThreads()
+    {
+        $threads = array();
+        $db = DB::conn();
+
+        $trending_threads_id = Comment::sortMostComments();
+
+        foreach ($trending_threads_id as $row) {
+            $thread = $db->row('SELECT * FROM thread WHERE id = ?', array($row['thread_id']));
+            $thread['count'] = $row['COUNT(*)'];
+            $threads[] = new self ($thread);
+        }
+        return $threads;
     }
 }

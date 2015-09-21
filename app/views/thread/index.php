@@ -4,6 +4,9 @@
             <span class="badge"><?php char_to_html($total) ?></span>
         </h1>
     </div>
+    <div class="col-md-4">
+        <h1> Trending Threads </h1>
+    </div>
 </div>
 <div class="row">
     <div class="col-md-5 col-md-offset-3">
@@ -19,6 +22,29 @@
                     <h6> Tags: <em><?php char_to_html($v->category)?></em></h6>
                     <h6> Created by: <em><?php char_to_html(User::getUsername($v->user_id))?></em></h6>
                     <h6> Date Created: <em><?php char_to_html($v->date_created)?></em></h6>
+                    <?php if($v->is_owner): ?>
+                       <h6><a href="<?php char_to_html(url('thread/edit_thread',
+                         array('thread_id' => $v->id))) ?>"> Edit Thread </a></h6>
+                        <h6><a href="<?php char_to_html(url('thread/delete_thread',
+                            array('thread_id' => $v->id))) ?>"> Delete Thread </a></h6>
+                    <?php endif ?>
+                </li>
+            <?php endforeach ?>
+        </ul>
+        </br>
+    </div>
+    <div class="col-md-4">
+        <ul class="list-group">
+           <?php foreach ($trending_threads as $v): ?>
+               <li class="list-group-item">
+                    <a href="<?php
+                        char_to_html(url('comment/view',
+                        array('thread_id' => $v->id))) ?>">
+                        <h4><?php char_to_html($v->title) ?> 
+                           <span class="badge"><?php char_to_html($v->count) ?></span>
+                        </h4>
+                   </a>
+                    <h6> Tags: <em><?php char_to_html($v->category)?></em></h6>
                 </li>
             <?php endforeach ?>
         </ul>

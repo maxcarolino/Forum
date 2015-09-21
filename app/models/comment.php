@@ -50,4 +50,15 @@ class Comment extends AppModel
 
         $db->insert('comment', $params);
     }
+
+    public static function sortMostComments()
+    {
+        $db = DB::conn();
+
+        $thread_id = $db->rows('SELECT COUNT(*), thread_id FROM comment GROUP BY thread_id ORDER BY COUNT(*) DESC');
+
+        return $thread_id;
+    }
+
+    
 }

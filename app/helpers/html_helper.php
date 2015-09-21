@@ -32,3 +32,17 @@ function check_user_session()
         redirect(DENY_URL);
     }
 }
+
+function get_from_url()
+{
+    $url = $_SERVER['REQUEST_URI'];
+    return substr($url, strrpos($url, '=') + 1);
+}
+
+function isThreadOwner($user_id, $thread_id)
+{
+    if (!Thread::isThreadOwner($user_id, $thread_id)) {
+        redirect(DENY_URL);
+    }
+    return true;
+}
