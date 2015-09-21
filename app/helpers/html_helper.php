@@ -33,15 +33,29 @@ function check_user_session()
     }
 }
 
-function get_from_url()
+function get_thread_id_from_url()
 {
     $url = $_SERVER['REQUEST_URI'];
-    return substr($url, strrpos($url, '=') + 1);
+    return substr($url, strpos($url, '=') + 1, 3); //magic number
+}
+
+function get_comment_id_from_url()
+{
+    $url = $_SERVER['REQUEST_URI'];
+    return substr($url, strrpos($url, '=') + 1); //magic number
 }
 
 function isThreadOwner($user_id, $thread_id)
 {
-    if (!Thread::isThreadOwner($user_id, $thread_id)) {
+    if (!Thread::isOwner($user_id, $thread_id)) {
+        redirect(DENY_URL);
+    }
+    return true;
+}
+
+function isCommentOwner($user_id, $comment_id)
+{
+    if (!Comment::isOwner($user_id, $comment_id)) {
         redirect(DENY_URL);
     }
     return true;

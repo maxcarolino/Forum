@@ -73,7 +73,7 @@ class ThreadController extends AppController
     public function edit_thread()
     {
         check_user_session();
-        $thread_id = get_from_url();
+        $thread_id = get_thread_id_from_url();
         $thread = Thread::get($thread_id);
         $user_id = $_SESSION['user_id'];
 
@@ -87,7 +87,7 @@ class ThreadController extends AppController
                     $thread->title = Param::get('title');
                     $thread->category = Param::get('category');
                     try {
-                        $thread->editThread($user_id);
+                        $thread->editThread();
                     } catch (ValidationException $e) {
                         $page = self::PAGE_EDIT;
                     }
@@ -105,12 +105,27 @@ class ThreadController extends AppController
     public function delete_thread()
     {
         check_user_session();
-        $thread_id = get_from_url();
+        $thread_id = get_thread_id_from_url();
         $user_id = $_SESSION['user_id'];
         $thread = Thread::get($thread_id);
 
+        $page = Param::get('page_next', self::PAGE_DELETE);
+
         if (isThreadOwner($user_id, $thread_id)) {
-            $thread->deleteThread($thread_id);
+            switch ($page) {
+                case self::PAGE_DELETE:
+                    break;
+                case self::PAGE_DELETE_END:
+                    Comment::deleteAllCommentsInThread($thread_id);
+                    $thread->deleteThread();
+                    break;
+                default:
+                    throw new NotFoundException("{$page} is not found");
+                    break;
+            }
         }
+
+        $this->set(get_defined_vars());
+        $this->render($page);
     }
  }

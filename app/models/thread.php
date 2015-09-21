@@ -5,8 +5,6 @@ class Thread extends AppModel
     CONST MIN_LENGTH = 1;
     CONST MAX_LENGTH = 30;
 
-    public $isOwner = false;
-
     public $validation  =  array (
         'title'         => array (
             'length'    => array ('validate_between',
@@ -36,7 +34,7 @@ class Thread extends AppModel
 
         foreach ($rows as $row) {
             $row['date_created'] = date("F j, Y, g:i a", strtotime($row['date']));
-            $row['is_owner'] = Thread::isThreadOwner($user_id, $row['id']);
+            $row['is_owner'] = Thread::isOwner($user_id, $row['id']);
             $threads[] = new self($row);
         }
 
@@ -75,7 +73,7 @@ class Thread extends AppModel
 
     }
 
-    public function editThread($user_id)
+    public function editThread()
     {
         if (!$this->validate()) {
             throw new ValidationException('Invalid Thread');
@@ -90,7 +88,7 @@ class Thread extends AppModel
         $db->update('thread', $params, array('id' => $this->id));
     }
 
-    public static function isThreadOwner($user_id, $thread_id)
+    public static function isOwner($user_id, $thread_id)
     {
         $db = DB::conn();
 
@@ -100,10 +98,10 @@ class Thread extends AppModel
         return (bool) $row;
     }
 
-    public function deleteThread($thread_id)
+    public function deleteThread()
     {
         $db = DB::conn();
-        $db->query('DELETE FROM thread WHERE id = ?', array($thread_id));
+        $db->query('DELETE FROM thread WHERE id = ?', array($this->id));
     }
 
     public static function getTrendingThreads()
@@ -130,7 +128,7 @@ class Thread extends AppModel
 
         foreach ($rows as $row) {
             $row['date_created'] = date("F j, Y, g:i a", strtotime($row['date']));
-            $row['is_owner'] = Thread::isThreadOwner($user_id, $row['id']);
+            $row['is_owner'] = Thread::isOwner($user_id, $row['id']);
             $threads[] = new self($row);
         }
         return $threads;

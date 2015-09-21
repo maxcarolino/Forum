@@ -24,7 +24,7 @@
                     <h6> Date Created: <em><?php char_to_html($v->date_created)?></em></h6>
                     <?php if($v->is_owner): ?>
                        <h6><a href="<?php char_to_html(url('thread/edit_thread',
-                         array('thread_id' => $v->id))) ?>"> Edit Thread </a></h6>
+                            array('thread_id' => $v->id))) ?>"> Edit Thread </a></h6>
                         <h6><a href="<?php char_to_html(url('thread/delete_thread',
                             array('thread_id' => $v->id))) ?>"> Delete Thread </a></h6>
                     <?php endif ?>

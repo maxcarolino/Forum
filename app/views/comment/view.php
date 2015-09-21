@@ -13,9 +13,18 @@
             <ul class="list-group">
                 <?php foreach ($comments as $k => $v): ?>
                     <li class="list-group-item"><?php char_to_html($k + 1) ?>:
-                        <?php echo char_to_html($v->username) ?>
-                        <?php char_to_html($v->date) ?> </br>
-                        <?php echo readable_text($v->body) ?>
+                        <b><?php echo char_to_html($v->username) ?></b>
+                        <h6>Date Created: <?php char_to_html($v->date) ?></h6>
+                        <h6>Date Modified: <?php char_to_html($v->date_modified) ?></h6>
+                        <h4><?php echo readable_text($v->body) ?></h3>
+                        <?php if($v->is_owner): ?>
+                            <h6><a href="<?php char_to_html(url('comment/edit_comment',
+                                array('thread_id' => $v->thread_id, 'comment_id' => $v->id))) ?>">
+                                    Edit Comment </a></h6>
+                            <h6><a href="<?php char_to_html(url('comment/delete_comment',
+                                array('thread_id' => $v->thread_id, 'comment_id' => $v->id))) ?>">
+                                    Delete Comment </a></h6>
+                        <?php endif ?>
                     </li>
                     </br>
                 <?php endforeach ?>
