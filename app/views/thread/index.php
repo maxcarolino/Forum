@@ -97,5 +97,10 @@
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
             Create Thread
         </a>
+        <a class="btn btn-large btn-primary" href="<?php
+            char_to_html(url('')) ?>">
+            Sort
+            <?php $_SESSION['sort'] = 'sort' ?>
+        </a>
     </div>
 </div>

@@ -20,7 +20,16 @@ class ThreadController extends AppController
         $pagination = new SimplePagination($page, self::PER_PAGE);
 
         $threads = Thread::getAll($pagination->start_index - 1,
-                           $pagination->count + 1, $user_id); 
+                           $pagination->count + 1, $user_id);
+        if (isset($_SESSION['sort'])) {
+           unset($_SESSION['sort']);
+           $threads = Thread::sortTrendsByCategory($pagination->start_index - 1,
+                           $pagination->count + 1, $user_id);
+        } else {
+            $threads = Thread::getAll($pagination->start_index - 1,
+                           $pagination->count + 1, $user_id);
+        }
+
         $pagination->checkLastPage($threads);    
       
         $total = Thread::countAll();

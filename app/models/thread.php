@@ -120,4 +120,19 @@ class Thread extends AppModel
         }
         return $threads;
     }
+
+    public static function sortTrendsByCategory($offset, $limit, $user_id)
+    {
+       $threads = array();
+       $db = DB::conn();
+        $query = sprintf('SELECT * FROM thread ORDER BY CAST(category AS CHAR), title LIMIT %d, %d', $offset, $limit);
+        $rows = $db->rows($query);
+
+        foreach ($rows as $row) {
+            $row['date_created'] = date("F j, Y, g:i a", strtotime($row['date']));
+            $row['is_owner'] = Thread::isThreadOwner($user_id, $row['id']);
+            $threads[] = new self($row);
+        }
+        return $threads;
+    }
 }
