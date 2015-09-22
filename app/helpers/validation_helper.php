@@ -29,8 +29,3 @@ function is_email_valid($check)
 {
 	return preg_match("/^([a-z0-9_\.-]+\@[\da-z\.-]+\.[a-z\.]{2,6})$/", $check);
 }
-
-function sample()
-{
-	return true;
-}
