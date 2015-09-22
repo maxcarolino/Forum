@@ -16,12 +16,12 @@ class CommentController extends AppController
         check_user_session();
         $thread = Thread::get(Param::get('thread_id'));
         $thread_id = Param::get('thread_id');
-        $comment =  new Comment();
+        $_SESSION['thread_id'] = $thread_id;
         $user_id = $_SESSION['user_id'];
 
         $page = Param::get('page', self::PAGE_DEFAULT);
         $pagination = new SimplePagination($page, self::PER_PAGE);
-      
+
         $comments = Comment::getAllByThreadId($pagination->start_index - 1,
                               $pagination->count + 1, $thread_id, $user_id);
 
@@ -126,5 +126,27 @@ class CommentController extends AppController
         
         $this->set(get_defined_vars());
         $this->render($page);
+    }
+
+    public function set_like()
+    {
+        check_user_session();
+        $comment_id = get_comment_id_from_url();
+        $thread_id = get_thread_id_from_url();
+        $user_id = $_SESSION['user_id'];
+
+        Likes::setLike($user_id, $comment_id);
+        header("location: view?thread_id=$thread_id");
+    }
+
+    public function unlike()
+    {
+        check_user_session();
+        $comment_id = get_comment_id_from_url();
+        $thread_id = get_thread_id_from_url();
+        $user_id = $_SESSION['user_id'];
+
+        Likes::unLike($user_id, $comment_id);
+        header("location: view?thread_id=$thread_id");
     }
 }

@@ -22,6 +22,15 @@ class Likes extends AppModel
         array($user_id, $comment_id));
     }
 
+    public static function isLike($user_id, $comment_id)
+    {
+        $db = DB::conn();
+        $row = $db->row('SELECT * FROM likes WHERE user_id = ? AND comment_id = ?',
+        array($user_id, $comment_id));
+
+        return (bool) $row;
+    }
+
     public static function countLike($comment_id)
     {
         $db = DB::conn();
@@ -30,14 +39,5 @@ class Likes extends AppModel
         array($comment_id));
 
         return (int) $row;
-    }
-
-    public static function mostLikes()
-    {
-        $db = DB::conn();
-
-        $rows = $db->rows('SELECT COUNT(*), * FROM likes GROUP BY comment_id ORDER BY COUNT(*) DESC');
-
-        return $rows;
     }
 }

@@ -24,23 +24,7 @@ class Thread extends AppModel
 
         return new self($row);
     }
-
-    public static function getAll($offset, $limit, $user_id)
-    {
-        $threads = array();
-        $db = DB::conn();
-        $query = sprintf('SELECT * FROM thread LIMIT %d, %d', $offset, $limit);
-        $rows = $db->rows($query);
-
-        foreach ($rows as $row) {
-            $row['date_created'] = date("F j, Y, g:i a", strtotime($row['date']));
-            $row['is_owner'] = Thread::isOwner($user_id, $row['id']);
-            $threads[] = new self($row);
-        }
-
-        return $threads;
-    }
-  
+    
     public static function countAll()
     {
         $db = DB::conn();
@@ -123,12 +107,14 @@ class Thread extends AppModel
     {
        $threads = array();
        $db = DB::conn();
-        $query = sprintf('SELECT * FROM thread ORDER BY CAST(category AS CHAR), title LIMIT %d, %d', $offset, $limit);
-        $rows = $db->rows($query);
+       $query = sprintf('SELECT * FROM thread ORDER BY CAST(category AS CHAR), title LIMIT %d, %d', $offset, $limit);
+       $rows = $db->rows($query);
 
         foreach ($rows as $row) {
             $row['date_created'] = date("F j, Y, g:i a", strtotime($row['date']));
             $row['is_owner'] = Thread::isOwner($user_id, $row['id']);
+            $row['username'] = User::getUsername($row['user_id']);
+            $row['is_bookmark'] = Bookmarks::isBookmark($user_id, $row['id']);
             $threads[] = new self($row);
         }
         return $threads;

@@ -16,7 +16,15 @@
                         <b><?php echo char_to_html($v->username) ?></b>
                         <h6>Date Created: <?php char_to_html($v->date) ?></h6>
                         <h6>Date Modified: <?php char_to_html($v->date_modified) ?></h6>
+                        <h5>Likes: <?php char_to_html($v->likes) ?></h5>
                         <h4><?php echo readable_text($v->body) ?></h3>
+                        <?php if($v->is_like): ?>
+                            <h5><a href="<?php char_to_html(url('comment/unlike',
+                                array('thread_id' => $v->thread_id, 'comment_id' => $v->id)))?>"> Unlike </a></h5>
+                        <?php else: ?>
+                            <h5><a href="<?php char_to_html(url('comment/set_like',
+                                array('thread_id' => $v->thread_id, 'comment_id' => $v->id)))?>"> Like </a></h5>
+                        <?php endif ?>
                         <?php if($v->is_owner): ?>
                             <h6><a href="<?php char_to_html(url('comment/edit_comment',
                                 array('thread_id' => $v->thread_id, 'comment_id' => $v->id))) ?>">

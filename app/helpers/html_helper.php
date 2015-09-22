@@ -60,3 +60,11 @@ function isCommentOwner($user_id, $comment_id)
     }
     return true;
 }
+
+function cmp($a, $b)
+{
+    if ($b->likes === $a->likes) {
+        return 0;
+    }
+    return $b->likes - $a->likes;
+}

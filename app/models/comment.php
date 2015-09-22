@@ -31,8 +31,9 @@ class Comment extends AppModel
             $row['username'] = User::getUsername($row['user_id']);
             $row['is_owner'] = Comment::isOwner($user_id, $row['id']);
             $row['date'] = date("F j, Y, g:i a", strtotime($row['date']));
-            if ($row['date_modified'] > 0) // magic number
-            {
+            $row['likes'] = Likes::countLike($row['id']);
+            $row['is_like'] = Likes::isLike($user_id, $row['id']);
+            if ($row['date_modified'] > 0) {
                 $row['date_modified'] = date("F j, Y, g:i a", strtotime($row['date_modified']));
             } else {
                 $row['date_modified'] = 'None';
@@ -40,6 +41,7 @@ class Comment extends AppModel
             $comments[] = new self($row);
         }
 
+        usort($comments, "cmp");
         return $comments;
     }
   
@@ -121,5 +123,10 @@ class Comment extends AppModel
     {
         $db = DB::conn();
         $db->query('DELETE FROM comment WHERE id = ?', array($id));
+    }
+
+    public static function getSorted()
+    {
+
     }
 }
