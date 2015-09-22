@@ -89,6 +89,7 @@ class UserController extends AppController
         check_user_session();
         $user_id = $_SESSION['user_id'];
         $user_account = User::getOwnUserDetails($user_id);
+        $bookmark = Bookmarks::getAllbyUser($user_id);
         $this->set(get_defined_vars());
     }
 

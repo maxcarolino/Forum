@@ -18,17 +18,9 @@ class ThreadController extends AppController
 
         $page = Param::get('page', self::PAGE_DEFAULT);
         $pagination = new SimplePagination($page, self::PER_PAGE);
-
-        $threads = Thread::getAll($pagination->start_index - 1,
-                           $pagination->count + 1, $user_id);
-        if (isset($_SESSION['sort'])) {
-           unset($_SESSION['sort']);
-           $threads = Thread::sortTrendsByCategory($pagination->start_index - 1,
-                           $pagination->count + 1, $user_id);
-        } else {
-            $threads = Thread::getAll($pagination->start_index - 1,
-                           $pagination->count + 1, $user_id);
-        }
+        
+        $threads = Thread::sortTrendsByCategory($pagination->start_index - 1,
+                        $pagination->count + 1, $user_id);
 
         $pagination->checkLastPage($threads);    
       
@@ -127,5 +119,25 @@ class ThreadController extends AppController
 
         $this->set(get_defined_vars());
         $this->render($page);
+    }
+
+    public function set_bookmark()
+    {
+        check_user_session();
+        $user_id = $_SESSION['user_id'];
+        $thread_id = get_thread_id_from_url();
+
+        Bookmarks::setBookmarks($user_id, $thread_id);
+        header("location: index");
+    }
+
+    public function unset_bookmark()
+    {
+        check_user_session();
+        $user_id = $_SESSION['user_id'];
+        $thread_id = get_thread_id_from_url();
+        
+        Bookmarks::unsetBookmarks($user_id, $thread_id);
+        header("location: index");
     }
  }
