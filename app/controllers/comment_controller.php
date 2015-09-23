@@ -38,6 +38,7 @@ class CommentController extends AppController
         check_user_session();
         $thread = Thread::get(Param::get('thread_id'));
         $comment = new Comment();
+        $filepath = upload();
         $page = Param::get('page_next');
 
         switch ($page) {
@@ -46,6 +47,7 @@ class CommentController extends AppController
             case self::PAGE_WRITE_END:
                 $comment->body = Param::get('body');
                 $comment->user_id = $_SESSION['user_id'];
+                $comment->filepath = $filepath;
                 try {
                     $comment->write($thread->id);
                 } catch (ValidationException $e) {

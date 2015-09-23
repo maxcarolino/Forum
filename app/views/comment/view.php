@@ -17,7 +17,12 @@
                         <h6>Date Created: <?php char_to_html($v->date) ?></h6>
                         <h6>Date Modified: <?php char_to_html($v->date_modified) ?></h6>
                         <h5>Likes: <?php char_to_html($v->likes) ?></h5>
+                        <br>
                         <h4><?php echo readable_text($v->body) ?></h3>
+                        <?php if (!empty($v->filepath)): ?>
+                            <img src="../<?php char_to_html($v->filepath) ?>" height="200" width="200" >
+                        <?php endif ?>
+                        <br><br>
                         <?php if($v->is_like): ?>
                             <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                             <a href="<?php char_to_html(url('comment/unlike',
@@ -89,15 +94,17 @@
             <hr>
             <div class="form-group">
                 <form class="well" method="post" action="<?php
-                    char_to_html(url('comment/write')) ?>">
+                    char_to_html(url('comment/write')) ?>" enctype="multipart/form-data">
                     <label> Comment </label>
                     <textarea name="body" class="form-control"
                         placeholder="Your comment goes here." required></textarea>
                     <br/>
                     <input type="hidden" name="thread_id" value="<?php
                         char_to_html($thread->id) ?>">
+                    <input type="file" name="pic">
+                    <p class="help-block">Image Files Only. (max size: 5MB)</p>
                     <input type="hidden" name="page_next" value="write_end">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" name="btn-upload">
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                         Submit
                     </button>

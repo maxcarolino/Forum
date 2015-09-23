@@ -74,3 +74,27 @@ function cmp($a, $b)
     }
     return $b->likes - $a->likes;
 }
+
+function upload()
+{
+    if (!$_FILES['pic']['name'] === "") { //check if no file was selected
+
+        $fileType = exif_imagetype($_FILES["pic"]["tmp_name"]);
+        $allowed = array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG);
+
+        if (!in_array($fileType, $allowed)) { //check if file type is an image
+            return $filepath = null;
+        }
+
+        $pic = rand(1000,100000)."-".$_FILES['pic']['name'];
+        $pic_loc = $_FILES['pic']['tmp_name'];
+        $folder="uploads/";
+        if(move_uploaded_file($pic_loc,$folder.$pic))
+        {
+            return $filepath = $folder.$pic;
+        }
+            return $filepath = null;
+    }
+
+    return $filepath = null;
+}

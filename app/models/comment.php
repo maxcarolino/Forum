@@ -24,7 +24,7 @@ class Comment extends AppModel
         $comments = array();
         $db = DB::conn();
         $query = sprintf('SELECT * FROM comment WHERE thread_id = ? ORDER BY
-        date LIMIT %d, %d', $offset, $limit);
+        date DESC LIMIT %d, %d', $offset, $limit);
         $rows = $db->rows($query, array($thread_id));
 
         foreach ($rows as $row) {
@@ -56,6 +56,7 @@ class Comment extends AppModel
             'thread_id' => $thread_id,
             'user_id'   => $this->user_id,
             'body'      => $this->body,
+            'filepath'  => $this->filepath,
         );
 
         $db->insert('comment', $params);
