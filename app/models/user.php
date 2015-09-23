@@ -96,7 +96,7 @@ class User extends AppModel
         return $row['username'];
     }
 
-    public static function getOwnProfile($user_id)
+    public static function getProfile($user_id)
     {
         $db = DB::conn();
 

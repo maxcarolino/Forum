@@ -45,6 +45,12 @@ function get_comment_id_from_url()
     return substr($url, strrpos($url, '=') + 1); //magic number
 }
 
+function get_user_id_from_url()
+{
+    $url = $_SERVER['REQUEST_URI'];
+    return substr($url, strrpos($url, '=') + 1);
+}
+
 function isThreadOwner($user_id, $thread_id)
 {
     if (!Thread::isOwner($user_id, $thread_id)) {

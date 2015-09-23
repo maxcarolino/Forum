@@ -9,6 +9,7 @@ class UserController extends AppController
     CONST PAGE_EDIT_PROFILE = 'edit_profile';
     CONST PAGE_EDIT_PROFILE_END = 'profile_end';
     CONST PAGE_EDIT_PASSWORD_END = 'password_end';
+    CONST PAGE_PROFILE_NOT_FOUND = 'profile_not_found';
 
     public function register()
     {
@@ -88,14 +89,30 @@ class UserController extends AppController
     {
         check_user_session();
         $user_id = $_SESSION['user_id'];
-        $user_account = User::getOwnProfile($user_id);
-        $bookmark = Bookmarks::getAllbyUser($user_id);
+
+        try {
+            $user_account = User::getProfile($user_id);
+            $bookmark = Bookmarks::getAllbyUser($user_id);
+        } catch (RecordNotFoundException $e) {
+            $this->render(self::PAGE_PROFILE_NOT_FOUND);
+        }
+        
         $this->set(get_defined_vars());
     }
 
     public function other_user_profile()
     {
         check_user_session();
+        $user_id = get_user_id_from_url();
+
+        try {
+            $user_account = User::getProfile($user_id);
+            $bookmark = Bookmarks::getAllbyUser($user_id);
+        } catch (RecordNotFoundException $e) {
+            $this->render(self::PAGE_PROFILE_NOT_FOUND);
+        }
+        
+        $this->set(get_defined_vars());
     }
 
     public function edit_profile()
@@ -104,7 +121,7 @@ class UserController extends AppController
         $user = new User();
         $page = Param::get('page_next',self::PAGE_EDIT_PROFILE);
         $user_id = $_SESSION['user_id'];
-        $user_account = User::getOwnProfile($user_id);
+        $user_account = User::getProfile($user_id);
 
         switch ($page) {
             case self::PAGE_EDIT_PROFILE:

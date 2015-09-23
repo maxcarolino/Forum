@@ -18,7 +18,7 @@
                 background-size: cover;
             }
             .navbar-right {
-                margin-right: 50px;
+                margin-right: 10px;
             }
             .alert {
                 width: 360px;
@@ -28,8 +28,11 @@
                 background-color: rgba(255, 255, 255, 0.2);
             }
             .btn {
-                margin-top: 15px;
                 margin-right: 15px;
+                margin-top: 5px;
+            }
+            .nav {
+                margin-top: 10px;
             }
         </style>
     </head>
@@ -41,19 +44,40 @@
                     <h2>Board Exercise</h2>
                 </div>
                 <?php if (isset($_SESSION['username'])): ?>
-                    <div class="nav pull-right">
-                        <div class="dropdown">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="<?php
+                            char_to_html(url('thread/create')) ?>">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            Create Thread
+                        </a></li>
+                        <li><a href="<?php
+                            char_to_html(url('thread/search_thread')) ?>">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            Search For a Thread
+                        </a></li>
+                        <li><div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-user"></span>
                             <?php char_to_html($_SESSION['username']) ?>
                             <span class="caret"></span></button>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php char_to_html(url('thread/index')) ?>">Thread List</a></li>
-                                <li><a href="<?php char_to_html(url('user/profile')) ?>">Profile</a></li>
-                                <li><a href="<?php char_to_html(url('user/log_out')) ?>">Sign-Out</a></li>
+                                <li>
+                                    <a href="<?php char_to_html(url('thread/index')) ?>">
+                                    <i class="glyphicon glyphicon-th-list"></i> Thread List</a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <a href="<?php char_to_html(url('user/profile')) ?>">
+                                    <i class="glyphicon glyphicon-user"></i> Profile</a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <a href="<?php char_to_html(url('user/log_out')) ?>">
+                                    <i class="glyphicon glyphicon-log-out"></i> Sign-Out</a>
+                                </li>
                             </ul>
-                        </div>
-                    </div>
+                        </div></li>
+                    </ul>
                 <?php endif ?>
            </div>
         </nav>

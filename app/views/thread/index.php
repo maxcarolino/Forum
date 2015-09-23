@@ -28,12 +28,17 @@
                     </br>
                     <h6> Tags: <em><?php char_to_html($v->category)?></em></h6>
                     <h6> Date Created: <em><?php char_to_html($v->date_created)?></em></h6>
-                    <h6> Created by: <em><a href="#"><?php char_to_html($v->username)?></a></em></h6>
                     <?php if($v->is_owner): ?>
+                        <h6> Created by: <em><a href="<?php char_to_html(url('user/profile')) ?>">
+                            <?php char_to_html($v->username)?></a></em></h6>
                         <h6><a href="<?php char_to_html(url('thread/edit_thread',
                             array('thread_id' => $v->id))) ?>"> Edit Thread </a></h6>
                         <h6><a href="<?php char_to_html(url('thread/delete_thread',
                             array('thread_id' => $v->id))) ?>"> Delete Thread </a></h6>
+                    <?php else: ?>
+                        <h6> Created by: <em><a href="<?php char_to_html(url('user/other_user_profile',
+                            array('user_id' => $v->user_id))) ?>">
+                            <?php char_to_html($v->username)?></a></em></h6>
                     <?php endif ?>
                 </li>
             <?php endforeach ?>
@@ -99,15 +104,5 @@
             </ul>
         </nav>
         <!---->
-        <a class="btn btn-large btn-primary" href="<?php
-            char_to_html(url('thread/create')) ?>">
-            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-            Create Thread
-        </a>
-
-        <a class="btn btn-large btn-primary" href="<?php
-            char_to_html(url('thread/search_thread')) ?>">
-            Search For a Thread
-        </a>
     </div>
 </div>

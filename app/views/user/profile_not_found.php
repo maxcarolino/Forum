@@ -4,7 +4,7 @@
             <h2>
                 <span class="glyphicon glyphicon-warning-sign"
                 aria-hidden="true"></span>
-                Permission denied!
+                Profile Not Found!
             </h2>
         </div>
     </div>

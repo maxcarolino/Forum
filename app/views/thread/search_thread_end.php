@@ -13,14 +13,16 @@
                 Back to thread list. 
             </a>
         <?php else: ?>
-            <ul>
+            </br>
+            <ul class="list-group">
                 <?php foreach ($threads as $k => $v): ?>
-                    <li>
+                    <li class="list-group-item">
                         <h4><a href="<?php
                             char_to_html(url('comment/view',
                             array('thread_id' => $v->id))) ?>">
                             <?php char_to_html($v->title) ?>
                         </a></h4>
+                        <h6> Tags: <em><?php char_to_html($v->category)?></em></h6>
                     </li>
                 <?php endforeach ?>
             </ul>

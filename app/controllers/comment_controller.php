@@ -2,7 +2,7 @@
 
 class CommentController extends AppController
 {
-    CONST PER_PAGE = 10;
+    CONST PER_PAGE = 5;
     CONST PAGE_DEFAULT = 1;
     CONST PAGE_WRITE = 'write';
     CONST PAGE_WRITE_END = 'write_end';

@@ -9,7 +9,7 @@
             <form class="well" method="post" action="<?php
                 char_to_html(url('')) ?>">
                 <input type="text" class="form-control" name="username"
-                    placeholder="username" required></br>
+                    placeholder="username of owner" required></br>
                 <input type="hidden" name="page_next" value="search_thread_end">
                 <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
