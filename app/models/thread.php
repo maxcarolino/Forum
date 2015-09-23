@@ -82,12 +82,22 @@ class Thread extends AppModel
         return (bool) $row;
     }
 
-    public function deleteThread()
+    public function delete()
     {
-        $db = DB::conn();
-        $db->query('DELETE FROM thread WHERE id = ?', array($this->id));
-    }
+        try {
+            $db = DB::conn();
+            $db->begin();
 
+            Comment::deleteByThreadId($this->id);
+            Bookmarks::deleteAllByThreadId($this->id);
+
+            $db->query('DELETE FROM thread WHERE id = ?', array($this->id));
+            $db->commit();
+    
+        } catch (Exception $e) {
+            $db->rollback();
+        }        
+    }
     public static function getTrendingThreads()
     {
         $threads = array();
@@ -117,6 +127,21 @@ class Thread extends AppModel
             $row['is_bookmark'] = Bookmarks::isBookmark($user_id, $row['id']);
             $threads[] = new self($row);
         }
+        return $threads;
+    }
+
+    public static function getByUser($user_id) //add pagination
+    {
+        $threads = array();
+        $db = DB::conn();
+
+        $rows = $db->rows('SELECT * FROM thread WHERE user_id = ?',
+        array($user_id));
+
+        foreach ($rows as $row) {
+            $threads[] = new self($row);
+        }
+
         return $threads;
     }
 }

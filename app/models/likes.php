@@ -14,7 +14,7 @@ class Likes extends AppModel
         $db->insert('likes', $params);
     }
 
-    public static function unLike($user_id, $comment_id)
+    public static function unlike($user_id, $comment_id)
     {
         $db = DB::conn();
 
@@ -39,5 +39,11 @@ class Likes extends AppModel
         array($comment_id));
 
         return (int) $row;
+    }
+
+    public static function deleteByComment($comment_id)
+    {
+        $db = DB::conn();
+        $db->query('DELETE FROM likes WHERE comment_id = ?', array($comment_id));
     }
 }

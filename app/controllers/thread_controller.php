@@ -10,6 +10,8 @@ class ThreadController extends AppController
     CONST PAGE_EDIT_END = 'edit_thread_end';
     CONST PAGE_DELETE = 'delete_thread';
     CONST PAGE_DELETE_END = 'delete_thread_end';
+    CONST PAGE_SEARCH = 'search_thread';
+    CONST PAGE_SEARCH_END = 'search_thread_end';
 
     public function index()
     {
@@ -108,8 +110,7 @@ class ThreadController extends AppController
                 case self::PAGE_DELETE:
                     break;
                 case self::PAGE_DELETE_END:
-                    Comment::deleteAllCommentsInThread($thread_id);
-                    $thread->deleteThread();
+                    $thread->delete();
                     break;
                 default:
                     throw new NotFoundException("{$page} is not found");
@@ -139,5 +140,27 @@ class ThreadController extends AppController
         
         Bookmarks::unsetBookmarks($user_id, $thread_id);
         header("location: index");
+    }
+
+    public function search_thread()
+    {
+        check_user_session();
+        $username = Param::get('username');
+        $page = Param::get('page_next', self::PAGE_SEARCH);
+
+        switch ($page) {
+            case self::PAGE_SEARCH:
+                break;
+            case self::PAGE_SEARCH_END:
+                $user_id = User::getUserId($username);
+                $threads = Thread::getByUser($user_id);
+                break;
+            default:
+                throw new NotFoundException("{$page} is not found");
+                break;
+        }
+
+        $this->set(get_defined_vars());
+        $this->render($page);
     }
  }

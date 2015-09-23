@@ -41,7 +41,7 @@ class Comment extends AppModel
             $comments[] = new self($row);
         }
 
-        usort($comments, "cmp");
+        usort($comments, "cmp"); //sort based on number of likes
         return $comments;
     }
   
@@ -113,20 +113,35 @@ class Comment extends AppModel
         $db->update('comment', $params, array('id' => $this->id));
     }
 
-    public static function deleteAllCommentsInThread($thread_id)
+    public static function deleteByThreadId($thread_id)
     {
-        $db = DB::conn();
-        $db->query('DELETE FROM comment WHERE thread_id = ?', array($thread_id));
+        try {
+            $db = DB::conn();
+            $db->begin();
+            $rows = $db->rows('SELECT id FROM comment WHERE thread_id = ?', array($thread_id));
+
+            foreach ($rows as $row) { //delete all likes in the comment before deleting the comment itself
+                Likes::deleteByComment($row['id']);
+            }
+
+            $db->query('DELETE FROM comment WHERE thread_id = ?', array($thread_id));
+            $db->commit();
+        } catch (Exception $e) {
+            $db->rollback();
+        }
     }
 
     public static function delete($id)
     {
-        $db = DB::conn();
-        $db->query('DELETE FROM comment WHERE id = ?', array($id));
-    }
+        try {
+            $db = DB::conn();
+            $db->begin();
 
-    public static function getSorted()
-    {
-
+            Likes::deleteByComment($id);
+            $db->query('DELETE FROM comment WHERE id = ?', array($id));
+            $db->commit();
+        } catch (Exception $e) {
+            $db->rollback();
+        }
     }
 }

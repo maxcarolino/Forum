@@ -45,4 +45,10 @@ class Bookmarks extends AppModel
         }
         return $threads;
     }
+
+    public static function deleteAllByThreadId($thread_id)
+    {
+        $db = DB::conn();
+        $db->query('DELETE FROM bookmark WHERE thread_id = ?', array($thread_id));
+    }
 }

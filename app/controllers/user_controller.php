@@ -88,9 +88,14 @@ class UserController extends AppController
     {
         check_user_session();
         $user_id = $_SESSION['user_id'];
-        $user_account = User::getOwnUserDetails($user_id);
+        $user_account = User::getOwnProfile($user_id);
         $bookmark = Bookmarks::getAllbyUser($user_id);
         $this->set(get_defined_vars());
+    }
+
+    public function other_user_profile()
+    {
+        check_user_session();
     }
 
     public function edit_profile()
@@ -99,7 +104,7 @@ class UserController extends AppController
         $user = new User();
         $page = Param::get('page_next',self::PAGE_EDIT_PROFILE);
         $user_id = $_SESSION['user_id'];
-        $user_account = User::getOwnUserDetails($user_id);
+        $user_account = User::getOwnProfile($user_id);
 
         switch ($page) {
             case self::PAGE_EDIT_PROFILE:
@@ -111,7 +116,7 @@ class UserController extends AppController
                 $user->lastname = Param::get('lastname');
                 $user->department = Param::get('department');
                 try {
-                    $user->updateUserDetails($user_id);
+                    $user->updateProfile($user_id);
                 } catch (ValidationException $e) {
                     $page = self::PAGE_EDIT_PROFILE;
                 } catch (DuplicateEntryException $e) {
@@ -123,7 +128,7 @@ class UserController extends AppController
                 $user->password = trim(Param::get('password'));
                 $user->retype_password = trim(Param::get('retype_password'));
                 try {
-                    $user->updateUserPassword();
+                    $user->updatePassword();
                 } catch (ValidationException $e) {
                     $page = self::PAGE_EDIT_PROFILE;
                 }

@@ -75,7 +75,7 @@ class User extends AppModel
     {
         $db = DB::conn();
 
-        $user_account = $db->row('SELECT user_id, username, password FROM user WHERE
+        $user_account = $db->row('SELECT user_id, username, password FROM user WHERE BINARY
         username = ?', array($this->username));
 
         //check if user is not found OR the provided credentials is wrong
@@ -96,7 +96,7 @@ class User extends AppModel
         return $row['username'];
     }
 
-    public static function getOwnUserDetails($user_id)
+    public static function getOwnProfile($user_id)
     {
         $db = DB::conn();
 
@@ -109,7 +109,7 @@ class User extends AppModel
             return new self($row);
     }
 
-    public function updateUserDetails($user_id)
+    public function updateProfile($user_id)
     {
 
         if (!$this->validate()) {
@@ -139,7 +139,7 @@ class User extends AppModel
         }
     }
 
-    public function updateUserPassword()
+    public function updatePassword()
     {
         if (!$this->validate()) {
             throw new ValidationException('Oops! invalid credentials');
@@ -149,5 +149,15 @@ class User extends AppModel
 
         $db->update('user', array('password' => password_hash($this->password, PASSWORD_BCRYPT)),
              array('user_id' => $this->user_id));
+    }
+
+    public static function getUserId($username)
+    {
+        $db = DB::conn();
+
+        $row = $db->row('SELECT user_id FROM user WHERE BINARY username = ?',
+        array($username));
+
+        return $row['user_id'];
     }
 }

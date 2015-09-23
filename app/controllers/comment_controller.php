@@ -146,7 +146,7 @@ class CommentController extends AppController
         $thread_id = get_thread_id_from_url();
         $user_id = $_SESSION['user_id'];
 
-        Likes::unLike($user_id, $comment_id);
+        Likes::unlike($user_id, $comment_id);
         header("location: view?thread_id=$thread_id");
     }
 }
