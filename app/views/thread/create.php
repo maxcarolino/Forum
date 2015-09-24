@@ -14,7 +14,7 @@
                 <input type="file" name="pic">
                 <p class="help-block">Image Files Only. (max size: 5MB)</p>
                 <label>Pick a Category:</label>
-                <select name="category">
+                <select class="form-control" name="category">
                     <option value="Animals">Animals</option>
                     <option value="Funny">Funny</option>
                     <option value="Manga/Anime">Manga/Anime</option>
@@ -57,7 +57,7 @@
             <?php if (!empty($comment->validation_errors['body']['length'])): ?>
                 <div><em>Comment</em> must be between
                     <?php char_to_html($comment->validation['body']['length'][1])
-                        ?>
+                        ?> and
                     <?php char_to_html($comment->validation['body']['length'][2])
                         ?> characters in length.
                 <div>

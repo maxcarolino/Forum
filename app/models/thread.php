@@ -21,7 +21,7 @@ class Thread extends AppModel
         if (!$row) {
             throw new RecordNotFoundException('No record found!');
         }
-        $row['is_owner'] = self::isOwner($id,$user_id);
+        $row['is_owner'] = self::isOwner($id, $user_id);
         return new self($row);
     }
 

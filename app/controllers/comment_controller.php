@@ -68,12 +68,11 @@ class CommentController extends AppController
         check_user_session();
         $user_id = $_SESSION['user_id'];
 
-        $comment = Comment::get(Param::get('comment_id'));
+        $comment = Comment::getOwn(Param::get('comment_id'), $user_id);
         $thread = Thread::get(Param::get('thread_id'));
-
         $page = Param::get('page_next', self::PAGE_EDIT);
 
-        if (isCommentOwner($user_id, $comment->id)) {
+        if ($comment->is_owner) {
             switch ($page) {
                 case self::PAGE_EDIT:
                     break;
@@ -89,6 +88,8 @@ class CommentController extends AppController
                     throw new NotFoundException("{$page} is not found");
                     break;
             }
+        } else {
+            DenyUser();
         }
 
         $this->set(get_defined_vars());
@@ -101,10 +102,10 @@ class CommentController extends AppController
         $user_id = $_SESSION['user_id'];
 
         $thread = Thread::get(Param::get('thread_id'));
-        $comment = Comment::get(Param::get('comment_id'));
+        $comment = Comment::getOwn(Param::get('comment_id'), $user_id);
         $page = Param::get('page_next', self::PAGE_DELETE);
 
-        if (isCommentOwner($user_id, $comment->id)) {
+        if ($comment->is_owner) {
             switch ($page) {
                 case self::PAGE_DELETE:
                     break;
@@ -115,6 +116,8 @@ class CommentController extends AppController
                     throw new NotFoundException("{$page} is not found");
                     break;
             }
+        } else {
+            DenyUser();
         }
         
         $this->set(get_defined_vars());

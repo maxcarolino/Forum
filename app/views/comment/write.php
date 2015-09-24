@@ -17,7 +17,7 @@
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     Submit
                 </button>
-                </br>
+                </br></br>
                 <a href="<?php char_to_html(url('comment/view',
                     array('thread_id' => $thread->id))) ?>">
                     <span class="glyphicon glyphicon-chevron-left"></span>

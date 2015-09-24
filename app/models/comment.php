@@ -81,7 +81,7 @@ class Comment extends AppModel
         return (bool) $row;
     }
 
-    public static function get($comment_id)
+    public static function getOwn($comment_id, $user_id) //retrieve owned comments
     {
         
         $db = DB::conn();
@@ -90,7 +90,8 @@ class Comment extends AppModel
         if (!$row) {
             throw new RecordNotFoundException('No record found!');
         }
-
+        
+        $row['is_owner'] = self::isOwner($user_id, $comment_id);
         return new self($row);
     }
 

@@ -8,7 +8,7 @@
                 <input type="text" class="form-control" name="title"
                     placeholder="Your new title goes here." required></br>
                 <label>Pick a Category:</label>
-                <select name="category">
+                <select class="form-control" name="category">
                     <option value="Animals">Animals</option>
                     <option value="Funny">Funny</option>
                     <option value="Manga/Anime">Manga/Anime</option>

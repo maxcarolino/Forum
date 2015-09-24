@@ -92,7 +92,9 @@ class ThreadController extends AppController
                     throw new NotFoundException("{$page} is not found");
                     break;
             }
-        } 
+        } else {
+            DenyUser();
+        }
 
         $this->set(get_defined_vars());
         $this->render($page);
@@ -118,6 +120,8 @@ class ThreadController extends AppController
                     throw new NotFoundException("{$page} is not found");
                     break;
             }
+        } else {
+            DenyUser();
         }
 
         $this->set(get_defined_vars());

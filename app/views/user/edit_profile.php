@@ -16,8 +16,22 @@
                 <input type="email" class="form-control" name="email"
                     value="<?php echo $user_account->email ?>" required>
                 <label> Department: </label>
-                <input type="text" class="form-control" name="department"
-                    value="<?php echo $user_account->department ?>" required>
+                <select class="form-control" name="department">
+                    <option value="TC">  TC  </option>
+                    <option value="ST1"> ST1 </option>
+                    <option value="ST2"> ST2 </option>
+                    <option value="ST3"> ST3 </option>
+                    <option value="ST4"> ST4 </option>
+                    <option value="ST5"> ST5 </option>
+                    <option value="ST6"> ST6 </option>
+                    <option value="QA">  QA  </option>
+                    <option value="R&D"> R&D </option>
+                    <option value="HR">  HR  </option>
+                    <option value="Accounting"> Accounting </option>
+                    <option value="OP">  OP  </option>
+                    <option value="3D">  3D  </option>
+                    <option value="GA">  GA  </option>
+                </select>
                 </br>
                 <input type="hidden" name="page_next" value="profile_end">
                 <button type="submit" class="btn btn-primary">

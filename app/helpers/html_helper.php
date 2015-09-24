@@ -2,6 +2,8 @@
 
 define("DENY_URL", "../error/denied");
 define("THREAD_LIST", "/thread/index" );
+define("START", 1000);
+define("END", 100000);
 
 function char_to_html($string)
 {
@@ -33,20 +35,9 @@ function check_user_session()
     }
 }
 
-function isThreadOwner($user_id, $thread_id)
+function DenyUser()
 {
-    if (!Thread::isOwner($user_id, $thread_id)) {
-        redirect(DENY_URL);
-    }
-    return true;
-}
-
-function isCommentOwner($user_id, $comment_id)
-{
-    if (!Comment::isOwner($user_id, $comment_id)) {
-        redirect(DENY_URL);
-    }
-    return true;
+    redirect(DENY_URL);
 }
 
 function cmp($a, $b)
@@ -68,7 +59,7 @@ function upload()
             return $filepath = null;
         }
 
-        $pic = rand(1000,100000)."-".$_FILES['pic']['name'];
+        $pic = rand(START,END)."-".$_FILES['pic']['name'];
         $pic_loc = $_FILES['pic']['tmp_name'];
         $folder="uploads/";
         if(move_uploaded_file($pic_loc,$folder.$pic))
