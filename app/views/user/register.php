@@ -5,7 +5,7 @@
             <form class="well" method="post" action="<?php char_to_html(url('')) ?>">
                 <label> Username: </label>
                 <input type="text" class="form-control" name="username"
-                    placeholder="username" required>
+                    placeholder="username" value="<?php char_to_html(Param::get('username')) ?>" required>
                 <label> Password: </label>
                 <input type="password" class="form-control" name="password"
                     placeholder="password" required>
@@ -14,16 +14,16 @@
                     placeholder="retype password" required>
                 <label> First Name: </label>
                 <input type="text" class="form-control" name="firstname"
-                    placeholder="firstname" required>
+                    placeholder="firstname" value="<?php char_to_html(Param::get('firstname')) ?>" required>
                 <label> Last Name: </label>
                 <input type="text" class="form-control" name="lastname"
-                    placeholder="lastname" required>
+                    placeholder="lastname" value="<?php char_to_html(Param::get('lastname')) ?>" required>
                 <label> Email: </label>
                 <input type="email" class="form-control" name="email"
-                    placeholder="email" required>
+                    placeholder="email" value="<?php char_to_html(Param::get('email')) ?>" required>
                 <label> Department: </label>
                 <input type="text" class="form-control" name="department"
-                    placeholder="department" required>
+                    placeholder="department" value="<?php char_to_html(Param::get('department')) ?>" required>
                 </br>
                 <input type="hidden" name="page_next" value="register_end">
                 <button type="submit" class="btn btn-primary">
@@ -74,6 +74,27 @@
             <?php if (!empty($user->validation_errors['email']['valid'])): ?>
                       <div>
                           <em>Email</em> is invalid! Please provide another email.
+                      </div>
+            <?php endif ?>
+
+            <!--firstname is valid-->
+            <?php if (!empty($user->validation_errors['firstname']['valid'])): ?>
+                      <div>
+                          <em>First Name</em> must contain letters and spaces only.
+                      </div>
+            <?php endif ?>
+
+            <!--lastname is valid-->
+            <?php if (!empty($user->validation_errors['lastname']['valid'])): ?>
+                      <div>
+                          <em>Last Name</em> must contain letters and spaces only.
+                      </div>
+            <?php endif ?>
+
+            <!--department is valid-->
+            <?php if (!empty($user->validation_errors['lastname']['valid'])): ?>
+                      <div>
+                          <em>Department</em> must contain letters and spaces only.
                       </div>
             <?php endif ?>
             

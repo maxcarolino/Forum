@@ -12,6 +12,19 @@ class Thread extends AppModel
         ),
     );
 
+    public static function getOwn($id, $user_id) //gets the owned threads
+    {
+        $db = DB::conn();
+
+        $row = $db->row('SELECT * FROM thread WHERE id = ?', array($id));
+
+        if (!$row) {
+            throw new RecordNotFoundException('No record found!');
+        }
+        $row['is_owner'] = self::isOwner($id,$user_id);
+        return new self($row);
+    }
+
     public static function get($id)
     {
         $db = DB::conn();
@@ -21,7 +34,6 @@ class Thread extends AppModel
         if (!$row) {
             throw new RecordNotFoundException('No record found!');
         }
-
         return new self($row);
     }
     
@@ -72,7 +84,7 @@ class Thread extends AppModel
         $db->update('thread', $params, array('id' => $this->id));
     }
 
-    public static function isOwner($user_id, $thread_id)
+    public static function isOwner($thread_id, $user_id)
     {
         $db = DB::conn();
 
@@ -108,6 +120,7 @@ class Thread extends AppModel
         foreach ($trending_threads_id as $row) {
             $thread = $db->row('SELECT * FROM thread WHERE id = ?', array($row['thread_id']));
             $thread['count'] = $row['COUNT(*)'];
+            $thread['date_created'] = date("F j, Y, g:i a", strtotime($thread['date']));
             $threads[] = new self ($thread);
         }
         return $threads;
@@ -122,7 +135,7 @@ class Thread extends AppModel
 
         foreach ($rows as $row) {
             $row['date_created'] = date("F j, Y, g:i a", strtotime($row['date']));
-            $row['is_owner'] = Thread::isOwner($user_id, $row['id']);
+            $row['is_owner'] = self::isOwner($row['id'], $user_id);
             $row['username'] = User::getUsername($row['user_id']);
             $row['is_bookmark'] = Bookmarks::isBookmark($user_id, $row['id']);
             $threads[] = new self($row);

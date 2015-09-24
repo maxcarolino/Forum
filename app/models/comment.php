@@ -66,7 +66,7 @@ class Comment extends AppModel
     {
         $db = DB::conn();
 
-        $thread_id = $db->rows('SELECT COUNT(*), thread_id FROM comment GROUP BY thread_id ORDER BY COUNT(*) DESC');
+        $thread_id = $db->rows('SELECT COUNT(*), thread_id FROM comment GROUP BY thread_id ORDER BY COUNT(*) DESC, date DESC LIMIT 10');
 
         return $thread_id;
     }
@@ -81,14 +81,10 @@ class Comment extends AppModel
         return (bool) $row;
     }
 
-    public function get($comment_id)
+    public static function get($comment_id)
     {
-        if (!$this->validate()) {
-            throw new ValidationException('Invalid comment');
-        }
-
+        
         $db = DB::conn();
-
         $row = $db->row('SELECT * FROM comment WHERE id = ?', array($comment_id));
 
         if (!$row) {

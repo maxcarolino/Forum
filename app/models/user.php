@@ -29,10 +29,12 @@ class User extends AppModel
         'firstname'      => array (
             'length'     => array ('validate_between',
                                    self::NAME_MIN_LENGTH, self::NAME_MAX_LENGTH),
+            'valid'      => array ('is_valid'),
         ),
         'lastname'       => array (
             'length'     => array ('validate_between',
                                    self::NAME_MIN_LENGTH, self::NAME_MAX_LENGTH),
+            'valid'      => array ('is_valid'),
         ),
         'email'          => array (
             'length'     => array ('validate_between',
@@ -42,6 +44,7 @@ class User extends AppModel
         'department'     => array (
             'length'     => array ('validate_between',
                                    self::DEPT_MIN_LENGTH, self::DEPT_MAX_LENGTH),
+            'valid'      => array ('is_valid')
         ),
     );
 

@@ -33,24 +33,6 @@ function check_user_session()
     }
 }
 
-function get_thread_id_from_url()
-{
-    $url = $_SERVER['REQUEST_URI'];
-    return substr($url, strpos($url, '=') + 1, 3); //magic number
-}
-
-function get_comment_id_from_url()
-{
-    $url = $_SERVER['REQUEST_URI'];
-    return substr($url, strrpos($url, '=') + 1); //magic number
-}
-
-function get_user_id_from_url()
-{
-    $url = $_SERVER['REQUEST_URI'];
-    return substr($url, strrpos($url, '=') + 1);
-}
-
 function isThreadOwner($user_id, $thread_id)
 {
     if (!Thread::isOwner($user_id, $thread_id)) {
@@ -77,7 +59,7 @@ function cmp($a, $b)
 
 function upload()
 {
-    if (!$_FILES['pic']['name'] === "") { //check if no file was selected
+    if (!($_FILES['pic']['name'] === "")) { //check if no file was selected
 
         $fileType = exif_imagetype($_FILES["pic"]["tmp_name"]);
         $allowed = array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG);
@@ -94,7 +76,5 @@ function upload()
             return $filepath = $folder.$pic;
         }
             return $filepath = null;
-    }
-
-    return $filepath = null;
+    } 
 }

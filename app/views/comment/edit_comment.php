@@ -5,8 +5,8 @@
             <form class="well" method="post" action="<?php
                 char_to_html(url('')) ?>">
                 <label> Comment: </label>
-                <textarea name="body" class="form-control"
-                    placeholder="Your comment goes here." required></textarea>
+                <textarea name="body" class="form-control" required><?php char_to_html($comment->body) ?>
+                </textarea>
                 </br>
                 <input type="hidden" name="page_next" value="edit_comment_end">
                 <button type="submit" class="btn btn-primary">

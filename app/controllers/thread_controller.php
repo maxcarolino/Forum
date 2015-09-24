@@ -2,7 +2,7 @@
 
 class ThreadController extends AppController
 {
-    CONST PER_PAGE = 3;
+    CONST PER_PAGE = 5;
     CONST PAGE_DEFAULT = 1;
     CONST PAGE_CREATE = 'create';
     CONST PAGE_CREATE_END = 'create_end';
@@ -44,9 +44,11 @@ class ThreadController extends AppController
             case self::PAGE_CREATE:
                 break;
             case self::PAGE_CREATE_END:
+                $filepath = upload();
                 $thread->title = Param::get('title');
                 $thread->category = Param::get('category');
                 $comment->body = Param::get('body');
+                $comment->filepath = $filepath;
                 $thread->user_id = $_SESSION['user_id'];
                 $comment->user_id = $_SESSION['user_id'];
                 try {
@@ -67,13 +69,13 @@ class ThreadController extends AppController
     public function edit_thread()
     {
         check_user_session();
-        $thread_id = get_thread_id_from_url();
-        $thread = Thread::get($thread_id);
         $user_id = $_SESSION['user_id'];
+        $thread_id = Param::get('thread_id');
+        $thread = Thread::getOwn($thread_id, $user_id);
 
         $page = Param::get('page_next', self::PAGE_EDIT);
 
-        if (isThreadOwner($user_id, $thread_id)) {
+        if ($thread->is_owner) {
             switch ($page) {
                 case self::PAGE_EDIT:
                     break;
@@ -99,13 +101,13 @@ class ThreadController extends AppController
     public function delete_thread()
     {
         check_user_session();
-        $thread_id = get_thread_id_from_url();
         $user_id = $_SESSION['user_id'];
-        $thread = Thread::get($thread_id);
+        $thread_id = Param::get('thread_id');
+        $thread = Thread::getOwn($thread_id, $user_id);
 
         $page = Param::get('page_next', self::PAGE_DELETE);
 
-        if (isThreadOwner($user_id, $thread_id)) {
+        if ($thread->is_owner) {
             switch ($page) {
                 case self::PAGE_DELETE:
                     break;
@@ -126,7 +128,7 @@ class ThreadController extends AppController
     {
         check_user_session();
         $user_id = $_SESSION['user_id'];
-        $thread_id = get_thread_id_from_url();
+        $thread_id = Param::get('thread_id');
 
         Bookmarks::setBookmarks($user_id, $thread_id);
         header("location: index");
@@ -136,7 +138,7 @@ class ThreadController extends AppController
     {
         check_user_session();
         $user_id = $_SESSION['user_id'];
-        $thread_id = get_thread_id_from_url();
+        $thread_id = Param::get('thread_id');
         
         Bookmarks::unsetBookmarks($user_id, $thread_id);
         header("location: index");

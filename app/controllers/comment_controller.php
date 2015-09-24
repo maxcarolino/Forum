@@ -14,10 +14,9 @@ class CommentController extends AppController
     public function view() 
     {
         check_user_session();
-        $thread = Thread::get(Param::get('thread_id'));
         $thread_id = Param::get('thread_id');
-        $_SESSION['thread_id'] = $thread_id;
         $user_id = $_SESSION['user_id'];
+        $thread = Thread::getOwn($thread_id, $user_id);
 
         $page = Param::get('page', self::PAGE_DEFAULT);
         $pagination = new SimplePagination($page, self::PER_PAGE);
@@ -36,6 +35,7 @@ class CommentController extends AppController
     public function write()
     {        
         check_user_session();
+        $user_id = $_SESSION['user_id'];
         $thread = Thread::get(Param::get('thread_id'));
         $comment = new Comment();
         $filepath = upload();
@@ -66,16 +66,10 @@ class CommentController extends AppController
     public function edit_comment()
     {
         check_user_session();
-        $comment = new Comment();
-        $comment_id = get_comment_id_from_url();
-        
-        $comment->id = $comment_id;
-
-        $thread_id = get_thread_id_from_url();
-        $thread = Thread::get($thread_id);
-        $comment = $comment->get($comment_id);
-
         $user_id = $_SESSION['user_id'];
+
+        $comment = Comment::get(Param::get('comment_id'));
+        $thread = Thread::get(Param::get('thread_id'));
 
         $page = Param::get('page_next', self::PAGE_EDIT);
 
@@ -84,8 +78,8 @@ class CommentController extends AppController
                 case self::PAGE_EDIT:
                     break;
                 case self::PAGE_EDIT_END:
-                    $comment->body = Param::get('body');
                     try {
+                        $comment->body = Param::get('body');
                         $comment->edit();
                     } catch (ValidationException $e) {
                         $page = self::PAGE_EDIT;
@@ -104,21 +98,18 @@ class CommentController extends AppController
     public function delete_comment()
     {
         check_user_session();
-        $thread_id = get_thread_id_from_url();
-        $thread = Thread::get($thread_id);
-
-        $comment_id = get_comment_id_from_url();
-
         $user_id = $_SESSION['user_id'];
 
+        $thread = Thread::get(Param::get('thread_id'));
+        $comment = Comment::get(Param::get('comment_id'));
         $page = Param::get('page_next', self::PAGE_DELETE);
 
-        if (isCommentOwner($user_id, $comment_id)) {
+        if (isCommentOwner($user_id, $comment->id)) {
             switch ($page) {
                 case self::PAGE_DELETE:
                     break;
                 case self::PAGE_DELETE_END:
-                    Comment::delete($comment_id);
+                    Comment::delete(Param::get(('comment_id')));
                     break;
                 default:
                     throw new NotFoundException("{$page} is not found");
@@ -133,22 +124,20 @@ class CommentController extends AppController
     public function set_like()
     {
         check_user_session();
-        $comment_id = get_comment_id_from_url();
-        $thread_id = get_thread_id_from_url();
+        $thread_id = Param::get('thread_id');
         $user_id = $_SESSION['user_id'];
 
-        Likes::setLike($user_id, $comment_id);
+        Likes::setLike($user_id, Param::get('comment_id'));
         header("location: view?thread_id=$thread_id");
     }
 
     public function unlike()
     {
         check_user_session();
-        $comment_id = get_comment_id_from_url();
-        $thread_id = get_thread_id_from_url();
+        $thread_id = Param::get('thread_id');
         $user_id = $_SESSION['user_id'];
 
-        Likes::unlike($user_id, $comment_id);
+        Likes::unlike($user_id, Param::get('comment_id'));
         header("location: view?thread_id=$thread_id");
     }
 }

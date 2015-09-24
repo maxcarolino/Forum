@@ -3,6 +3,14 @@
         <h1> <?php char_to_html($thread->title) ?>
             <span class="badge"><?php char_to_html($total) ?></span>
         </h1>
+        <?php if ($thread->is_owner): ?>
+            <h5>
+                <a href="<?php char_to_html(url('thread/edit_thread',
+                    array('thread_id' => $thread->id))) ?>"> Edit Thread </a>&nbsp;
+                <a href="<?php char_to_html(url('thread/delete_thread',
+                    array('thread_id' => $thread->id))) ?>"> Delete Thread </a>
+            </h5>
+        <?php endif ?>
     </div>
 </div>
 <?php if (empty($comments)): ?>
@@ -13,7 +21,16 @@
             <ul class="list-group">
                 <?php foreach ($comments as $k => $v): ?>
                     <li class="list-group-item"><?php char_to_html($k + 1) ?>:
-                        <b><?php echo char_to_html($v->username) ?></b>
+                        <?php if($v->is_owner): ?>
+                            <a href="<?php char_to_html(url('user/profile')) ?>">
+                                <?php echo char_to_html($v->username) ?>
+                            </a>
+                        <?php else: ?>
+                            <a href="<?php char_to_html(url('user/other_user_profile',
+                                array('user_id' => $v->user_id))) ?>">
+                                <?php echo char_to_html($v->username) ?>
+                            </a>
+                        <?php endif ?>
                         <h6>Date Created: <?php char_to_html($v->date) ?></h6>
                         <h6>Date Modified: <?php char_to_html($v->date_modified) ?></h6>
                         <h5>Likes: <?php char_to_html($v->likes) ?></h5>

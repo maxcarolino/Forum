@@ -29,3 +29,9 @@ function is_email_valid($check)
 {
 	return preg_match("/^([a-z0-9_\.-]+\@[\da-z\.-]+\.[a-z\.]{2,6})$/", $check);
 }
+
+function is_valid($check)
+{
+	return preg_match("/^[a-zA-Z]+(?:[\s][A-Za-z]+)*$/", $check); //Name should only contain letters and one or more
+												//non consecutive space
+}

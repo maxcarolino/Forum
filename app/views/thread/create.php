@@ -3,7 +3,7 @@
     <div class="col-md-4 col-md-offset-4">
         <div class="form-group">
             <form class="well" method="post" action="<?php
-                char_to_html(url('')) ?>">
+                char_to_html(url('')) ?>" enctype="multipart/form-data">
                 <label>Title:</label>
                 <input type="text" class="form-control" name="title"
                     placeholder="Your title goes here." required></br>
@@ -11,6 +11,8 @@
                 <textarea name="body" class="form-control"
                     placeholder="Your comment goes here." required></textarea>
                 </br>
+                <input type="file" name="pic">
+                <p class="help-block">Image Files Only. (max size: 5MB)</p>
                 <label>Pick a Category:</label>
                 <select name="category">
                     <option value="Animals">Animals</option>

@@ -103,7 +103,7 @@ class UserController extends AppController
     public function other_user_profile()
     {
         check_user_session();
-        $user_id = get_user_id_from_url();
+        $user_id = Param::get('user_id');
 
         try {
             $user_account = User::getProfile($user_id);
