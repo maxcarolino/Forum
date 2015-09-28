@@ -120,6 +120,7 @@ class UserController extends AppController
         check_user_session();
         $page = Param::get('page_next',self::PAGE_EDIT_PROFILE);
         $user_id = $_SESSION['user_id'];
+        $isFileInvalid = false;
         $user_account = User::getProfile($user_id);
 
         switch ($page) {
@@ -133,11 +134,15 @@ class UserController extends AppController
                 $user_account->lastname = Param::get('lastname');
                 $user_account->department = Param::get('department');
                 try {
+                    $user_account->profile_pic =  upload_profile_pic();
                     $user_account->updateProfile();
                 } catch (ValidationException $e) {
                     $page = self::PAGE_EDIT_PROFILE;
                 } catch (DuplicateEntryException $e) {
                     $user_account->validation_errors['email']['unique'] = true;
+                    $page = self::PAGE_EDIT_PROFILE;
+                } catch (FileTypeException $e) {
+                    $isFileInvalid = true;
                     $page = self::PAGE_EDIT_PROFILE;
                 }
                 break;
@@ -159,6 +164,7 @@ class UserController extends AppController
         $this->render($page);
 
     }
+
     public function log_out()
     {
         unset($_SESSION['user_id']);

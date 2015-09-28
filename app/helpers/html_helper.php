@@ -4,6 +4,7 @@ define("DENY_URL", "../error/denied");
 define("THREAD_LIST", "/thread/index" );
 define("START", 1000);
 define("END", 100000);
+define("DEFAULT_PIC", "profile/default.jpg");
 
 function char_to_html($string)
 {
@@ -35,7 +36,7 @@ function check_user_session()
     }
 }
 
-function DenyUser()
+function deny_user()
 {
     redirect(DENY_URL);
 }
@@ -55,8 +56,8 @@ function upload()
         $fileType = exif_imagetype($_FILES["pic"]["tmp_name"]);
         $allowed = array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG);
 
-        if (!in_array($fileType, $allowed)) { //check if file type is an image
-            return $filepath = null;
+        if (!in_array($fileType, $allowed)) {
+            throw new FileTypeException('Unknown File Type'); //check if file type is an image
         }
 
         $pic = rand(START,END)."-".$_FILES['pic']['name'];
@@ -65,5 +66,27 @@ function upload()
         if (move_uploaded_file($pic_loc, $folder.$pic)) {
             return $filepath = $folder.$pic;
         }
+    }
+}
+
+function upload_profile_pic()
+{
+    if (!($_FILES['pic']['name'] === "")) { //check if no file was selected
+
+        $fileType = exif_imagetype($_FILES["pic"]["tmp_name"]);
+        $allowed = array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG);
+
+        if (!in_array($fileType, $allowed)) { //check if file type is an image
+            throw new FileTypeException('Unknown File Type');
+        }
+
+        $pic = rand(START,END)."-".$_FILES['pic']['name'];
+        $pic_loc = $_FILES['pic']['tmp_name'];
+        $folder = "profile/";
+        if (move_uploaded_file($pic_loc, $folder.$pic)) {
+            return $filepath = $folder.$pic;
+        }
+    } else {
+        return $filepath = DEFAULT_PIC;
     }
 }

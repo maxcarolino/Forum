@@ -2,7 +2,7 @@
     <div class="col-md-4">
         <h1> Edit Profile </h1>
         <div class="form-group">
-            <form class="well" method="post" action="<?php char_to_html(url('')) ?>">
+            <form class="well" method="post" action="<?php char_to_html(url('')) ?>" enctype="multipart/form-data">
                 <label> Username: </label>
                 <input type="text" class="form-control" name="username"
                     value="<?php echo $user_account->username ?>" required>
@@ -32,8 +32,11 @@
                     <option value="3D">  3D  </option>
                     <option value="GA">  GA  </option>
                 </select>
-                </br>
                 <input type="hidden" name="page_next" value="profile_end">
+                <label> Profile Picture: </label>
+                <input type="file" name="pic">
+                <p class="help-block">Image Files Only. (max size: 5MB)</p>
+                </br>
                 <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok"></span>
                     Save Changes
@@ -159,4 +162,17 @@
         </div>
     </div>
 </div>
+<?php endif ?>
+
+<?php if ($isFileInvalid): ?>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="alert alert-warning" role="alert" width="50%">
+                <h4>
+                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                    Invalid File Type!
+                </h4>
+            </div>
+        </div>
+    </div>
 <?php endif ?>

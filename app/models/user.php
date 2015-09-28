@@ -6,8 +6,6 @@ class User extends AppModel
     CONST MAX_LENGTH = 30;
     CONST NAME_MIN_LENGTH = 1;
     CONST NAME_MAX_LENGTH = 30;
-    CONST DEPT_MIN_LENGTH = 2;
-    CONST DEPT_MAX_LENGTH = 50;
     CONST MYSQL_ERROR_CODE = 1062;
    
     public $validated = true;
@@ -15,12 +13,12 @@ class User extends AppModel
     public $validation   =  array (
         'username'       => array (
             'length'     => array ('validate_between',
-                                  self::MIN_LENGTH, self::MAX_LENGTH,),
+                                   self::MIN_LENGTH, self::MAX_LENGTH,),
             'valid'      => array ('is_username_valid'),
         ),
         'password'       => array (
             'length'     => array ('validate_between',
-                                  self::MIN_LENGTH, self::MAX_LENGTH,),
+                                   self::MIN_LENGTH, self::MAX_LENGTH,),
             'valid'      => array ('is_password_valid'),
         ),
         'retype_password'=> array (
@@ -38,7 +36,7 @@ class User extends AppModel
         ),
         'email'          => array (
             'length'     => array ('validate_between',
-                                  self::MIN_LENGTH, self::MAX_LENGTH,),
+                                   self::MIN_LENGTH, self::MAX_LENGTH,),
             'valid'      => array ('is_email_valid'),
         ),
     );
@@ -93,12 +91,20 @@ class User extends AppModel
         return $row['username'];
     }
 
+    public static function getProfilePic($user_id)
+    {
+        $db = DB::conn();
+
+        $row = $db->row('SELECT profile_pic FROM user WHERE user_id = ?', array($user_id));
+
+        return $row['profile_pic'];
+    }
+
     public static function getProfile($user_id)
     {
         $db = DB::conn();
 
-        $row = $db->row('SELECT user_id, username, firstname, lastname, email, department FROM user WHERE user_id= ?',
-        array($user_id));
+        $row = $db->row('SELECT user_id, username, firstname, lastname, email, department, profile_pic FROM user WHERE user_id= ?', array($user_id));
 
         if (!$row) {
             throw new RecordNotFoundException('No record found');
@@ -108,7 +114,7 @@ class User extends AppModel
 
     public function updateProfile()
     {
-
+        
         if (!$this->validate()) {
             throw new ValidationException('Oops! invalid credentials');
         }
@@ -116,11 +122,12 @@ class User extends AppModel
         $db = DB::conn();
 
         $params = array(
-            'username'   => $this->username,
-            'firstname'  => $this->firstname,
-            'lastname'   => $this->lastname,
-            'email'      => $this->email,
-            'department' => $this->department,
+            'username'    => $this->username,
+            'firstname'   => $this->firstname,
+            'lastname'    => $this->lastname,
+            'email'       => $this->email,
+            'department'  => $this->department,
+            'profile_pic' => $this->profile_pic,
         );
 
         $where_params = array(

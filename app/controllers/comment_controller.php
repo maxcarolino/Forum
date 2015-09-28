@@ -38,7 +38,7 @@ class CommentController extends AppController
         $user_id = $_SESSION['user_id'];
         $thread = Thread::get(Param::get('thread_id'));
         $comment = new Comment();
-        $filepath = upload();
+        $isFileInvalid = false;
         $page = Param::get('page_next');
 
         switch ($page) {
@@ -47,10 +47,13 @@ class CommentController extends AppController
             case self::PAGE_WRITE_END:
                 $comment->body = Param::get('body');
                 $comment->user_id = $_SESSION['user_id'];
-                $comment->filepath = $filepath;
                 try {
+                    $comment->filepath = upload();
                     $comment->write($thread->id);
                 } catch (ValidationException $e) {
+                    $page = self::PAGE_WRITE;
+                } catch (FileTypeException $e) {
+                    $isFileInvalid = true;
                     $page = self::PAGE_WRITE;
                 }
                 break;
@@ -67,6 +70,7 @@ class CommentController extends AppController
     {
         check_user_session();
         $user_id = $_SESSION['user_id'];
+        $isFileInvalid = false;
 
         $comment = Comment::getOwn(Param::get('comment_id'), $user_id);
         $thread = Thread::get(Param::get('thread_id'));
@@ -89,6 +93,9 @@ class CommentController extends AppController
                         $comment->edit();
                     } catch (ValidationException $e) {
                         $page = self::PAGE_EDIT;
+                    } catch (FileTypeException $e) {
+                        $isFileInvalid = true;
+                        $page = self::PAGE_EDIT;
                     }
                     break;
                 default:
@@ -96,7 +103,7 @@ class CommentController extends AppController
                     break;
             }
         } else {
-            DenyUser();
+            deny_user();
         }
 
         $this->set(get_defined_vars());
@@ -124,7 +131,7 @@ class CommentController extends AppController
                     break;
             }
         } else {
-            DenyUser();
+            deny_user();
         }
         
         $this->set(get_defined_vars());

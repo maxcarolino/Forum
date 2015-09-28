@@ -66,3 +66,16 @@
     </div>
 </div>
 <?php endif ?>
+
+<?php if ($isFileInvalid): ?>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="alert alert-warning" role="alert" width="50%">
+                <h4>
+                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                    Invalid File Type!
+                </h4>
+            </div>
+        </div>
+    </div>
+<?php endif ?>

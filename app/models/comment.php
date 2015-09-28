@@ -29,6 +29,7 @@ class Comment extends AppModel
 
         foreach ($rows as $row) {
             $row['username'] = User::getUsername($row['user_id']);
+            $row['profile_pic'] = User::getProfilePic($row['user_id']);
             $row['is_owner'] = Comment::isOwner($user_id, $row['id']);
             $row['date'] = date("F j, Y, g:i a", strtotime($row['date']));
             $row['likes'] = Likes::countLike($row['id']);

@@ -19,3 +19,7 @@ class DuplicateEntryException extends AppException
 {
 
 }
+class FileTypeException extends AppException
+{
+	
+}

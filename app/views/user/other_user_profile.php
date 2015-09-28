@@ -8,6 +8,7 @@
 </div>
 <div class="row">
     <div class="col-md-4">
+        <img src="../<?php char_to_html($user_account->profile_pic) ?>" height="125" width="125" class="center-block img-circle">
         <h2><b><?php echo $user_account->firstname?>
         <?php echo $user_account->lastname?></b></h2>
         <h4>(<?php echo $user_account->username?>)</h4>

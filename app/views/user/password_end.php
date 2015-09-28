@@ -6,6 +6,7 @@
             Password Updated!
         </p>
         <a href="<?php char_to_html(url('user/profile')) ?>">
+        	<span class="glyphicon glyphicon-chevron-left"></span>
             Back to Profile
         </a>
     </div>

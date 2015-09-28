@@ -38,22 +38,25 @@ class ThreadController extends AppController
         check_user_session();
         $thread = new Thread();
         $comment = new Comment();
+        $isFileInvalid = false;
         $page = Param::get('page_next', self::PAGE_CREATE);
 
         switch ($page) {
             case self::PAGE_CREATE:
                 break;
             case self::PAGE_CREATE_END:
-                $filepath = upload();
                 $thread->title = Param::get('title');
                 $thread->category = Param::get('category');
                 $comment->body = Param::get('body');
-                $comment->filepath = $filepath;
                 $thread->user_id = $_SESSION['user_id'];
                 $comment->user_id = $_SESSION['user_id'];
                 try {
+                    $comment->filepath = upload();
                     $thread->create($comment);
                 } catch (ValidationException $e) {
+                    $page = self::PAGE_CREATE;
+                } catch (FileTypeException $e) {
+                    $isFileInvalid = true;
                     $page = self::PAGE_CREATE;
                 }
                 break;
@@ -92,7 +95,7 @@ class ThreadController extends AppController
                     break;
             }
         } else {
-            DenyUser();
+            deny_user();
         }
 
         $this->set(get_defined_vars());
@@ -120,7 +123,7 @@ class ThreadController extends AppController
                     break;
             }
         } else {
-            DenyUser();
+            deny_user();
         }
 
         $this->set(get_defined_vars());

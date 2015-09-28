@@ -20,7 +20,7 @@
         <div class="col-md-5 col-md-offset-3">
             <ul class="list-group">
                 <?php foreach ($comments as $k => $v): ?>
-                    <li class="list-group-item"><?php char_to_html($k + 1) ?>:
+                    <li class="list-group-item"><img src="../<?php char_to_html($v->profile_pic) ?>" height="35" width="35" class="img-circle">
                         <?php if($v->is_owner): ?>
                             <a href="<?php char_to_html(url('user/profile')) ?>">
                                 <?php echo char_to_html($v->username) ?>
@@ -107,7 +107,6 @@
                     </li>
                 </ul>
             </nav>
-<?php endif ?>
             <hr>
             <div class="form-group">
                 <form class="well" method="post" action="<?php
@@ -134,3 +133,4 @@
             </div>
         </div>
     </div>
+<?php endif ?>
