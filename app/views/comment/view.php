@@ -6,9 +6,13 @@
         <?php if ($thread->is_owner): ?>
             <h5>
                 <a href="<?php char_to_html(url('thread/edit_thread',
-                    array('thread_id' => $thread->id))) ?>"> Edit Thread </a>&nbsp;
+                    array('thread_id' => $thread->id))) ?>">
+                    <span class="glyphicon glyphicon-edit"></span>
+                    Edit Thread </a>&nbsp;
                 <a href="<?php char_to_html(url('thread/delete_thread',
-                    array('thread_id' => $thread->id))) ?>"> Delete Thread </a>
+                    array('thread_id' => $thread->id))) ?>">
+                    <span class="glyphicon glyphicon-trash"></span>
+                    Delete Thread </a>
             </h5>
         <?php endif ?>
     </div>
@@ -20,7 +24,7 @@
         <div class="col-md-5 col-md-offset-3">
             <ul class="list-group">
                 <?php foreach ($comments as $k => $v): ?>
-                    <li class="list-group-item"><img src="../<?php char_to_html($v->profile_pic) ?>" height="35" width="35" class="img-circle">
+                    <li class="list-group-item"><img src="../<?php char_to_html($v->profile_pic) ?>" height="50" width="50" class="img-circle">
                         <?php if($v->is_owner): ?>
                             <a href="<?php char_to_html(url('user/profile')) ?>">
                                 <?php echo char_to_html($v->username) ?>

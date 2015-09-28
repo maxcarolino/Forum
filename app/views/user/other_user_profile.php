@@ -1,9 +1,6 @@
 <div class="row">
-    <div class="col-md-4">
-        <h3> <?php echo $user_account->username?>'s Profile </h3>
-    </div>
-    <div class="col-md-4">
-        <h3> <?php echo $user_account->username?>'s Bookmarks </h3>
+    <div class="col-md-4 col-md-offset-4">
+        <h3> Bookmarks </h3>
     </div>
 </div>
 <div class="row">

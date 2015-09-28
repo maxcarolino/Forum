@@ -137,6 +137,7 @@ class Thread extends AppModel
             $row['date_created'] = date("F j, Y, g:i a", strtotime($row['date']));
             $row['is_owner'] = self::isOwner($row['id'], $user_id);
             $row['username'] = User::getUsername($row['user_id']);
+            $row['profile_pic'] = User::getProfilePic($row['user_id']);
             $row['is_bookmark'] = Bookmarks::isBookmark($user_id, $row['id']);
             $threads[] = new self($row);
         }

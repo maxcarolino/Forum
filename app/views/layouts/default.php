@@ -57,7 +57,7 @@
                         </a></li>
                         <li><div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-user"></span>
+                            <img src="../<?php char_to_html(User::getProfilePic($_SESSION['user_id'])) ?>" height="25" width="25" class="img-circle">
                             <?php char_to_html($_SESSION['username']) ?>
                             <span class="caret"></span></button>
                             <ul class="dropdown-menu">
