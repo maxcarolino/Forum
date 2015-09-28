@@ -78,7 +78,14 @@ class CommentController extends AppController
                     break;
                 case self::PAGE_EDIT_END:
                     try {
+                        $filepath = upload();
                         $comment->body = Param::get('body');
+                        if (is_null($comment->filepath)) {
+                            $comment->filepath = $filepath;
+                        } else {
+                            unlink($comment->filepath); //delete the old uploaded file 
+                            $comment->filepath = $filepath;
+                        }
                         $comment->edit();
                     } catch (ValidationException $e) {
                         $page = self::PAGE_EDIT;

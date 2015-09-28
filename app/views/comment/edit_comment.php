@@ -3,11 +3,12 @@
     <div class="col-md-4 col-md-offset-4">
         <div class="form-group">
             <form class="well" method="post" action="<?php
-                char_to_html(url('')) ?>">
+                char_to_html(url('')) ?>" enctype="multipart/form-data">
                 <label> Comment: </label>
-                <textarea name="body" class="form-control" required><?php char_to_html($comment->body) ?>
-                </textarea>
+                <textarea name="body" class="form-control" required><?php char_to_html($comment->body) ?></textarea>
                 </br>
+                <input type="file" name="pic">
+                <p class="help-block">Image Files Only. (max size: 5MB)</p>
                 <input type="hidden" name="page_next" value="edit_comment_end">
                 <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>

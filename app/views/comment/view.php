@@ -37,7 +37,7 @@
                         <br>
                         <h4><?php echo readable_text($v->body) ?></h3>
                         <?php if (!empty($v->filepath)): ?>
-                            <img src="../<?php char_to_html($v->filepath) ?>" height="200" width="200" >
+                            <img src="../<?php char_to_html($v->filepath) ?>" height="200" width="200" class="img-thumbnail">
                         <?php endif ?>
                         <br><br>
                         <?php if($v->is_like): ?>

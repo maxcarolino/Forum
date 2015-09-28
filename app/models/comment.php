@@ -105,7 +105,8 @@ class Comment extends AppModel
 
         $params = array(
             'body' => $this->body,
-            'date_modified' => date('Y-m-d H:i:s')
+            'date_modified' => date('Y-m-d H:i:s'),
+            'filepath' => $this->filepath,
         );
 
         $db->update('comment', $params, array('id' => $this->id));

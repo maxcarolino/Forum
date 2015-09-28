@@ -41,10 +41,6 @@ class User extends AppModel
                                   self::MIN_LENGTH, self::MAX_LENGTH,),
             'valid'      => array ('is_email_valid'),
         ),
-        'department'     => array (
-            'length'     => array ('validate_between',
-                                   self::DEPT_MIN_LENGTH, self::DEPT_MAX_LENGTH),
-        ),
     );
 
     public function register()
@@ -92,8 +88,7 @@ class User extends AppModel
     {
         $db = DB::conn();
 
-        $row = $db->row('SELECT username FROM user WHERE user_id = ?',
-        array($user_id));
+        $row = $db->row('SELECT username FROM user WHERE user_id = ?', array($user_id));
 
         return $row['username'];
     }
@@ -157,8 +152,7 @@ class User extends AppModel
     {
         $db = DB::conn();
 
-        $row = $db->row('SELECT user_id FROM user WHERE BINARY username = ?',
-        array($username));
+        $row = $db->row('SELECT user_id FROM user WHERE BINARY username = ?', array($username));
 
         return $row['user_id'];
     }
