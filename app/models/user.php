@@ -44,7 +44,6 @@ class User extends AppModel
         'department'     => array (
             'length'     => array ('validate_between',
                                    self::DEPT_MIN_LENGTH, self::DEPT_MAX_LENGTH),
-            'valid'      => array ('is_valid')
         ),
     );
 
@@ -112,7 +111,7 @@ class User extends AppModel
             return new self($row);
     }
 
-    public function updateProfile($user_id)
+    public function updateProfile()
     {
 
         if (!$this->validate()) {
@@ -126,11 +125,11 @@ class User extends AppModel
             'firstname'  => $this->firstname,
             'lastname'   => $this->lastname,
             'email'      => $this->email,
-            'department' => $this->department
+            'department' => $this->department,
         );
 
         $where_params = array(
-            'user_id' => $user_id
+            'user_id' => $this->id
         );
 
         try {

@@ -21,7 +21,7 @@ class ThreadController extends AppController
         $page = Param::get('page', self::PAGE_DEFAULT);
         $pagination = new SimplePagination($page, self::PER_PAGE);
         
-        $threads = Thread::sortTrendsByCategory($pagination->start_index - 1,
+        $threads = Thread::sortByCategory($pagination->start_index - 1,
                         $pagination->count + 1, $user_id);
 
         $pagination->checkLastPage($threads);    
@@ -70,8 +70,7 @@ class ThreadController extends AppController
     {
         check_user_session();
         $user_id = $_SESSION['user_id'];
-        $thread_id = Param::get('thread_id');
-        $thread = Thread::getOwn($thread_id, $user_id);
+        $thread = Thread::getOwn(Param::get('thread_id'), $user_id);
 
         $page = Param::get('page_next', self::PAGE_EDIT);
 
@@ -83,7 +82,7 @@ class ThreadController extends AppController
                     $thread->title = Param::get('title');
                     $thread->category = Param::get('category');
                     try {
-                        $thread->editThread();
+                        $thread->edit();
                     } catch (ValidationException $e) {
                         $page = self::PAGE_EDIT;
                     }
@@ -105,7 +104,7 @@ class ThreadController extends AppController
         check_user_session();
         $user_id = $_SESSION['user_id'];
         $thread_id = Param::get('thread_id');
-        $thread = Thread::getOwn($thread_id, $user_id);
+        $thread = Thread::getOwn(Param::get('thread_id'), $user_id);
 
         $page = Param::get('page_next', self::PAGE_DELETE);
 
@@ -134,7 +133,7 @@ class ThreadController extends AppController
         $user_id = $_SESSION['user_id'];
         $thread_id = Param::get('thread_id');
 
-        Bookmarks::setBookmarks($user_id, $thread_id);
+        Bookmarks::add($user_id, $thread_id);
         header("location: index");
     }
 
@@ -144,7 +143,7 @@ class ThreadController extends AppController
         $user_id = $_SESSION['user_id'];
         $thread_id = Param::get('thread_id');
         
-        Bookmarks::unsetBookmarks($user_id, $thread_id);
+        Bookmarks::remove($user_id, $thread_id);
         header("location: index");
     }
 

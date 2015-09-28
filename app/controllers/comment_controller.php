@@ -110,7 +110,7 @@ class CommentController extends AppController
                 case self::PAGE_DELETE:
                     break;
                 case self::PAGE_DELETE_END:
-                    Comment::delete(Param::get(('comment_id')));
+                    $comment->delete();
                     break;
                 default:
                     throw new NotFoundException("{$page} is not found");

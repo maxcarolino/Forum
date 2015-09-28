@@ -66,9 +66,9 @@ class Comment extends AppModel
     {
         $db = DB::conn();
 
-        $thread_id = $db->rows('SELECT COUNT(*), thread_id FROM comment GROUP BY thread_id ORDER BY COUNT(*) DESC, date DESC LIMIT 10');
+        $trending_threads = $db->rows('SELECT COUNT(*), thread_id FROM comment GROUP BY thread_id ORDER BY COUNT(*) DESC, date DESC LIMIT 10');
 
-        return $thread_id;
+        return $trending_threads;
     }
 
     public static function isOwner($user_id, $id)
@@ -129,14 +129,14 @@ class Comment extends AppModel
         }
     }
 
-    public static function delete($id)
+    public function delete()
     {
         try {
             $db = DB::conn();
             $db->begin();
 
-            Likes::deleteByComment($id);
-            $db->query('DELETE FROM comment WHERE id = ?', array($id));
+            Likes::deleteByComment($this->id);
+            $db->query('DELETE FROM comment WHERE id = ?', array($this->id));
             $db->commit();
         } catch (Exception $e) {
             $db->rollback();

@@ -6,7 +6,7 @@
                 char_to_html(url('')) ?>">
                 <label>Title:</label>
                 <input type="text" class="form-control" name="title"
-                    placeholder="Your new title goes here." required></br>
+                    value="<?php char_to_html($thread->title) ?>" required></br>
                 <label>Pick a Category:</label>
                 <select class="form-control" name="category">
                     <option value="Animals">Animals</option>

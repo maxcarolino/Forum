@@ -118,7 +118,6 @@ class UserController extends AppController
     public function edit_profile()
     {
         check_user_session();
-        $user = new User();
         $page = Param::get('page_next',self::PAGE_EDIT_PROFILE);
         $user_id = $_SESSION['user_id'];
         $user_account = User::getProfile($user_id);
@@ -127,25 +126,26 @@ class UserController extends AppController
             case self::PAGE_EDIT_PROFILE:
                 break;
             case self::PAGE_EDIT_PROFILE_END:
-                $user->username = Param::get('username');
-                $user->email = Param::get('email');
-                $user->firstname = Param::get('firstname');
-                $user->lastname = Param::get('lastname');
-                $user->department = Param::get('department');
+                $user_account->id = $user_id;
+                $user_account->username = Param::get('username');
+                $user_account->email = Param::get('email');
+                $user_account->firstname = Param::get('firstname');
+                $user_account->lastname = Param::get('lastname');
+                $user_account->department = Param::get('department');
                 try {
-                    $user->updateProfile($user_id);
+                    $user_account->updateProfile();
                 } catch (ValidationException $e) {
                     $page = self::PAGE_EDIT_PROFILE;
                 } catch (DuplicateEntryException $e) {
-                    $user->validation_errors['email']['unique'] = true;
+                    $user_account->validation_errors['email']['unique'] = true;
                     $page = self::PAGE_EDIT_PROFILE;
                 }
                 break;
             case self::PAGE_EDIT_PASSWORD_END:
-                $user->password = trim(Param::get('password'));
-                $user->retype_password = trim(Param::get('retype_password'));
+                $user_account->password = trim(Param::get('password'));
+                $user_account->retype_password = trim(Param::get('retype_password'));
                 try {
-                    $user->updatePassword();
+                    $user_account->updatePassword();
                 } catch (ValidationException $e) {
                     $page = self::PAGE_EDIT_PROFILE;
                 }

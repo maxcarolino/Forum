@@ -64,7 +64,7 @@
         </div>
     </div>
 </div>
-<?php if($user->hasError()): ?>
+<?php if($user_account->hasError()): ?>
 <div class="row">
     <div class="col-md-3 col-md-offset-4">
         <div class="alert alert-warning" role="alert" width="50%">
@@ -148,16 +148,6 @@
                           <?php char_to_html($user->validation['lastname']['length'][1])
                               ?> to
                           <?php char_to_html($user->validation['lastname']['length'][2])
-                              ?> characters only.
-                      </div>
-            <?php endif ?>
-
-            <!--deparment field is empty-->
-            <?php if (!empty($user->validation_errors['department']['length'])): ?>
-                      <div><em> Department </em> must be between
-                          <?php char_to_html($user->validation['department']['length'][1])
-                              ?> to
-                          <?php char_to_html($user->validation['department']['length'][2])
                               ?> characters only.
                       </div>
             <?php endif ?>

@@ -62,10 +62,10 @@ function upload()
         $pic = rand(START,END)."-".$_FILES['pic']['name'];
         $pic_loc = $_FILES['pic']['tmp_name'];
         $folder="uploads/";
-        if(move_uploaded_file($pic_loc,$folder.$pic))
-        {
+        if (move_uploaded_file($pic_loc,$folder.$pic)) {
             return $filepath = $folder.$pic;
-        }
+        } else {
             return $filepath = null;
+        }
     } 
 }

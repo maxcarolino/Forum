@@ -69,7 +69,7 @@ class Thread extends AppModel
 
     }
 
-    public function editThread()
+    public function edit()
     {
         if (!$this->validate()) {
             throw new ValidationException('Invalid Thread');
@@ -126,7 +126,7 @@ class Thread extends AppModel
         return $threads;
     }
 
-    public static function sortTrendsByCategory($offset, $limit, $user_id)
+    public static function sortByCategory($offset, $limit, $user_id)
     {
        $threads = array();
        $db = DB::conn();

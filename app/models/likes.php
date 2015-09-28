@@ -18,15 +18,13 @@ class Likes extends AppModel
     {
         $db = DB::conn();
 
-        $db->query('DELETE FROM likes WHERE user_id = ? AND comment_id = ?',
-        array($user_id, $comment_id));
+        $db->query('DELETE FROM likes WHERE user_id = ? AND comment_id = ?', array($user_id, $comment_id));
     }
 
     public static function isLike($user_id, $comment_id)
     {
         $db = DB::conn();
-        $row = $db->row('SELECT * FROM likes WHERE user_id = ? AND comment_id = ?',
-        array($user_id, $comment_id));
+        $row = $db->row('SELECT * FROM likes WHERE user_id = ? AND comment_id = ?', array($user_id, $comment_id));
 
         return (bool) $row;
     }
@@ -35,8 +33,7 @@ class Likes extends AppModel
     {
         $db = DB::conn();
 
-        $row = $db->value('SELECT COUNT(*) FROM likes WHERE comment_id = ? GROUP BY comment_id',
-        array($comment_id));
+        $row = $db->value('SELECT COUNT(*) FROM likes WHERE comment_id = ? GROUP BY comment_id', array($comment_id));
 
         return (int) $row;
     }
