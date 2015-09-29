@@ -2,7 +2,8 @@
 
 function validate_between($check, $min, $max)
 {
-    $n = mb_strlen(trim($check));
+    $check = trim($check);
+    $n = mb_strlen($check);
 
     return $min <= $n && $n <= $max;
 }
@@ -27,11 +28,11 @@ function is_password_valid($check)
 
 function is_email_valid($check)
 {
-	return preg_match("/^([a-z0-9_\.-]+\@[\da-z\.-]+\.[a-z\.]{2,6})$/", $check);
+    return preg_match("/^([a-z0-9_\.-]+\@[\da-z\.-]+\.[a-z\.]{2,6})$/", $check);
 }
 
 function is_valid($check)
 {
-	return preg_match("/^[a-zA-Z]+(?:[\s][A-Za-z]+)*$/", $check); //Name should only contain letters and one or more
-												//non consecutive space
+    return preg_match("/^[a-zA-Z]+(?:[\s][A-Za-z]+)*$/", $check); 
+    //Name should only contain letters and one or more non consecutive space
 }
