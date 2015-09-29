@@ -24,9 +24,9 @@ function readable_text($s)
 function redirect($url)
 {
     if ($url === THREAD_LIST) {
-        header("Location: ".THREAD_LIST);
+        header("Location: ".url(THREAD_LIST));
     } else {
-        header("Location: ".DENY_URL);
+        header("Location: ".url(DENY_URL));
         die();
     }
 }
@@ -43,11 +43,8 @@ function deny_user()
     redirect(DENY_URL);
 }
 
-function cmp($a, $b)
+function compare($a, $b)
 {
-    if ($b->likes === $a->likes) {
-        return 0;
-    }
     return $b->likes - $a->likes;
 }
 

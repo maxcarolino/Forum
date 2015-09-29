@@ -18,7 +18,11 @@
     </div>
 </div>
 <?php if (empty($comments)): ?>
-    <h4> No comments yet for this thread </h4>
+    <div class="row">
+        <div class="col-md-5 col-md-offset-3">
+            <h4> No comments yet for this thread </h4>
+        </div>
+    </div>
 <?php else: ?>
     <div class="row">
         <div class="col-md-5 col-md-offset-3">
@@ -37,11 +41,13 @@
                         <?php endif ?>
                         <h6> Created: <?php char_to_html($v->date) ?></h6>
                         <h6> Modified: <?php char_to_html($v->date_modified) ?></h6>
-                        <h5>Likes: <?php char_to_html($v->likes) ?></h5>
+                        <h6> <?php char_to_html($v->likes) ?> people like this.</h6>
                         <br>
                         <h4><?php echo readable_text($v->body) ?></h3>
                         <?php if (!empty($v->filepath)): ?>
-                            <img src="../<?php char_to_html($v->filepath) ?>" height="200" width="200" class="img-thumbnail">
+                            <a href="../<?php char_to_html($v->filepath) ?>">
+                                <img src="../<?php char_to_html($v->filepath) ?>" height="200" width="200" class="img-thumbnail">
+                            </a>
                         <?php endif ?>
                         <br><br>
                         <?php if($v->is_like): ?>

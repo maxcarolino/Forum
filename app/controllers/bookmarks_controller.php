@@ -11,7 +11,7 @@ class BookmarksController extends AppController
         $thread_id = Param::get('thread_id');
 
         Bookmarks::add($user_id, $thread_id);
-        header("location: ".self::THREAD_INDEX);
+        header("location: ".url(self::THREAD_INDEX));
     }
 
     public function unset_bookmark()
@@ -21,6 +21,6 @@ class BookmarksController extends AppController
         $thread_id = Param::get('thread_id');
         
         Bookmarks::remove($user_id, $thread_id);
-        header("location: ".self::THREAD_INDEX);
+        header("location: ".url(self::THREAD_INDEX));
     }
 }

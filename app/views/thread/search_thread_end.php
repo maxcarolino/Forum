@@ -7,7 +7,7 @@
                 Back to thread list. 
             </a>
         <?php elseif (empty($threads)) : ?>
-            <h3>No Threads Found!</h3>
+            <h3> No Threads created by this user!</h3>
             <a href="<?php char_to_html(url('thread/index')) ?>">
                 <span class="glyphicon glyphicon-chevron-left"></span>
                 Back to thread list. 

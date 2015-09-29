@@ -23,9 +23,8 @@ class Comment extends AppModel
     {
         $comments = array();
         $db = DB::conn();
-        $query = sprintf('SELECT * FROM comment WHERE thread_id = ? ORDER BY
-        date DESC LIMIT %d, %d', $offset, $limit);
-        $rows = $db->rows($query, array($thread_id));
+        $query = sprintf('SELECT * FROM comment WHERE thread_id = ?');
+        $rows = $db->rows($query, array($thread_id)); 
 
         foreach ($rows as $row) {
             $row['username'] = User::getUsername($row['user_id']);
@@ -42,7 +41,8 @@ class Comment extends AppModel
             $comments[] = new self($row);
         }
 
-        usort($comments, "cmp"); //sort based on number of likes
+        usort($comments, "compare"); //sort based on number of likes
+        $comments = array_slice($comments, $offset, $limit); 
         return $comments;
     }
   

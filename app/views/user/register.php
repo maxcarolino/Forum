@@ -33,10 +33,11 @@
                     <option value="QA">  QA  </option>
                     <option value="R&D"> R&D </option>
                     <option value="HR">  HR  </option>
-                    <option value="Accounting"> Accounting </option>
                     <option value="OP">  OP  </option>
                     <option value="3D">  3D  </option>
                     <option value="GA">  GA  </option>
+                    <option value="SysAd">  SysAd  </option>
+                    <option value="Accounting"> Accounting </option>
                 </select>
                 </br>
                 <input type="hidden" name="page_next" value="register_end">
