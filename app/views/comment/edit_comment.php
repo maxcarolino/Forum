@@ -1,29 +1,26 @@
-<h2 class="text-center"><?php char_to_html($thread->title) ?> </h2>
+<h2 class="text-center">Edit Comment:</h2>
 <div class="row">
     <div class="col-md-4 col-md-offset-4">
         <div class="form-group">
             <form class="well" method="post" action="<?php
-                char_to_html(url('comment/write')) ?>" enctype="multipart/form-data">
+                char_to_html(url('')) ?>" enctype="multipart/form-data">
                 <label> Comment: </label>
-                <textarea name="body" class="form-control"
-                    placeholder="Your comment goes here." required></textarea>
+                <textarea name="body" class="form-control" required><?php char_to_html($comment->body) ?></textarea>
                 </br>
-                <input type="hidden" name="thread_id" value="<?php
-                    char_to_html($thread->id) ?>">
                 <input type="file" name="pic">
                 <p class="help-block">Image Files Only. (max size: 5MB)</p>
-                <input type="hidden" name="page_next" value="write_end">
+                <input type="hidden" name="page_next" value="edit_comment_end">
                 <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     Submit
                 </button>
-                </br></br>
-                <a href="<?php char_to_html(url('comment/view',
-                    array('thread_id' => $thread->id))) ?>">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                    Back to thread. 
-                </a>
+                </br>
             </form>
+            <a href="<?php char_to_html(url('comment/view',
+                array('thread_id' => $thread->id))) ?>">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                Cancel
+            </a>
         </div>
     </div>
 </div>
@@ -47,7 +44,7 @@
             </div>
         </div>
     </div>
-<?php endif?>
+<?php endif ?>
 
 <?php if ($isFileInvalid): ?>
     <div class="row">

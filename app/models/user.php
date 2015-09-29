@@ -4,6 +4,8 @@ class User extends AppModel
 {
     CONST MIN_LENGTH = 6;
     CONST MAX_LENGTH = 30;
+    CONST NAME_MIN_LENGTH = 1;
+    CONST NAME_MAX_LENGTH = 30;
     CONST MYSQL_ERROR_CODE = 1062;
    
     public $validated = true;
@@ -11,36 +13,49 @@ class User extends AppModel
     public $validation   =  array (
         'username'       => array (
             'length'     => array ('validate_between',
-                                  self::MIN_LENGTH, self::MAX_LENGTH,),
+                                   self::MIN_LENGTH, self::MAX_LENGTH,),
             'valid'      => array ('is_username_valid'),
         ),
         'password'       => array (
             'length'     => array ('validate_between',
-                                  self::MIN_LENGTH, self::MAX_LENGTH,),
+                                   self::MIN_LENGTH, self::MAX_LENGTH,),
             'valid'      => array ('is_password_valid'),
         ),
         'retype_password'=> array (
             'compare'    => array ('compare_password'),
         ),
+        'firstname'      => array (
+            'length'     => array ('validate_between',
+                                   self::NAME_MIN_LENGTH, self::NAME_MAX_LENGTH),
+            'valid'      => array ('is_valid'),
+        ),
+        'lastname'       => array (
+            'length'     => array ('validate_between',
+                                   self::NAME_MIN_LENGTH, self::NAME_MAX_LENGTH),
+            'valid'      => array ('is_valid'),
+        ),
         'email'          => array (
             'length'     => array ('validate_between',
-                                  self::MIN_LENGTH, self::MAX_LENGTH,),
+                                   self::MIN_LENGTH, self::MAX_LENGTH,),
             'valid'      => array ('is_email_valid'),
         ),
     );
 
     public function register()
     {
-        if (!$this->validate()){
+        if (!$this->validate()) {
             throw new ValidationException('Oops! invalid credentials');
         }
 
         $db = DB::conn();
 
         $params = array(
-            'username' => $this->username,
-            'password' => password_hash($this->password, PASSWORD_BCRYPT),
-            'email'    => $this->email
+            'username'   => $this->username,
+            'password'   => password_hash($this->password, PASSWORD_BCRYPT),
+            'firstname'  => $this->firstname,
+            'lastname'   => $this->lastname,
+            'email'      => $this->email,
+            'department' => $this->department
         );
 
         try {
@@ -56,9 +71,9 @@ class User extends AppModel
     {
         $db = DB::conn();
 
-        $user_account = $db->row('SELECT user_id, username, password FROM user WHERE
-        username = ?', array($this->username)
-        );
+        $user_account = $db->row('SELECT user_id, username, password FROM user WHERE BINARY
+        username = ?', array($this->username));
+
         //check if user is not found OR the provided credentials is wrong
         if (!$user_account OR !(password_verify($this->password, $user_account['password']))) { 
             $this->validated = false;
@@ -71,9 +86,81 @@ class User extends AppModel
     {
         $db = DB::conn();
 
-        $row = $db->row('SELECT username FROM user WHERE user_id = ?',
-        array($user_id));
+        $row = $db->row('SELECT username FROM user WHERE user_id = ?', array($user_id));
 
         return $row['username'];
+    }
+
+    public static function getProfilePic($user_id)
+    {
+        $db = DB::conn();
+
+        $row = $db->row('SELECT profile_pic FROM user WHERE user_id = ?', array($user_id));
+
+        return $row['profile_pic'];
+    }
+
+    public static function getProfile($user_id)
+    {
+        $db = DB::conn();
+
+        $row = $db->row('SELECT user_id, username, firstname, lastname, email, department, profile_pic FROM user WHERE user_id= ?', array($user_id));
+
+        if (!$row) {
+            throw new RecordNotFoundException('No record found');
+        }
+            return new self($row);
+    }
+
+    public function updateProfile()
+    {
+        
+        if (!$this->validate()) {
+            throw new ValidationException('Oops! invalid credentials');
+        }
+
+        $db = DB::conn();
+
+        $params = array(
+            'username'    => $this->username,
+            'firstname'   => $this->firstname,
+            'lastname'    => $this->lastname,
+            'email'       => $this->email,
+            'department'  => $this->department,
+            'profile_pic' => $this->profile_pic,
+        );
+
+        $where_params = array(
+            'user_id' => $this->id
+        );
+
+        try {
+            $db->update('user', $params, $where_params);
+        } catch (PDOException $e) {
+            if ($e->errorInfo[1] === self::MYSQL_ERROR_CODE) {
+                throw new DuplicateEntryException('Duplicate Entry');
+            }
+        }
+    }
+
+    public function updatePassword()
+    {
+        if (!$this->validate()) {
+            throw new ValidationException('Oops! invalid credentials');
+        }
+
+        $db = DB::conn();
+
+        $db->update('user', array('password' => password_hash($this->password, PASSWORD_BCRYPT)),
+             array('user_id' => $this->user_id));
+    }
+
+    public static function getUserId($username)
+    {
+        $db = DB::conn();
+
+        $row = $db->row('SELECT user_id FROM user WHERE BINARY username = ?', array($username));
+
+        return $row['user_id'];
     }
 }

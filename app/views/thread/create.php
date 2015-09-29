@@ -3,20 +3,31 @@
     <div class="col-md-4 col-md-offset-4">
         <div class="form-group">
             <form class="well" method="post" action="<?php
-                char_to_html(url('')) ?>">
+                char_to_html(url('')) ?>" enctype="multipart/form-data">
                 <label>Title:</label>
                 <input type="text" class="form-control" name="title"
-                    placeholder="Your title goes here." required>
+                    placeholder="Your title goes here." required></br>
                 <label>Comment:</label>
                 <textarea name="body" class="form-control"
                     placeholder="Your comment goes here." required></textarea>
+                </br>
+                <input type="file" name="pic">
+                <p class="help-block">Image Files Only. (max size: 5MB)</p>
+                <label>Pick a Category:</label>
+                <select class="form-control" name="category">
+                    <option value="Animals">Animals</option>
+                    <option value="Funny">Funny</option>
+                    <option value="Manga/Anime">Manga/Anime</option>
+                    <option value="Random">Random</option>
+                    <option value="Video Games">Video Games</option>
+                </select>
                 </br>
                 <input type="hidden" name="page_next" value="create_end">
                 <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     Submit
                 </button>
-                </br>
+                </br></br>
                 <a href="<?php char_to_html(url('thread/index')) ?>">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                     Back to thread list. 
@@ -46,7 +57,7 @@
             <?php if (!empty($comment->validation_errors['body']['length'])): ?>
                 <div><em>Comment</em> must be between
                     <?php char_to_html($comment->validation['body']['length'][1])
-                        ?>
+                        ?> and
                     <?php char_to_html($comment->validation['body']['length'][2])
                         ?> characters in length.
                 <div>
@@ -54,4 +65,17 @@
         </div>
     </div>
 </div>
+<?php endif ?>
+
+<?php if ($isFileInvalid): ?>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="alert alert-warning" role="alert" width="50%">
+                <h4>
+                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                    Invalid File Type!
+                </h4>
+            </div>
+        </div>
+    </div>
 <?php endif ?>
