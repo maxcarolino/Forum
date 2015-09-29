@@ -46,11 +46,11 @@
                         <br><br>
                         <?php if($v->is_like): ?>
                             <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                            <a href="<?php char_to_html(url('comment/unlike',
+                            <a href="<?php char_to_html(url('likes/unlike',
                                 array('thread_id' => $v->thread_id, 'comment_id' => $v->id)))?>">Unlike</a>
                         <?php else: ?>
                             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                            <a href="<?php char_to_html(url('comment/set_like',
+                            <a href="<?php char_to_html(url('likes/set_like',
                                 array('thread_id' => $v->thread_id, 'comment_id' => $v->id)))?>">Like</a>
                         <?php endif ?>
                         <?php if($v->is_owner): ?>

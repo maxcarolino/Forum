@@ -19,10 +19,10 @@
                         <h4><?php char_to_html($v->title) ?></h4>
                     </a>
                     <?php if($v->is_bookmark): ?>
-                        <h5><a href="<?php char_to_html(url('thread/unset_bookmark',
+                        <h5><a href="<?php char_to_html(url('bookmarks/unset_bookmark',
                                 array('thread_id' => $v->id)))?>"> Remove from bookmark </a></h5>
                     <?php else: ?>
-                        <h5><a href="<?php char_to_html(url('thread/set_bookmark',
+                        <h5><a href="<?php char_to_html(url('bookmarks/set_bookmark',
                                 array('thread_id' => $v->id)))?>"> Bookmark this Thread</a></h5>
                     <?php endif ?>
                     </br>

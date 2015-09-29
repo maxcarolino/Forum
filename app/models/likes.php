@@ -29,7 +29,7 @@ class Likes extends AppModel
         return (bool) $row;
     }
 
-    public static function countLike($comment_id)
+    public static function count($comment_id)
     {
         $db = DB::conn();
 

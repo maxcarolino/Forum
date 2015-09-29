@@ -32,7 +32,7 @@ class Comment extends AppModel
             $row['profile_pic'] = User::getProfilePic($row['user_id']);
             $row['is_owner'] = Comment::isOwner($user_id, $row['id']);
             $row['date'] = date("F j, Y, g:i a", strtotime($row['date']));
-            $row['likes'] = Likes::countLike($row['id']);
+            $row['likes'] = Likes::count($row['id']);
             $row['is_like'] = Likes::isLike($user_id, $row['id']);
             if ($row['date_modified'] > 0) {
                 $row['date_modified'] = date("F j, Y, g:i a", strtotime($row['date_modified']));

@@ -28,7 +28,7 @@ class ThreadController extends AppController
       
         $total = Thread::countAll();
         $pages = ceil($total / self::PER_PAGE);
-        $trending_threads = Thread::getTrendingThreads();
+        $trending_threads = Thread::getTrending();
  
         $this->set(get_defined_vars());
     }
@@ -128,26 +128,6 @@ class ThreadController extends AppController
 
         $this->set(get_defined_vars());
         $this->render($page);
-    }
-
-    public function set_bookmark()
-    {
-        check_user_session();
-        $user_id = $_SESSION['user_id'];
-        $thread_id = Param::get('thread_id');
-
-        Bookmarks::add($user_id, $thread_id);
-        header("location: index");
-    }
-
-    public function unset_bookmark()
-    {
-        check_user_session();
-        $user_id = $_SESSION['user_id'];
-        $thread_id = Param::get('thread_id');
-        
-        Bookmarks::remove($user_id, $thread_id);
-        header("location: index");
     }
 
     public function search_thread()

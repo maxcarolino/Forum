@@ -5,6 +5,8 @@ define("THREAD_LIST", "/thread/index" );
 define("START", 1000);
 define("END", 100000);
 define("DEFAULT_PIC", "profile/default.jpg");
+define("UPLOADS_DIR", "uploads/");
+define("PROFILE_PIC_DIR", "profile/");
 
 function char_to_html($string)
 {
@@ -62,9 +64,8 @@ function upload()
 
         $pic = rand(START,END)."-".$_FILES['pic']['name'];
         $pic_loc = $_FILES['pic']['tmp_name'];
-        $folder = "uploads/";
-        if (move_uploaded_file($pic_loc, $folder.$pic)) {
-            return $filepath = $folder.$pic;
+        if (move_uploaded_file($pic_loc, UPLOADS_DIR.$pic)) {
+            return $filepath = UPLOADS_DIR.$pic;
         }
     }
 }
@@ -82,9 +83,8 @@ function upload_profile_pic()
 
         $pic = rand(START,END)."-".$_FILES['pic']['name'];
         $pic_loc = $_FILES['pic']['tmp_name'];
-        $folder = "profile/";
-        if (move_uploaded_file($pic_loc, $folder.$pic)) {
-            return $filepath = $folder.$pic;
+        if (move_uploaded_file($pic_loc, PROFILE_PIC_DIR.$pic)) {
+            return $filepath = PROFILE_PIC_DIR.$pic;
         }
     } else {
         return $filepath = DEFAULT_PIC;

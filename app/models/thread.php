@@ -110,7 +110,7 @@ class Thread extends AppModel
             $db->rollback();
         }        
     }
-    public static function getTrendingThreads()
+    public static function getTrending()
     {
         $threads = array();
         $db = DB::conn();
@@ -121,7 +121,7 @@ class Thread extends AppModel
             $thread = $db->row('SELECT * FROM thread WHERE id = ?', array($row['thread_id']));
             $thread['count'] = $row['COUNT(*)'];
             $thread['date_created'] = date("F j, Y, g:i a", strtotime($thread['date']));
-            $threads[] = new self ($thread);
+            $threads[] = new self($thread);
         }
         return $threads;
     }
