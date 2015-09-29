@@ -1,7 +1,7 @@
 <?php
 
-define("DENY_URL", "../error/denied");
-define("THREAD_LIST", "/thread/index" );
+define("DENY_URL", "error/denied");
+define("THREAD_LIST", "thread/index" );
 define("START", 1000);
 define("END", 100000);
 define("DEFAULT_PIC", "profile/default.jpg");
@@ -21,26 +21,21 @@ function readable_text($s)
     return $s;                    
 } 
 
-function redirect($url)
+function redirect_to($url)
 {
-    if ($url === THREAD_LIST) {
-        header("Location: ".url(THREAD_LIST));
-    } else {
-        header("Location: ".url(DENY_URL));
-        die();
-    }
+    header("Location: ".$url);
 }
 
 function check_user_session()
 {
     if (!isset($_SESSION['username'])) {
-        redirect(DENY_URL);
+        redirect_to(url(DENY_URL));
     }
 }
 
 function deny_user()
 {
-    redirect(DENY_URL);
+    redirect_to(url(DENY_URL));
 }
 
 function compare($a, $b)

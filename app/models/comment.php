@@ -42,7 +42,7 @@ class Comment extends AppModel
         }
 
         usort($comments, "compare"); //sort based on number of likes
-        $comments = array_slice($comments, $offset, $limit); 
+        $comments = array_slice($comments, $offset, $limit); //paginate the comments
         return $comments;
     }
   

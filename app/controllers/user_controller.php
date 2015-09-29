@@ -3,7 +3,7 @@
 class UserController extends AppController
 {
     CONST PAGE_REGISTER = 'register';
-    CONST PAGE_LOG_IN   = 'log_in';
+    CONST PAGE_LOG_IN   = 'user/log_in';
     CONST PAGE_REGISTER_END = 'register_end';
     CONST PAGE_LOG_IN_END   = 'log_in_end';
     CONST PAGE_EDIT_PROFILE = 'edit_profile';
@@ -15,14 +15,14 @@ class UserController extends AppController
     {
         $user = new User();
         $page = Param::get('page_next', self::PAGE_REGISTER);
-        $user->username = Param::get('username');
-        $user->email = Param::get('email');
-        $user->firstname = Param::get('firstname');
-        $user->lastname = Param::get('lastname');
-        $user->department = Param::get('department');
+        $user->username = trim(Param::get('username'));
+        $user->email = trim(Param::get('email'));
+        $user->firstname = trim(Param::get('firstname'));
+        $user->lastname = trim(Param::get('lastname'));
+        $user->department = trim(Param::get('department'));
 
         if (isset($_SESSION['username'])) {
-            redirect(THREAD_LIST);
+            redirect_to(url(THREAD_LIST));
         }
 
         switch ($page) {
@@ -55,7 +55,7 @@ class UserController extends AppController
         $page = Param::get('page_next', self::PAGE_LOG_IN);
 
         if (isset($_SESSION['username'])) {
-            redirect(THREAD_LIST);
+            redirect_to(url(THREAD_LIST));
         }
 
         switch ($page) {
@@ -128,11 +128,11 @@ class UserController extends AppController
                 break;
             case self::PAGE_EDIT_PROFILE_END:
                 $user_account->id = $user_id;
-                $user_account->username = Param::get('username');
-                $user_account->email = Param::get('email');
-                $user_account->firstname = Param::get('firstname');
-                $user_account->lastname = Param::get('lastname');
-                $user_account->department = Param::get('department');
+                $user_account->username = trim(Param::get('username'));
+                $user_account->email = trim(Param::get('email'));
+                $user_account->firstname = trim(Param::get('firstname'));
+                $user_account->lastname = trim(Param::get('lastname'));
+                $user_account->department = trim(Param::get('department'));
                 try {
                     $user_account->profile_pic =  upload_profile_pic();
                     $user_account->updateProfile();
@@ -170,6 +170,6 @@ class UserController extends AppController
         unset($_SESSION['user_id']);
         unset($_SESSION['username']);
         session_destroy();
-        header("Location: ".url(self::PAGE_LOG_IN));
+        redirect_to(url(self::PAGE_LOG_IN));
     }
 }
