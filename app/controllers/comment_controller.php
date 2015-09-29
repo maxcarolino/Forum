@@ -124,6 +124,9 @@ class CommentController extends AppController
                 case self::PAGE_DELETE:
                     break;
                 case self::PAGE_DELETE_END:
+                    if (!is_null($comment->filepath)) {
+                        unlink($comment->filepath); //delete the image in a comment
+                    }
                     $comment->delete();
                     break;
                 default:

@@ -26,7 +26,7 @@
                                 array('thread_id' => $v->id)))?>"> Bookmark this Thread</a></h5>
                     <?php endif ?>
                     </br>
-                    <h6> Tags: <em><?php char_to_html($v->category)?></em></h6>
+                    <h6> Tag: <em><?php char_to_html($v->category)?></em></h6>
                     <h6> Date Created: <em><?php char_to_html($v->date_created)?></em></h6>
                     <?php if($v->is_owner): ?>
                         <h6> Created by: <img src="../<?php char_to_html($v->profile_pic) ?>" height="25" width="25" class="img-circle">

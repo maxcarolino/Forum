@@ -21,7 +21,7 @@
                     <option value="Random">Random</option>
                     <option value="Video Games">Video Games</option>
                 </select>
-                </br></br>
+                </br>
                 <input type="hidden" name="page_next" value="create_end">
                 <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>

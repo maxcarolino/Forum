@@ -118,9 +118,12 @@ class Comment extends AppModel
         try {
             $db = DB::conn();
             $db->begin();
-            $rows = $db->rows('SELECT id FROM comment WHERE thread_id = ?', array($thread_id));
+            $rows = $db->rows('SELECT id, filepath FROM comment WHERE thread_id = ?', array($thread_id));
 
             foreach ($rows as $row) { //delete all likes in the comment before deleting the comment itself
+                if (!is_null($row['filepath'])) {
+                    unlink($row['filepath']); //delete the image in a comment
+                }
                 Likes::deleteByComment($row['id']);
             }
 

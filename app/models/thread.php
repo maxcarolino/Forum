@@ -144,7 +144,7 @@ class Thread extends AppModel
         return $threads;
     }
 
-    public static function getByUser($user_id) //add pagination
+    public static function getByUser($user_id)
     {
         $threads = array();
         $db = DB::conn();

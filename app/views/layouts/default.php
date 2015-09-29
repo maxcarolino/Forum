@@ -7,7 +7,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="/bootstrap/js/bootstrap.js"></script>
         <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
         <style>
             body {
                 padding-top: 60px;

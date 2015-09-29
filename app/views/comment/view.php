@@ -24,7 +24,7 @@
         <div class="col-md-5 col-md-offset-3">
             <ul class="list-group">
                 <?php foreach ($comments as $k => $v): ?>
-                    <li class="list-group-item"><img src="../<?php char_to_html($v->profile_pic) ?>" height="50" width="50" class="img-circle">
+                    <li class="list-group-item"><img src="../<?php char_to_html($v->profile_pic) ?>" height="45" width="45" class="img-circle">
                         <?php if($v->is_owner): ?>
                             <a href="<?php char_to_html(url('user/profile')) ?>">
                                 <?php echo char_to_html($v->username) ?>
@@ -35,8 +35,8 @@
                                 <?php echo char_to_html($v->username) ?>
                             </a>
                         <?php endif ?>
-                        <h6>Date Created: <?php char_to_html($v->date) ?></h6>
-                        <h6>Date Modified: <?php char_to_html($v->date_modified) ?></h6>
+                        <h6> Created: <?php char_to_html($v->date) ?></h6>
+                        <h6> Modified: <?php char_to_html($v->date_modified) ?></h6>
                         <h5>Likes: <?php char_to_html($v->likes) ?></h5>
                         <br>
                         <h4><?php echo readable_text($v->body) ?></h3>
