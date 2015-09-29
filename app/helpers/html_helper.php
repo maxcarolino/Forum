@@ -2,6 +2,7 @@
 
 define("DENY_URL", "error/denied");
 define("THREAD_LIST", "thread/index" );
+define("COMMENT_VIEW", "comment/view?thread_id=");
 define("START", 1000);
 define("END", 100000);
 define("DEFAULT_PIC", "profile/default.jpg");
